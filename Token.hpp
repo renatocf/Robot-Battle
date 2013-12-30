@@ -1,6 +1,9 @@
 #ifndef HPP_TOKEN_DEFINED
 #define HPP_TOKEN_DEFINED
 
+// Default libraries
+#include <vector>
+
 // Enum Type
 enum class Type { UNDEFINED, NUMBER, OPERATOR };
 
@@ -27,5 +30,11 @@ struct Token
     
     friend std::ostream& operator<<(std::ostream& os, const Token& t);
 };
+
+using Sentence = std::vector<Token>;
+std::ostream &operator<<(std::ostream &os, const Sentence& sent);
+
+using Text = std::vector<Sentence>;
+std::ostream &operator<<(std::ostream &os, const Text& text);
 
 #endif

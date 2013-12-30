@@ -15,15 +15,15 @@ static const std::string WHITE   = ""; // White
 
 // Unix-alike
 #else 
-static const std::string RESTORE = "\e[0m";
-static const std::string BLACK   = "\e[1;30m"; // Black
-static const std::string RED     = "\e[1;31m"; // Red
-static const std::string GREEN   = "\e[1;32m"; // Green
-static const std::string YELLOW  = "\e[1;33m"; // Yellow
-static const std::string BLUE    = "\e[1;34m"; // Blue
-static const std::string PURPLE  = "\e[1;35m"; // Purple
-static const std::string CYAN    = "\e[1;36m"; // Cyan
-static const std::string WHITE   = "\e[1;37m"; // White
+static const std::string RESTORE = "\033[0m";
+static const std::string BLACK   = "\033[1;30m"; // Black
+static const std::string RED     = "\033[1;31m"; // Red
+static const std::string GREEN   = "\033[1;32m"; // Green
+static const std::string YELLOW  = "\033[1;33m"; // Yellow
+static const std::string BLUE    = "\033[1;34m"; // Blue
+static const std::string PURPLE  = "\033[1;35m"; // Purple
+static const std::string CYAN    = "\033[1;36m"; // Cyan
+static const std::string WHITE   = "\033[1;37m"; // White
 
 #endif
 

@@ -7,7 +7,4 @@
 // Libraries
 #include "Command.hpp"
 
-using Prog = std::vector<Command>;
-std::ostream &operator<<(std::ostream &os, const Prog& prog);
-
 #endif

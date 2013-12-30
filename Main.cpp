@@ -7,21 +7,18 @@
 using namespace std;
 
 // Libraries
-#include "Token.hpp"
-#include "Colors.hpp"
-#include "Grammar.hpp"
 #include "Prog.hpp"
-#include "Sentence.hpp"
-#include "Text.hpp"
+#include "Token.hpp"
+#include "Grammar.hpp"
+#include "Tokenizer.hpp"
 
 static const char EOL = ';';
 
 // Sentence and poiter to it
-using pSentence = unique_ptr<vector<Token>>;
 
-void infix_to_posfix(vector<pSentence>& sentences);
-Prog posfix_to_asm(vector<pSentence>& sentences);
-inline void print_sentence(vector<pSentence>& sentences);
+Text &infix_to_posfix(Text& sentences);
+Prog posfix_to_asm(Text& sentences);
+inline void print_sentence(Text& sentences);
 
 int main()
 {
@@ -29,20 +26,16 @@ int main()
     string input;
     
     // Vector representing sentences (separated by ;)
-    vector<pSentence> sentences;
-    Text text {};
+    Text text { Sentence{} };
     
-    // Create first sentence
-    pSentence first { new vector<Token> };
-    sentences.push_back(std::move(first));
-    text.push_back({});
+    // while(cout << "> ", tokenize(cin, text));
     
     while(cout << "> ", getline(cin, input))
     {
         for(auto c : input)
         {
-            // Get the first set of tokens
-            Sentence& tokens = *(sentences.back());
+            // Get the last set of tokens
+            Sentence& sentence = text.back();
             
             // Skip
             if     (c == ' ' ) continue;
@@ -51,18 +44,15 @@ int main()
             else if(c == '\n') continue;
             else if(c == EOL)
             {
-                pSentence nouveau { new vector<Token> };
-                sentences.push_back(std::move(nouveau));
-                for(Token t : tokens)
-                    cout << t << endl;
+                text.push_back(Sentence{});
             }
             else if(c >= '0' && c <= '9')
             {
-                if(tokens.empty() 
-                || tokens.back().type != Type::NUMBER)
-                    tokens.push_back({Type::NUMBER, 0});
+                if(sentence.empty() 
+                || sentence.back().type != Type::NUMBER)
+                    sentence.push_back(Token {Type::NUMBER, 0});
                 
-                Token& t = tokens.back();
+                Token& t = sentence.back();
                 t.n = t.n * 10 + static_cast<int>(c-'0');
             }
             else 
@@ -79,18 +69,18 @@ int main()
                     case '(': op = '('; break;
                     default: 
                         cerr << "Unidentified token \"" << c << "\"" << endl;
-                        sentences.pop_back();
-                        pSentence nouveau { new vector<Token> };
-                        sentences.push_back(std::move(nouveau));
+                        text.pop_back();
+                        text.push_back(Sentence{});
                         continue;
                 }
-                tokens.push_back({ Type::OPERATOR, op });
+                sentence.push_back(Token { Type::OPERATOR, op });
             }
         }
     }
     
     // Take out last (and useless) sentence
-    sentences.pop_back();
+    // sentences.pop_back();
+    text.pop_back();
     
     if(cin.bad()) 
     {
@@ -104,26 +94,21 @@ int main()
     }
     
     cout << endl;
-    infix_to_posfix (sentences);
-    // print_sentence  (sentences);
     
-    Prog prog { posfix_to_asm(sentences) };
+    Prog prog { posfix_to_asm(infix_to_posfix(text)) };
     cout << prog << endl;
     
     return 0;
 }
 
-void infix_to_posfix(vector<pSentence>& sentences)
+Text& infix_to_posfix(Text& text)
 {
-    int i = 0;
-    
     stack<char,vector<char>> operators {};
     
-    for(pSentence& ptokens : sentences)
+    for(Sentence& sentence : text)
     {
-        cout << YELLOW << "Sentence " << RESTORE << ++i << endl;
         Sentence posfix;
-        for(Token& t : *ptokens)
+        for(Token& t : sentence)
         {
             switch(t.type)
             {
@@ -131,8 +116,11 @@ void infix_to_posfix(vector<pSentence>& sentences)
                     posfix.push_back(t);
                     break;
                 
+                case Type::UNDEFINED:
+                    cerr << "[INFIX_TO_POSFIX] This should not happen" << endl;
+                    break;
+                
                 case Type::OPERATOR:
-                    char op;
                     switch(t.o)
                     {
                         case '(': 
@@ -147,7 +135,7 @@ void infix_to_posfix(vector<pSentence>& sentences)
                                 for(char op = operators.top(); !operators.empty(); op = operators.top()) 
                                 {
                                     if(op == '(' || op == '+' || op == '-') break;
-                                    posfix.push_back({Type::OPERATOR, op});
+                                    posfix.push_back(Token {Type::OPERATOR, op});
                                     operators.pop();
                                 }
                             }
@@ -161,7 +149,7 @@ void infix_to_posfix(vector<pSentence>& sentences)
                                 for(char op = operators.top(); !operators.empty(); op = operators.top()) 
                                 {
                                     if(op == '(') break;
-                                    posfix.push_back({Type::OPERATOR, op});
+                                    posfix.push_back(Token {Type::OPERATOR, op});
                                     operators.pop();
                                 }
                             }
@@ -174,7 +162,7 @@ void infix_to_posfix(vector<pSentence>& sentences)
                                 for(char op = operators.top(); !operators.empty(); op = operators.top()) 
                                 {
                                     if(op == '(') break;
-                                    posfix.push_back({Type::OPERATOR, op});
+                                    posfix.push_back(Token {Type::OPERATOR, op});
                                     operators.pop();
                                 }
                                 operators.pop(); // Take out '('
@@ -187,37 +175,43 @@ void infix_to_posfix(vector<pSentence>& sentences)
         
         while(!operators.empty())
         {
-            posfix.push_back({Type::OPERATOR, operators.top()});
+            posfix.push_back(Token {Type::OPERATOR, operators.top()});
             operators.pop();
         }
         
-        *ptokens = std::move(posfix);
+        sentence = std::move(posfix);
     }
+    
+    return text;
 }
 
-Prog posfix_to_asm(vector<pSentence>& sentences)
+Prog posfix_to_asm(Text& text)
 {
     Prog prog {};
     
-    for(pSentence& ptokens : sentences)
-        for(Token& t : *ptokens)
+    for(Sentence& sentence : text)
+        for(Token& t : sentence)
             switch(t.type)
             {
                 case Type::NUMBER:
-                    prog.push_back({ "PUSH", std::to_string(t.n) });
+                    prog.push_back(Command { "PUSH", std::to_string(t.n) });
                     break;
                 
                 case Type::OPERATOR:
-                    prog.push_back({ assembly_symbol_table[t.o] });
+                    prog.push_back(Command { assembly_symbol_table[t.o] });
+                    break;
+                
+                case Type::UNDEFINED:
+                    cerr << "[POSFIX_TO_ASM] This should not happen" << endl;
                     break;
             }
     
     return prog;
 }
            
-inline void print_sentence(vector<pSentence>& sentences)
+inline void print_sentence(Text& text)
 {
-    for(pSentence& ptokens : sentences)
-        for(Token& t : *ptokens)
+    for(Sentence& sentence : text)
+        for(Token& t : sentence)
             cout << "    " << t << endl;
 }

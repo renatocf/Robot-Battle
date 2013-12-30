@@ -3,6 +3,7 @@
 
 // Default libraries
 #include <string>
+#include <vector>
 
 class Command
 {
@@ -22,5 +23,8 @@ class Command
         
         friend std::ostream &operator<<(std::ostream &os, const Command& com);
 };
+
+using Prog = std::vector<Command>;
+std::ostream &operator<<(std::ostream &os, const Prog& prog);
 
 #endif
