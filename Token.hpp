@@ -5,8 +5,8 @@
 enum class Type { UNDEFINED, NUMBER, OPERATOR };
 
 // Aliases
-using number_t    = int;
-using operator_t  = char;
+using number_t   = int;
+using operator_t = char;
 
 struct Token
 {
