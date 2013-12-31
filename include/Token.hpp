@@ -3,6 +3,7 @@
 
 // Default libraries
 #include <vector>
+#include <iostream>
 
 // Enum Type
 enum class Type { UNDEFINED, NUMBER, OPERATOR };
@@ -13,12 +14,13 @@ using operator_t = char;
 
 struct Token
 {
-    Type type;
-    union {
+    const Type type;
+    const union {
         number_t   n;
         operator_t o;
     };
     
+    // Constructors
     Token() 
         : type{Type::UNDEFINED}, n{0} {}
     Token(Type t, number_t n) 
@@ -26,6 +28,7 @@ struct Token
     Token(Type t, operator_t o) 
         : type{t}, o{o} {}
     
+    // Destructor
     ~Token() {}
     
     friend std::ostream& operator<<(std::ostream& os, const Token& t);

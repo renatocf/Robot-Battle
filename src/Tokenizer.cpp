@@ -14,6 +14,13 @@ bool tokenize(std::istream& is, Text &text)
     std::string input;
     if(!std::getline(is, input)) return false;
     
+    // IO Errors
+    if(is.bad()) 
+    {
+        std::cerr << "[TOKENIZER] IO error" << std::endl;
+        return false;
+    }
+    
     // Needs a non-empty text to start.
     // If there is a sentence, uses it as context
     if(text.empty()) text.push_back(Sentence{});
