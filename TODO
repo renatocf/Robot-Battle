@@ -1,0 +1,5 @@
+[Makefile]
+    [ ] Test compilation with test with libs.
+    [ ] Correct 'not found' for lib directory when no libs defined.
+    [ ] Implement auto compilation of Unit Tests.
+    [ ] Remove 'test' PHONY target.
