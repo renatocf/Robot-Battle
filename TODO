@@ -1,8 +1,6 @@
 [Makefile]
     [X] Test compilation with test with libs.
     [X] Correct 'not found' for lib directory when no libs defined.
-    [ ] Integrate binary name as subdirectory of objdir.
-    [ ] Scan for binary main name in the source dir.
-    [ ] Make possible compile for many binaries.
-    [ ] Implement auto compilation of Unit Tests.
+    [X] Implement auto compilation of Unit Tests.
+    [ ] Make possible to compile many binaries.
     [ ] Remove 'test' PHONY target.
