@@ -2,5 +2,6 @@
     [X] Test compilation with test with libs.
     [X] Correct 'not found' for lib directory when no libs defined.
     [X] Implement auto compilation of Unit Tests.
+    [ ] Test assembly compilation.
     [ ] Make possible to compile many binaries.
     [ ] Remove 'test' PHONY target.
