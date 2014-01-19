@@ -3,6 +3,6 @@
     [X] Correct 'not found' for lib directory when no libs defined.
     [X] Implement auto compilation of Unit Tests.
     [X] Test assembly compilation.
-    [ ] Accept more than one source file directory
+    [X] Accept more than one source file directory
+    [X] Remove 'test' PHONY target.
     [ ] Make possible to compile many binaries.
-    [ ] Remove 'test' PHONY target.
