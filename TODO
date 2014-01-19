@@ -5,4 +5,8 @@
     [X] Test assembly compilation.
     [X] Accept more than one source file directory
     [X] Remove 'test' PHONY target.
+    [ ] Finish comments on functions
+    [ ] Try to add 'not' function instead of 'if-else' in makefile TODO.
+    [ ] Check directories to remove trailing bars.
+    [ ] Create internal-use variables for flags.
     [ ] Make possible to compile many binaries.
