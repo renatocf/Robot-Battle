@@ -8,5 +8,4 @@
     [X] Check directories to remove trailing bars.
     [X] Create internal-use variables for flags.
     [ ] Finish comments on functions
-    [ ] Try to add 'not' function instead of 'if-else' in makefile TODO.
     [ ] Make possible to compile many binaries.
