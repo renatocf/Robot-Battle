@@ -39,6 +39,7 @@ namespace vm
             std::unordered_map <std::string,int> LABEL {};
             
             // Internal-use memory
+            mutable int                                         PC    {};
             mutable std::stack         <int>                    CTRL  {};
             mutable std::stack         <stk::Stackable>         DATA  {};
             mutable std::unordered_map <int,stk::Stackable_ptr> RAM   {};

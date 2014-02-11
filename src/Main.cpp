@@ -43,8 +43,9 @@ int main()
     
     vm::Prog prog   { posfix_to_asm(text) };
     vm::RVM  Bender { prog };
+    Bender.run();
     
-    cout << Bender << endl;
+    // cout << Bender << endl;
     
     return 0;
 }
