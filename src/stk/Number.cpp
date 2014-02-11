@@ -15,46 +15,32 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_TOKEN_DEFINED
-#define HPP_TOKEN_DEFINED
+// Internal libraries
+#include "Number.hpp"
 
-// Default libraries
-#include <vector>
-#include <iostream>
-
-// Enum Type
-enum class Type { UNDEFINED, NUMBER, OPERATOR };
-
-// Aliases
-using number_t   = int;
-using operator_t = char;
-
-struct Token
+double stk::Number::get()
 {
-    const Type type;
-    const union {
-        number_t   n;
-        operator_t o;
-    };
-    
-    // Constructors
-    Token() 
-        : type{Type::UNDEFINED}, n{0} {}
-    Token(Type t, number_t n) 
-        : type{t}, n{n} {}
-    Token(Type t, operator_t o) 
-        : type{t}, o{o} {}
-    
-    // Destructor
-    ~Token() {}
-    
-    friend std::ostream& operator<<(std::ostream& os, const Token& t);
-};
+    switch(this->type)
+    {
+        case Type::Integer:
+            return l;
+        case Type::Float:
+            return d;
+        default:
+            return 0;
+    }
+}
 
-using Sentence = std::vector<Token>;
-std::ostream& operator<<(std::ostream& os, const Sentence& sent);
-
-using Text = std::vector<Sentence>;
-std::ostream& operator<<(std::ostream& os, const Text& text);
-
-#endif
+std::ostream& stk::operator<<(std::ostream& os, const Number& n)
+{
+    switch(n.type)
+    {
+        case Number::Type::Integer:
+            os << n.l; 
+            break;
+        case Number::Type::Float:
+            os << n.d;
+            break;
+    }
+    return os;
+}

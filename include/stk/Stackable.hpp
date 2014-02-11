@@ -15,33 +15,41 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_COMMAND_DEFINED
-#define HPP_COMMAND_DEFINED
+#ifndef HPP_STK_STACKABLE_DEFINED
+#define HPP_STK_STACKABLE_DEFINED
 
 // Default libraries
 #include <string>
-#include <vector>
+#include <memory>
+#include <iostream>
 
-class Command
+namespace stk
 {
-    public:
-        const std::string com; // command
-        const std::string arg; // argument
-        const std::string lab; // label
+    class Stackable 
+    {
+        protected:
+            enum class Type { Number };
+            
+        public:
+            virtual std::string to_string() const = 0;
+            virtual ~Stackable() {}
+            
+            virtual Stackable *clone() const = 0;
+            virtual Stackable *create() const = 0;
         
-        Command()
-            : com{""}, arg{""}, lab{""} {}
-        Command(std::string com)
-            : com{com}, arg{""}, lab{""} {}
-        Command(std::string com, std::string arg)
-            : com{com}, arg{arg}, lab{""} {}
-        Command(std::string com, std::string arg, std::string lab)
-            : com{com}, arg{arg}, lab{lab} {}
-        
-        friend std::ostream &operator<<(std::ostream &os, const Command& com);
-};
-
-using Prog = std::vector<Command>;
-std::ostream &operator<<(std::ostream &os, const Prog& prog);
+        protected:
+            Type type;
+            Stackable(Type t)
+                : type{t} {}
+            
+        public:
+            friend std::ostream& 
+            operator<<(std::ostream& os, const Stackable& stk);
+    };
+    
+    std::ostream& operator<<(std::ostream& os, const Stackable& stk);
+    
+    using Stackable_ptr = std::unique_ptr<stk::Stackable>;
+}
 
 #endif
