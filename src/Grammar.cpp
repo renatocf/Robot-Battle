@@ -15,18 +15,14 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-// Default libraries
-#include <string>
-#include <unordered_map>
-
 // Libraries
 #include "Grammar.hpp"
 
-std::unordered_map<char,std::string> assembly_symbol_table
+std::unordered_map<char,vm::Command::Opcode> assembly_symbol_table
 {
-    { '+', "ADD" },
-    { '-', "SUB" },
-    { '*', "MUL" },
-    { '/', "DIV" },
-    { '%', "MOD" },
+    { '+', vm::Command::Opcode::ADD },
+    { '-', vm::Command::Opcode::SUB },
+    { '*', vm::Command::Opcode::MUL },
+    { '/', vm::Command::Opcode::DIV },
+    { '%', vm::Command::Opcode::MOD },
 };

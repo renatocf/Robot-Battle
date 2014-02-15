@@ -26,8 +26,12 @@
 
 Text& Parser::parse(std::string prompt /* = "> " */)
 {
+    using namespace std;
     // A Text is a set of sentences
     while(std::cout << prompt, tokenize(std::cin, text));
+    
+    // Check if there was no input
+    if(text.empty()) return text;
     
     // Take out last (and useless) sentence
     text.pop_back();
@@ -44,6 +48,9 @@ Text& Parser::parse(std::string prompt /* = "> " */)
 Text& Parser::parse(std::istream& is)
 {
     while(tokenize(is, text));
+    
+    // Check if there was no input
+    if(text.empty()) return text;
     
     // Take out last (and useless) sentence
     text.pop_back();
