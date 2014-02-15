@@ -17,6 +17,7 @@
 
 // Default libraries
 #include <iostream>
+#include <stdexcept>
 using namespace std;
 
 // Libraries
@@ -34,11 +35,17 @@ int main(int argc, char **argv)
         return 0;
     }
     
-    parser::quark::Func_ptr upload = parser::quark::functions[argv[1]];
-    cout << upload() << endl;
-    
-    vm::RVM Bender { upload() };
-    Bender.run();
+    try {
+        parser::quark::Func_ptr upload 
+            = parser::quark::functions.at(argv[1]);
+        
+        vm::RVM Bender { upload() };
+        Bender.run();
+        
+    } catch (const std::out_of_range& exc) {
+        cerr << "ERROR: Program \"" << argv[1] << "\" unknown." << endl;
+        return -1;
+    }
     
     return 0;
 }
