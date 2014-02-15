@@ -74,6 +74,12 @@ namespace vm
             
             template<typename Func>
             friend void operate(const RVM& rvm, Func func);
+            
+            inline void 
+            STO(const vm::RVM& rvm, const stk::Stackable_ptr& stk);
+            
+            inline stk::Stackable_ptr
+            RCL(const vm::RVM& rvm, const stk::Stackable_ptr& stk);
     };
     
     std::ostream& operator<<(std::ostream& os, const RVM& rvm);
