@@ -1,3 +1,15 @@
+[RVM]
+    [X] Implement stack functions (PUSH, POP, DUP, SWAP).
+    [X] Implement arithmetic functions (ADD, SUB, MUL, DIV, MOD).
+    [ ] Implement secondary memory functions (STO, RCL).
+    [ ] Implement comparisons (EQ, NE, GT, GE, LT, LE).
+    [ ] Implement jumps (JMP, JIT, JIF).
+
+[Compiler]
+    [X] Create scripts in Perl to parse Quark to C++.
+    [X] Execute Quark programs on demand.
+    [ ] Implement Positron compiler with Flex/Bison.
+
 [Makefile]
     [X] Test compilation with test with libs.
     [X] Correct 'not found' for lib directory when no libs defined.
@@ -10,4 +22,5 @@
     [X] Make possible to compile many binaries.
     [X] Support to more than one include file.
     [X] Adding external configuration file.
-    [ ] Finish comments on functions
+    [X] Finish comments on functions.
+    [ ] Add shortcuts to create new modules.
