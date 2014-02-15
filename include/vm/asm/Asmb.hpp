@@ -15,14 +15,9 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-// Libraries
-#include "Grammar.hpp"
+#ifndef HPP_VM_ASMB_ASMB_DEFINED
+#define HPP_VM_ASMB_ASMB_DEFINED
 
-std::unordered_map<char,vm::Command::Opcode> assembly_symbol_table
-{
-    { '+', vm::Command::Opcode::ADD },
-    { '-', vm::Command::Opcode::SUB },
-    { '*', vm::Command::Opcode::MUL },
-    { '/', vm::Command::Opcode::DIV },
-    { '%', vm::Command::Opcode::MOD },
-};
+// #include "Stk.hpp"
+
+#endif

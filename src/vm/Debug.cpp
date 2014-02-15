@@ -15,34 +15,28 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-// Internal libraries
-#include "Number.hpp"
+// Default libraries
+#include <iostream>
 
-// template<typename T>
-// T stk::Number::get() const
-long long stk::Number::get() const
+// Internal libraries
+#include "Debug.hpp"
+#include "Colors.hpp"
+using namespace vm;
+
+void vm::Debug::printStack(const RVM& rvm)
 {
-    switch(this->type)
-    {
-        case Type::Integer:
-            return l;
-        case Type::Float:
-            return static_cast<long long>(d);
-        default:
-            return 0.0;
-    }
+    std::cout << RED << "[STACK]" << RESTORE << std::endl;
+    std::cout << "    ";
+    for(stk::Stackable_ptr& p : rvm.DATA)
+        std::cout << PURPLE << p << RESTORE << ", ";
+    
+    std::cout << RED << "[TOP]" << RESTORE << std::endl;
 }
 
-std::ostream& stk::operator<<(std::ostream& os, const Number& n)
+void vm::Debug::printCommand(const RVM& rvm, int pos)
 {
-    switch(n.type)
-    {
-        case Number::Type::Integer:
-            os << n.l; 
-            break;
-        case Number::Type::Float:
-            os << n.d;
-            break;
-    }
-    return os;
+    using namespace std;
+    cout << YELLOW << pos << " ";
+    cout << YELLOW << rvm.PROG[pos].cmd << RESTORE << " ";
+    cout << PURPLE << rvm.PROG[pos].arg << RESTORE << endl;
 }

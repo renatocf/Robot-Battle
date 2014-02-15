@@ -16,33 +16,10 @@
 /**********************************************************************/
 
 // Internal libraries
-#include "Number.hpp"
+#include "Text.hpp"
 
-// template<typename T>
-// T stk::Number::get() const
-long long stk::Number::get() const
+std::ostream& stk::operator<<(std::ostream& os, const Text& text)
 {
-    switch(this->type)
-    {
-        case Type::Integer:
-            return l;
-        case Type::Float:
-            return static_cast<long long>(d);
-        default:
-            return 0.0;
-    }
-}
-
-std::ostream& stk::operator<<(std::ostream& os, const Number& n)
-{
-    switch(n.type)
-    {
-        case Number::Type::Integer:
-            os << n.l; 
-            break;
-        case Number::Type::Float:
-            os << n.d;
-            break;
-    }
+    os << text;
     return os;
 }

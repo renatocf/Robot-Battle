@@ -15,34 +15,17 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-// Internal libraries
-#include "Number.hpp"
+#ifndef HPP_Fibonacci_DEFINED
+#define HPP_Fibonacci_DEFINED
 
-// template<typename T>
-// T stk::Number::get() const
-long long stk::Number::get() const
-{
-    switch(this->type)
-    {
-        case Type::Integer:
-            return l;
-        case Type::Float:
-            return static_cast<long long>(d);
-        default:
-            return 0.0;
-    }
-}
+// Libraries
+#include "Command.hpp"
 
-std::ostream& stk::operator<<(std::ostream& os, const Number& n)
-{
-    switch(n.type)
-    {
-        case Number::Type::Integer:
-            os << n.l; 
-            break;
-        case Number::Type::Float:
-            os << n.d;
-            break;
-    }
-    return os;
-}
+namespace parser {
+namespace quark {
+    
+    vm::Prog upload_Fibonacci();
+    
+}}
+
+#endif

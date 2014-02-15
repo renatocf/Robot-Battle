@@ -15,34 +15,25 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
+#ifndef HPP_VM_DEBUG_DEFINED
+#define HPP_VM_DEBUG_DEFINED
+
 // Internal libraries
-#include "Number.hpp"
+#include "RVM.hpp"
+#include "Command.hpp"
 
-// template<typename T>
-// T stk::Number::get() const
-long long stk::Number::get() const
+namespace vm 
 {
-    switch(this->type)
+    class Debug 
     {
-        case Type::Integer:
-            return l;
-        case Type::Float:
-            return static_cast<long long>(d);
-        default:
-            return 0.0;
-    }
+        public:
+            static void printStack   (const vm::RVM& rvm);
+            static void printCommand (const vm::RVM& rvm, int pos);
+        
+        private:
+            Debug() {} // No instances of this 
+                       // class allowed
+    };
 }
 
-std::ostream& stk::operator<<(std::ostream& os, const Number& n)
-{
-    switch(n.type)
-    {
-        case Number::Type::Integer:
-            os << n.l; 
-            break;
-        case Number::Type::Float:
-            os << n.d;
-            break;
-    }
-    return os;
-}
+#endif

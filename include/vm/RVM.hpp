@@ -41,7 +41,7 @@ namespace vm
             // Internal-use memory
             mutable int                                         PC    {};
             mutable std::stack         <int>                    CTRL  {};
-            mutable std::stack         <stk::Stackable>         DATA  {};
+            mutable std::deque         <stk::Stackable_ptr>     DATA  {};
             mutable std::unordered_map <int,stk::Stackable_ptr> RAM   {};
             
             mutable bool syscall   { false };
@@ -62,11 +62,21 @@ namespace vm
             void run()  const;
             
             friend std::ostream& 
-            operator<<(std::ostream& os, const RVM& rvm)
-            {
-                os << rvm.PROG; return os;
-            }
+            operator<<(std::ostream& os, const RVM& rvm);
+            
+            friend void 
+            vm::push(const vm::RVM& rvm, const stk::Stackable_ptr& stk);
+            
+            friend stk::Stackable_ptr
+            vm::pop(const vm::RVM& rvm);
+            
+            friend class Debug;
+            
+            template<typename Func>
+            friend void operate(const RVM& rvm, Func func);
     };
+    
+    std::ostream& operator<<(std::ostream& os, const RVM& rvm);
 }
 
 #endif

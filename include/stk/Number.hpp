@@ -49,7 +49,7 @@ namespace stk
                 : Stackable(Stackable::Type::Number), 
                   type{Type::Float}, d{d}   {}
             
-            double get();
+            long long get() const;
             
             std::string to_string() const
             {
@@ -66,6 +66,11 @@ namespace stk
             Number *create() const
             {
                 return new Number{};
+            }
+            
+            virtual const Number& typeref() const
+            {
+                return *this;
             }
             
             friend std::ostream&

@@ -15,30 +15,61 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-// Default libraries
-#include <iostream>
-using namespace std;
+#ifndef HPP_VM_STK_DEFINED
+#define HPP_VM_STK_DEFINED
 
 // Libraries
 #include "RVM.hpp"
-#include "Quark.hpp"
-#include "Command.hpp"
+#include "Debug.hpp"
 #include "Stackable.hpp"
 
-int main(int argc, char **argv)
+namespace vm
 {
-    // Usage
-    if(argc != 2)
+    inline void 
+    push(const vm::RVM& rvm, const stk::Stackable_ptr& stk)
     {
-        cout << "USAGE: Main program_name.asm" << endl;
-        return 0;
+        rvm.DATA.push_back(stk::Stackable_ptr { stk->clone() });
     }
     
-    parser::quark::Func_ptr upload = parser::quark::functions[argv[1]];
-    cout << upload() << endl;
+    inline stk::Stackable_ptr
+    pop(const vm::RVM& rvm)
+    {
+        stk::Stackable_ptr ret { std::move(rvm.DATA.back()) };
+        rvm.DATA.pop_back();
+        return ret;
+    }
     
-    vm::RVM Bender { upload() };
-    Bender.run();
+    inline void 
+    PUSH(const vm::RVM& rvm, const stk::Stackable_ptr& stk)
+    {
+        vm::push(rvm, stk); Debug::printStack(rvm);
+    }
     
-    return 0;
+    inline stk::Stackable_ptr
+    POP(const vm::RVM& rvm)
+    {
+        stk::Stackable_ptr aux { pop(rvm) };
+        Debug::printStack(rvm);
+        return aux;
+    }
+    
+    inline void
+    SWAP(const vm::RVM& rvm)
+    {
+        stk::Stackable_ptr first  { pop(rvm) };
+        stk::Stackable_ptr second { pop(rvm) };
+        push(rvm, second); push(rvm, first);
+        Debug::printStack(rvm);
+    }
+    
+    inline void
+    DUP(const vm::RVM& rvm)
+    {
+        stk::Stackable_ptr aux { pop(rvm) };
+        stk::Stackable_ptr nouveau { aux->clone() };
+        push(rvm, aux); push(rvm, nouveau);
+        Debug::printStack(rvm);
+    }
 }
+
+#endif

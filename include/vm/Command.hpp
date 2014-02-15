@@ -31,14 +31,34 @@ namespace vm
     class Command
     {
         public:
-            const std::string cmd        {}; // Command
+            enum class Opcode
+            {
+                NONE = 0,                     // Default value
+                PRN ,                         // IO commands
+                PUSH, POP , SWAP, DUP ,       // Stack commands
+                ADD , SUB , DIV , MUL , MOD , // Arithmetic commands
+                STO , RCL ,                   // Memory functions
+                EQ  , NE  , NIL ,             // Test functions
+                GT  , GE  , LT  , LE,         // 
+                JMP , JIT , JIF ,             // Jumps commands
+                NOP , END ,                   // Workflow commands
+                CALL, RET ,                   // Functions commands
+                DRAG, DROP, HIT ,             // Syscall commands
+                LOOK, SEE , ASK ,             // 
+                ITEM, SEEK,                   // Item commands
+                ALOC, FREE, GET, SET,         // Local var commands
+                READ, WRT , SEND,             // Network commands
+                COOR, GTIJ                    // Type cast
+            };
+    
+            const Opcode             cmd {}; // Command
             const stk::Stackable_ptr arg {}; // argument
-            const std::string lab        {}; // label
+            const std::string        lab {}; // label
             
             Command(
-                std::string cmd        = {}, 
-                stk::Stackable_ptr arg = {}, 
-                std::string lab        = {}
+                vm::Command::Opcode cmd = {}, 
+                stk::Stackable_ptr  arg = {}, 
+                std::string         lab = {}
             )
                 : cmd{cmd}, arg{std::move(arg)}, lab{lab} {}
             
@@ -55,6 +75,10 @@ namespace vm
     };
     
     std::ostream& operator<<(std::ostream& os, const Command& cmd);
+    
+    // Opcode
+    std::string   to_string(const vm::Command::Opcode& op);
+    std::ostream& operator<<(std::ostream& os, const vm::Command::Opcode& op);
 }
 
 namespace vm

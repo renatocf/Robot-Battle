@@ -16,33 +16,32 @@
 /**********************************************************************/
 
 // Internal libraries
-#include "Number.hpp"
+#include "Ctrl.hpp"
+#include "Stk.hpp"
+#include "Arit.hpp"
+using namespace vm;
 
-// template<typename T>
-// T stk::Number::get() const
-long long stk::Number::get() const
+void vm::ctrl(const RVM& rvm, const Command& cmd)
 {
-    switch(this->type)
+    switch(cmd.cmd)
     {
-        case Type::Integer:
-            return l;
-        case Type::Float:
-            return static_cast<long long>(d);
-        default:
-            return 0.0;
-    }
-}
-
-std::ostream& stk::operator<<(std::ostream& os, const Number& n)
-{
-    switch(n.type)
-    {
-        case Number::Type::Integer:
-            os << n.l; 
+        // Stack functions
+        case Command::Opcode::PUSH: vm::PUSH (rvm, cmd.arg); break;
+        case Command::Opcode::POP:  vm::POP  (rvm);          break;
+        case Command::Opcode::SWAP: vm::SWAP (rvm);          break;
+        case Command::Opcode::DUP:  vm::DUP  (rvm);          break;
+        
+        // Arithmetic functions
+        case Command::Opcode::ADD:  vm::ADD  (rvm);          break;
+        case Command::Opcode::SUB:  vm::SUB  (rvm);          break;
+        case Command::Opcode::DIV:  vm::DIV  (rvm);          break;
+        case Command::Opcode::MUL:  vm::MUL  (rvm);          break;
+        case Command::Opcode::MOD:  vm::MOD  (rvm);          break;
+        
+        // Control functions
+        case Command::Opcode::END:  
             break;
-        case Number::Type::Float:
-            os << n.d;
+        default: 
             break;
     }
-    return os;
 }

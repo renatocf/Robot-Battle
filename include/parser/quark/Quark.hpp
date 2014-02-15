@@ -15,34 +15,27 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-// Internal libraries
-#include "Number.hpp"
+#ifndef HPP_QUARK_DEFINED
+#define HPP_QUARK_DEFINED
 
-// template<typename T>
-// T stk::Number::get() const
-long long stk::Number::get() const
-{
-    switch(this->type)
-    {
-        case Type::Integer:
-            return l;
-        case Type::Float:
-            return static_cast<long long>(d);
-        default:
-            return 0.0;
-    }
-}
+// Default libraries
+#include <string>
+#include <unordered_map>
 
-std::ostream& stk::operator<<(std::ostream& os, const Number& n)
-{
-    switch(n.type)
-    {
-        case Number::Type::Integer:
-            os << n.l; 
-            break;
-        case Number::Type::Float:
-            os << n.d;
-            break;
-    }
-    return os;
-}
+// Libraries
+#include "Command.hpp"
+
+// Auto-Generated Libraries
+#include "Sum.hpp"
+#include "Fibonacci.hpp"
+
+// Mapping strings in functions
+namespace parser {
+namespace quark {
+
+    typedef vm::Prog (*Func_ptr)();
+    extern std::unordered_map<std::string,Func_ptr> functions;
+
+}}
+
+#endif

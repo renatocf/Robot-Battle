@@ -15,36 +15,54 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_PARSER_DEFINED
-#define HPP_PARSER_DEFINED
+#ifndef HPP_STK_TEXT_DEFINED
+#define HPP_STK_TEXT_DEFINED
 
 // Default libraries
 #include <string>
+#include <iostream>
 
-// Libraries
-#include "Token.hpp"
+// Internal libraries
+#include "Stackable.hpp"
 
-class Parser
+namespace stk
 {
-    private:
-        Text text;
+    class Text: public Stackable
+    {
+        private:
+            std::string text;
         
-    public:
-        // Text() 
-            // : is{std::cin} 
-        // {}
-        // Text(std::istream is)
-            // : is{is} {}
-        
-        // Getters
-        const Text& getText() const { return text; }
-        
-        void  reInit (std::istream& is);
-        Text& parse  (std::string prompt = "> ");
-        Text& parse  (std::istream& is);
-        
-    private:
-        void infix_to_posfix();
-};
+        public:
+            Text(std::string text = "")
+                : Stackable{Type::Text}, text{text} {}
+            
+            std::string get() const;
+            
+            std::string to_string() const
+            {
+                return this->text;
+            }
+            
+            Text *clone() const
+            {
+                return new Text{*this};
+            }
+            
+            Text *create() const
+            {
+                return new Text{};
+            }
+            
+            const Text& typeref () const 
+            {
+                return *this;
+            }
+            
+            friend std::ostream&
+            operator<<(std::ostream& os, const Text& n);
+    };
+            
+    std::ostream& operator<<(std::ostream& os, const Text& n);
+}
 
 #endif

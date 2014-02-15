@@ -15,15 +15,17 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_GRAMMAR_DEFINED
-#define HPP_GRAMMAR_DEFINED
-
-// Default libraries
-#include <unordered_map>
+#ifndef HPP_Sum_DEFINED
+#define HPP_Sum_DEFINED
 
 // Libraries
 #include "Command.hpp"
 
-extern std::unordered_map<char,vm::Command::Opcode> assembly_symbol_table;
+namespace parser {
+namespace quark {
+    
+    vm::Prog upload_Sum();
+    
+}}
 
 #endif

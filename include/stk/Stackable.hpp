@@ -28,17 +28,19 @@ namespace stk
     class Stackable 
     {
         protected:
-            enum class Type { Number };
+            enum class Type { Number, Text };
             
         public:
+            const Type type;
+            
             virtual std::string to_string() const = 0;
             virtual ~Stackable() {}
             
-            virtual Stackable *clone() const = 0;
-            virtual Stackable *create() const = 0;
+            virtual Stackable        *clone  () const = 0;
+            virtual Stackable        *create () const = 0;
+            virtual const Stackable& typeref () const = 0;     
         
         protected:
-            Type type;
             Stackable(Type t)
                 : type{t} {}
             
@@ -49,7 +51,8 @@ namespace stk
     
     std::ostream& operator<<(std::ostream& os, const Stackable& stk);
     
-    using Stackable_ptr = std::unique_ptr<stk::Stackable>;
+    using Stackable_ptr = std::shared_ptr<stk::Stackable>;
+    std::ostream& operator<<(std::ostream& os, const Stackable_ptr& stk);
 }
 
 #endif

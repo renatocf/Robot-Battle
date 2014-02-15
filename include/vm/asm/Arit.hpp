@@ -15,34 +15,53 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-// Internal libraries
+#ifndef HPP_VM_ARIT_DEFINED
+#define HPP_VM_ARIT_DEFINED
+
+#include "RVM.hpp"
+#include "Stk.hpp"
 #include "Number.hpp"
+#include "Stackable.hpp"
 
-// template<typename T>
-// T stk::Number::get() const
-long long stk::Number::get() const
+namespace vm
 {
-    switch(this->type)
+    template<typename Func>
+    void operate(const RVM& rvm, Func func)
     {
-        case Type::Integer:
-            return l;
-        case Type::Float:
-            return static_cast<long long>(d);
-        default:
-            return 0.0;
+        stk::Stackable_ptr second { vm::pop(rvm) };
+        stk::Stackable_ptr first  { vm::pop(rvm) };
+        
+        stk::Stackable_ptr nouveau { new stk::Number { 
+            func(dynamic_cast<stk::Number*>(first.get())->get(), 
+                 dynamic_cast<stk::Number*>(second.get())->get()) 
+        }};
+        vm::push(rvm, std::move(nouveau));
+    }
+
+    inline void ADD(const RVM& rvm)
+    {
+        operate(rvm, [] (long long a, long long b) { return a + b; });
+    }
+
+    inline void SUB(const RVM& rvm)
+    {
+        operate(rvm, [] (long long a, long long b) { return a - b; });
+    }
+
+    inline void MUL(const RVM& rvm)
+    {
+        operate(rvm, [] (long long a, long long b) { return a * b; });
+    }
+
+    inline void DIV(const RVM& rvm)
+    {
+        operate(rvm, [] (long long a, long long b) { return a / b; });
+    }
+
+    inline void MOD(const RVM& rvm)
+    {
+        operate(rvm, [] (long long a, long long b) { return a % b; });
     }
 }
 
-std::ostream& stk::operator<<(std::ostream& os, const Number& n)
-{
-    switch(n.type)
-    {
-        case Number::Type::Integer:
-            os << n.l; 
-            break;
-        case Number::Type::Float:
-            os << n.d;
-            break;
-    }
-    return os;
-}
+#endif
