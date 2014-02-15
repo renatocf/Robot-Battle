@@ -15,44 +15,58 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_STK_STACKABLE_DEFINED
-#define HPP_STK_STACKABLE_DEFINED
+#ifndef HPP_STK_ADDRESS_DEFINED
+#define HPP_STK_ADDRESS_DEFINED
 
 // Default libraries
 #include <string>
-#include <memory>
 #include <iostream>
+
+// Internal libraries
+#include "Stackable.hpp"
 
 namespace stk
 {
-    class Stackable 
+    class Address: public Stackable
     {
-        protected:
-            enum class Type { Number, Text, Address };
-            
-        public:
-            const Type type;
-            
-            virtual std::string to_string() const = 0;
-            virtual ~Stackable() {}
-            
-            virtual Stackable        *clone  () const = 0;
-            virtual Stackable        *create () const = 0;
-            virtual const Stackable& typeref () const = 0;     
+        private:
+            int address;
         
-        protected:
-            Stackable(Type t)
-                : type{t} {}
-            
         public:
-            friend std::ostream& 
-            operator<<(std::ostream& os, const Stackable& stk);
+            Address(int a = 0)
+                : Stackable(Stackable::Type::Address), 
+                  address{a} {}
+            
+            int get() const
+            {
+                return this->address;
+            }
+            
+            std::string to_string() const
+            {
+                return std::to_string(this->address);
+            }
+            
+            Address *clone() const
+            {
+                return new Address{*this};
+            }
+            
+            Address *create() const
+            {
+                return new Address{};
+            }
+            
+            virtual const Address& typeref() const
+            {
+                return *this;
+            }
+            
+            friend std::ostream&
+            operator<<(std::ostream& os, const Address& n);
     };
-    
-    std::ostream& operator<<(std::ostream& os, const Stackable& stk);
-    
-    using Stackable_ptr = std::shared_ptr<stk::Stackable>;
-    std::ostream& operator<<(std::ostream& os, const Stackable_ptr& stk);
+            
+    std::ostream& operator<<(std::ostream& os, const Address& n);
 }
 
 #endif
