@@ -29,23 +29,33 @@ using namespace std;
 #include "RVM.hpp"
 #include "Number.hpp"
 #include "Stackable.hpp"
+#include "Quark.hpp"
 
 static const char EOL = ';';
 
 vm::Prog posfix_to_asm(Text& sentences);
 
-int main()
+int main(int argc, char **argv)
 {
-    cout << "Hello, World" << endl;
+    // Usage
+    if(argc != 2)
+    {
+        cout << "USAGE: Main program_name.asm" << endl;
+        return 0;
+    }
     
-    Parser parser {};
-    Text text { parser.parse() };
+    parser::quark::Func_ptr upload = parser::quark::functions[argv[1]];
+    cout << upload() << endl;
     
-    vm::Prog prog   { posfix_to_asm(text) };
-    vm::RVM  Bender { prog };
+    vm::RVM Bender { upload() };
     Bender.run();
     
-    // cout << Bender << endl;
+    // Parser parser {};
+    // Text text { parser.parse() };
+    // 
+    // vm::Prog prog   { posfix_to_asm(text) };
+    // vm::RVM  Bender { prog };
+    // Bender.run();
     
     return 0;
 }
@@ -61,7 +71,7 @@ vm::Prog posfix_to_asm(Text& text)
             {
                 case Type::NUMBER:
                     prog.push_back(
-                        vm::Command { "PUSH", 
+                        vm::Command { vm::Command::Opcode::PUSH, 
                             stk::Stackable_ptr{new stk::Number{t.n}} }
                     );
                     break;
@@ -75,10 +85,10 @@ vm::Prog posfix_to_asm(Text& text)
                     cerr << "[POSFIX_TO_ASM] This should not happen" << endl;
                     break;
             }
-        prog.push_back(vm::Command { "POP" });
+        prog.push_back(vm::Command { vm::Command::Opcode::POP });
     }
     
-    prog.push_back(vm::Command { "END" });
+    prog.push_back(vm::Command { vm::Command::Opcode::END });
     
     return prog;
 }
