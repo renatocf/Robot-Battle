@@ -16,9 +16,8 @@
 /**********************************************************************/
 
 // Internal libraries
+#include "Asm.hpp"
 #include "Ctrl.hpp"
-#include "Stk.hpp"
-#include "Arit.hpp"
 using namespace vm;
 
 void vm::ctrl(const RVM& rvm, const Command& cmd)
@@ -26,21 +25,41 @@ void vm::ctrl(const RVM& rvm, const Command& cmd)
     switch(cmd.cmd)
     {
         // Stack functions
-        case Command::Opcode::PUSH: vm::PUSH (rvm, cmd.arg); break;
-        case Command::Opcode::POP:  vm::POP  (rvm);          break;
-        case Command::Opcode::SWAP: vm::SWAP (rvm);          break;
-        case Command::Opcode::DUP:  vm::DUP  (rvm);          break;
+        case Command::Opcode::PUSH: vm::Asm::PUSH (rvm, cmd.arg); break;
+        case Command::Opcode::POP:  vm::Asm::POP  (rvm);          break;
+        case Command::Opcode::SWAP: vm::Asm::SWAP (rvm);          break;
+        case Command::Opcode::DUP:  vm::Asm::DUP  (rvm);          break;
         
         // Arithmetic functions
-        case Command::Opcode::ADD:  vm::ADD  (rvm);          break;
-        case Command::Opcode::SUB:  vm::SUB  (rvm);          break;
-        case Command::Opcode::DIV:  vm::DIV  (rvm);          break;
-        case Command::Opcode::MUL:  vm::MUL  (rvm);          break;
-        case Command::Opcode::MOD:  vm::MOD  (rvm);          break;
+        case Command::Opcode::ADD:  vm::Asm::ADD  (rvm);          break;
+        case Command::Opcode::SUB:  vm::Asm::SUB  (rvm);          break;
+        case Command::Opcode::DIV:  vm::Asm::DIV  (rvm);          break;
+        case Command::Opcode::MUL:  vm::Asm::MUL  (rvm);          break;
+        case Command::Opcode::MOD:  vm::Asm::MOD  (rvm);          break;
+        
+        // Memory functions
+        case Command::Opcode::STO:  vm::Asm::STO  (rvm, cmd.arg); break;
+        case Command::Opcode::RCL:  vm::Asm::RCL  (rvm, cmd.arg); break;
+        
+        // IO functions
+        case Command::Opcode::PRN:  vm::Asm::PRN  (rvm);          break;
+        
+        // Comparison functions
+        case Command::Opcode::EQ:   vm::Asm::EQ   (rvm);          break; 
+        case Command::Opcode::NE:   vm::Asm::NE   (rvm);          break; 
+        case Command::Opcode::GT:   vm::Asm::GT   (rvm);          break; 
+        case Command::Opcode::GE:   vm::Asm::GE   (rvm);          break; 
+        case Command::Opcode::LT:   vm::Asm::LT   (rvm);          break; 
+        case Command::Opcode::LE:   vm::Asm::LE   (rvm);          break; 
+        
+        // Jump functions
+        case Command::Opcode::JMP:  vm::Asm::JMP  (rvm, cmd.arg); break; 
+        case Command::Opcode::JIT:  vm::Asm::JIT  (rvm, cmd.arg); break; 
+        case Command::Opcode::JIF:  vm::Asm::JIF  (rvm, cmd.arg); break; 
         
         // Control functions
-        case Command::Opcode::END:  
-            break;
+        case Command::Opcode::END: break;
+        
         default: 
             break;
     }
