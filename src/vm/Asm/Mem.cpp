@@ -15,25 +15,21 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_VM_MEM_DEFINED
-#define HPP_VM_MEM_DEFINED
+// Libraries
+#include "Asm.hpp"
+#include "Debug.hpp"
+#include "Address.hpp"
+using namespace vm;
 
-namespace vm
+void Asm::STO(const vm::RVM& rvm, const stk::Stackable_ptr& stk)
 {
-    inline void 
-    STO(const vm::RVM& rvm, const stk::Stackable_ptr& stk)
-    {
-        int pos = dynamic_cast<stk::Address>(stk).get();
-        rvm.RAM[pos] = stk::Stackable_ptr { stk->clone() };
-    }
-    
-    inline stk::Stackable_ptr
-    RCL(const vm::RVM& rvm, const stk::Stackable_ptr& stk)
-    {
-        int pos = dynamic_cast<stk::Address>(stk).get();
-        stk::Stackable_ptr ret { std::move(rvm.RAM[pos]) };
-        return ret;
-    }
+    int pos = dynamic_cast<stk::Address*>(stk.get())->get();
+    rvm.RAM[pos] = stk::Stackable_ptr { Asm::pop(rvm) };
 }
 
-#endif
+void Asm::RCL(const vm::RVM& rvm, const stk::Stackable_ptr& stk)
+{
+    int pos = dynamic_cast<stk::Address*>(stk.get())->get();
+    Asm::push(rvm, rvm.RAM[pos]);
+    rvm.RAM.erase(pos);
+}

@@ -15,9 +15,47 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_VM_ASMB_ASMB_DEFINED
-#define HPP_VM_ASMB_ASMB_DEFINED
+// Libraries
+#include "Asm.hpp"
+#include "Debug.hpp"
+using namespace vm;
 
-// #include "Stk.hpp"
+void Asm::push(const vm::RVM& rvm, const stk::Stackable_ptr& stk)
+{
+    rvm.DATA.push_back(stk::Stackable_ptr { stk->clone() });
+}
 
-#endif
+stk::Stackable_ptr Asm::pop(const vm::RVM& rvm)
+{
+    stk::Stackable_ptr ret { std::move(rvm.DATA.back()) };
+    rvm.DATA.pop_back();
+    return ret;
+}
+
+void Asm::PUSH(const vm::RVM& rvm, const stk::Stackable_ptr& stk)
+{
+    Asm::push(rvm, stk); Debug::printStack(rvm);
+}
+
+void Asm::POP(const vm::RVM& rvm)
+{
+    Asm::pop(rvm); Debug::printStack(rvm);
+}
+
+void Asm::SWAP(const vm::RVM& rvm)
+{
+    stk::Stackable_ptr first  { Asm::pop(rvm) };
+    stk::Stackable_ptr second { Asm::pop(rvm) };
+    Asm::push(rvm, second);
+    Asm::push(rvm, first);
+    Debug::printStack(rvm);
+}
+
+void Asm::DUP(const vm::RVM& rvm)
+{
+    stk::Stackable_ptr aux     { Asm::pop(rvm) };
+    stk::Stackable_ptr nouveau { aux->clone() };
+    Asm::push(rvm, aux); 
+    Asm::push(rvm, nouveau);
+    Debug::printStack(rvm);
+}
