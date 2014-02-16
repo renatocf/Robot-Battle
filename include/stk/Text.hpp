@@ -36,7 +36,10 @@ namespace stk
             Text(std::string text = "")
                 : Stackable{Type::Text}, text{text} {}
             
-            std::string get() const;
+            std::string get() const
+            {
+                return this->text;
+            }
             
             std::string to_string() const
             {
