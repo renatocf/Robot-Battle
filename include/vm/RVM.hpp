@@ -64,22 +64,8 @@ namespace vm
             friend std::ostream& 
             operator<<(std::ostream& os, const RVM& rvm);
             
-            friend void 
-            vm::push(const vm::RVM& rvm, const stk::Stackable_ptr& stk);
-            
-            friend stk::Stackable_ptr
-            vm::pop(const vm::RVM& rvm);
-            
             friend class Debug;
-            
-            template<typename Func>
-            friend void operate(const RVM& rvm, Func func);
-            
-            inline void 
-            STO(const vm::RVM& rvm, const stk::Stackable_ptr& stk);
-            
-            inline stk::Stackable_ptr
-            RCL(const vm::RVM& rvm, const stk::Stackable_ptr& stk);
+            friend class Asm;
     };
     
     std::ostream& operator<<(std::ostream& os, const RVM& rvm);
