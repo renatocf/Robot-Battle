@@ -15,42 +15,12 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_STK_STACKABLE_DEFINED
-#define HPP_STK_STACKABLE_DEFINED
+// Internal libraries
+#include "Bool.hpp"
 
-// Default libraries
-#include <string>
-#include <memory>
-#include <iostream>
-
-namespace stk
+std::ostream& stk::operator<<(std::ostream& os, const Bool& b)
 {
-    class Stackable 
-    {
-        public:
-            enum class Type { Number, Text, Address, Bool };
-            const Type type;
-            
-            virtual std::string to_string() const = 0;
-            virtual ~Stackable() {}
-            
-            virtual Stackable        *clone  () const = 0;
-            virtual Stackable        *create () const = 0;
-            virtual const Stackable& typeref () const = 0;     
-        
-        protected:
-            Stackable(Type t)
-                : type{t} {}
-            
-        public:
-            friend std::ostream& 
-            operator<<(std::ostream& os, const Stackable& stk);
-    };
-    
-    std::ostream& operator<<(std::ostream& os, const Stackable& stk);
-    
-    using Stackable_ptr = std::shared_ptr<stk::Stackable>;
-    std::ostream& operator<<(std::ostream& os, const Stackable_ptr& stk);
+    os << b.boolean;
+    return os;
 }
 
-#endif

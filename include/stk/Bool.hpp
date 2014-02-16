@@ -15,42 +15,61 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_STK_STACKABLE_DEFINED
-#define HPP_STK_STACKABLE_DEFINED
+#ifndef HPP_STK_BOOL_DEFINED
+#define HPP_STK_BOOL_DEFINED
 
 // Default libraries
 #include <string>
-#include <memory>
 #include <iostream>
+
+// Internal libraries
+#include "Stackable.hpp"
 
 namespace stk
 {
-    class Stackable 
+    class Bool: public Stackable
     {
-        public:
-            enum class Type { Number, Text, Address, Bool };
-            const Type type;
-            
-            virtual std::string to_string() const = 0;
-            virtual ~Stackable() {}
-            
-            virtual Stackable        *clone  () const = 0;
-            virtual Stackable        *create () const = 0;
-            virtual const Stackable& typeref () const = 0;     
+        private:
+            bool boolean;
         
-        protected:
-            Stackable(Type t)
-                : type{t} {}
-            
         public:
-            friend std::ostream& 
-            operator<<(std::ostream& os, const Stackable& stk);
+            Bool(int a = 0)
+                : Stackable(Stackable::Type::Bool), 
+                  boolean{ (a != 0) ? true : false } {}
+            Bool(bool b)
+                : Stackable(Stackable::Type::Bool), 
+                  boolean{b} {}
+            
+            bool get() const
+            {
+                return this->boolean;
+            }
+            
+            std::string to_string() const
+            {
+                return (this->boolean) ? "true" : "false";
+            }
+            
+            Bool *clone() const
+            {
+                return new Bool{*this};
+            }
+            
+            Bool *create() const
+            {
+                return new Bool{};
+            }
+            
+            virtual const Bool& typeref() const
+            {
+                return *this;
+            }
+            
+            friend std::ostream&
+            operator<<(std::ostream& os, const Bool& b);
     };
-    
-    std::ostream& operator<<(std::ostream& os, const Stackable& stk);
-    
-    using Stackable_ptr = std::shared_ptr<stk::Stackable>;
-    std::ostream& operator<<(std::ostream& os, const Stackable_ptr& stk);
+            
+    std::ostream& operator<<(std::ostream& os, const Bool& b);
 }
 
 #endif
