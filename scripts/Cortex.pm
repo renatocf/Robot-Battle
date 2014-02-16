@@ -32,7 +32,7 @@ my @ins1 = ('ADD' , 'DIV' , 'DUP' , 'END' , 'EQ'  , 'GE'  , 'GT'  ,
             'SUB' , 'RET' , 'MOVE', 'DRAG', 'DROP', 'HIT' , 'LOOK', 
             'ITEM', 'SEE' , 'SEEK', 'ASK' , 'NOP' , 'READ', 'WRT' ,
             'SEND', 'SWAP', 'NIL' );         # arg: none
-my @ins2 = ('RCL' , 'STO');                  # arg: numeric  (only)
+my @ins2 = ('RCL' , 'STO');                  # arg: address (only)
 my @ins3 = ('JMP' , 'JIF' , 'JIT' , 'CALL'); # arg: address/string
 my @ins4 = ('ALOC', 'FREE', 'GET' , 'SET' ); # arg: var name (only)
 
@@ -133,7 +133,8 @@ sub parse
                 given($com)
                 {                   
                     when(@ins1) { $err = 2 if defined $arg                }
-                    when(@ins2) { $err = 3 if $arg !~ m/^[+-]?\d+$/       }
+                    when(@ins2) { $err = 3 if $arg !~ m/^(&)?\d+$/;
+                                  $arg = "ADDRESS($arg)" if defined $1    }
                     when(@ins3) { $err = 4 if $arg !~ m/(&)?\d+|\w+$/;
                                   $arg = "ADDRESS($arg)" if defined $1    }
                     when(@ins4) { $err = 5 if $arg !~ m/^\[\w+\]$/        }
@@ -174,7 +175,7 @@ sub err
     {
         when(1) { say("needs a STACKABLE argument!")        }
         when(2) { say("needs NO argument!")                 }
-        when(3) { say("needs a NUMERIC argument!")          }
+        when(3) { say("needs a ADDRESS argument!")          }
         when(4) { say("needs a LABEL or ADDRESS argument!") }
         when(5) { say("needs a STRING argument")            }
         when(6) { say("does not exist!")                    }

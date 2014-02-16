@@ -77,6 +77,7 @@ $COPYRIGHT
 //#include "Stk.hpp"
 #include "Text.hpp"
 #include "Number.hpp"
+#include "Address.hpp"
 #include "Stackable.hpp"
 #include "#BASENAME#.hpp"
 using namespace stk;
@@ -182,9 +183,8 @@ sub make_source
         
         while(my ($key, $value) = each %{$obj->{ADDRESS}})
         {
-            my $var = $value->[0];
-            $obj->{ADDRESS} = $value->[1];
-            $address_numeric{$var} = $obj->{ADDRESS};
+            my ($var, $address) = ($value->[0], $value->[1]);
+            $address_numeric{$var} = $address;
         }   
         
         say " " x 4, "// Address variables";
@@ -324,9 +324,9 @@ sub preproc
                 {
                     $a++; $line->[1] = "adr$a";
                     $obj->{ADDRESS}{$arg} = 
-                        [ $a, "Stackable_ptr adr$a { new Addr { $arg } };" ];
+                        [ $a, "Stackable_ptr adr$a { new Address { $arg } };" ];
                 }
-                else { $line->[1] = "addr$obj->{ADDRESS}{$arg}[0]"; }
+                else { $line->[1] = "adr$obj->{ADDRESS}{$arg}[0]"; }
             }
             
             # Numeric argument
