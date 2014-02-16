@@ -1,9 +1,10 @@
 [RVM]
     [X] Implement stack functions (PUSH, POP, DUP, SWAP).
     [X] Implement arithmetic functions (ADD, SUB, MUL, DIV, MOD).
-    [ ] Implement secondary memory functions (STO, RCL).
-    [ ] Implement comparisons (EQ, NE, GT, GE, LT, LE).
-    [ ] Implement jumps (JMP, JIT, JIF).
+    [X] Implement secondary memory functions (STO, RCL).
+    [X] Implement comparisons (EQ, NE, GT, GE, LT, LE).
+    [X] Implement jumps (JMP, JIT, JIF).
+    [ ] Correct jumps to work correcty with RVM.
 
 [Compiler]
     [X] Create scripts in Perl to parse Quark to C++.
