@@ -9,6 +9,7 @@
 [Compiler]
     [X] Create scripts in Perl to parse Quark to C++.
     [X] Execute Quark programs on demand.
+    [ ] Make parser/quark automatically with Perl.
     [ ] Implement Positron compiler with Flex/Bison.
 
 [Makefile]
