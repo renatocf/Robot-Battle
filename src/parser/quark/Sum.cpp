@@ -23,6 +23,7 @@
 //#include "Stk.hpp"
 #include "Text.hpp"
 #include "Number.hpp"
+#include "Address.hpp"
 #include "Stackable.hpp"
 #include "Sum.hpp"
 using namespace stk;

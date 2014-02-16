@@ -23,6 +23,7 @@
 //#include "Stk.hpp"
 #include "Text.hpp"
 #include "Number.hpp"
+#include "Address.hpp"
 #include "Stackable.hpp"
 #include "Fibonacci.hpp"
 using namespace stk;
@@ -38,35 +39,39 @@ vm::Prog parser::quark::upload_Fibonacci()
     using namespace vm;
     vm::Prog PROG;
 
+    // Address variables
+    Stackable_ptr adr1 { new Address { 0 } };
+    Stackable_ptr adr2 { new Address { 1 } };
+    Stackable_ptr adr3 { new Address { 2 } };
+
     // Numerical variables
     Stackable_ptr num1 { new Number { 1 } };
-    Stackable_ptr num2 { new Number { 0 } };
-    Stackable_ptr num3 { new Number { 10 } };
-    Stackable_ptr num4 { new Number { 2 } };
+    Stackable_ptr num2 { new Number { 10 } };
+    Stackable_ptr num3 { new Number { 0 } };
 
     // Textual variables
     Stackable_ptr msg1 { new stk::Text { "LOOP" } };
 
     PROG.push_back( vm::Command { Command::Opcode::PUSH, num1         });
     PROG.push_back( vm::Command { Command::Opcode::DUP                });
-    PROG.push_back( vm::Command { Command::Opcode::STO , num2         });
-    PROG.push_back( vm::Command { Command::Opcode::STO , num1         });
-    PROG.push_back( vm::Command { Command::Opcode::PUSH, num3         });
-    PROG.push_back( vm::Command { Command::Opcode::STO , num4         });
-    PROG.push_back( vm::Command { Command::Opcode::RCL , num2, "LOOP" });
-    PROG.push_back( vm::Command { Command::Opcode::RCL , num1         });
+    PROG.push_back( vm::Command { Command::Opcode::STO , adr1         });
+    PROG.push_back( vm::Command { Command::Opcode::STO , adr2         });
+    PROG.push_back( vm::Command { Command::Opcode::PUSH, num2         });
+    PROG.push_back( vm::Command { Command::Opcode::STO , adr3         });
+    PROG.push_back( vm::Command { Command::Opcode::RCL , adr1, "LOOP" });
+    PROG.push_back( vm::Command { Command::Opcode::RCL , adr2         });
     PROG.push_back( vm::Command { Command::Opcode::DUP                });
-    PROG.push_back( vm::Command { Command::Opcode::STO , num2         });
+    PROG.push_back( vm::Command { Command::Opcode::STO , adr1         });
     PROG.push_back( vm::Command { Command::Opcode::ADD                });
     PROG.push_back( vm::Command { Command::Opcode::DUP                });
-    PROG.push_back( vm::Command { Command::Opcode::STO , num1         });
+    PROG.push_back( vm::Command { Command::Opcode::STO , adr2         });
     PROG.push_back( vm::Command { Command::Opcode::PRN                });
-    PROG.push_back( vm::Command { Command::Opcode::RCL , num4         });
+    PROG.push_back( vm::Command { Command::Opcode::RCL , adr3         });
     PROG.push_back( vm::Command { Command::Opcode::PUSH, num1         });
     PROG.push_back( vm::Command { Command::Opcode::SUB                });
     PROG.push_back( vm::Command { Command::Opcode::DUP                });
-    PROG.push_back( vm::Command { Command::Opcode::STO , num4         });
-    PROG.push_back( vm::Command { Command::Opcode::PUSH, num2         });
+    PROG.push_back( vm::Command { Command::Opcode::STO , adr3         });
+    PROG.push_back( vm::Command { Command::Opcode::PUSH, num3         });
     PROG.push_back( vm::Command { Command::Opcode::EQ                 });
     PROG.push_back( vm::Command { Command::Opcode::JIF , msg1         });
     PROG.push_back( vm::Command { Command::Opcode::END                });
