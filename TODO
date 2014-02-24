@@ -25,4 +25,6 @@
     [X] Support to more than one include file.
     [X] Adding external configuration file.
     [X] Finish comments on functions.
+    [ ] Test compilation of sbin and libexec binaries.
+    [ ] Complete installation target.
     [ ] Add shortcuts to create new modules.
