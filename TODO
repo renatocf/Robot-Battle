@@ -26,5 +26,7 @@
     [X] Adding external configuration file.
     [X] Finish comments on functions.
     [ ] Test compilation of sbin and libexec binaries.
+    [ ] Add install-info, install-html, install-ps, etc.
+    [ ] Create vars to explore all .texi, .info, .ps, .html in DOCDIR.
     [ ] Complete installation target.
     [ ] Add shortcuts to create new modules.
