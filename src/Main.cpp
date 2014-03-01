@@ -31,7 +31,7 @@ int main(int argc, char **argv)
     // Usage
     if(argc != 2)
     {
-        cout << "USAGE: Main program_name.asm" << endl;
+        cout << "USAGE: Main Program_name" << endl;
         return 0;
     }
     
