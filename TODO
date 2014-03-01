@@ -26,7 +26,7 @@
     [X] Adding external configuration file.
     [X] Finish comments on functions.
     [X] Test compilation of sbin and libexec binaries.
-    [ ] Deal with libraries with subdirectories.
+    [X] Deal with libraries with subdirectories.
     [ ] Check for unidentified files to not delete them in clean's.
     [ ] Add install-info, install-html, install-ps, etc.
     [ ] Create vars to explore all .texi, .info, .ps, .html in DOCDIR.
