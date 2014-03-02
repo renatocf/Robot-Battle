@@ -18,6 +18,7 @@
 // Libraries
 #include "Asm.hpp"
 #include "Bool.hpp"
+#include "Text.hpp"
 #include "Number.hpp"
 #include "Address.hpp"
 #include "Stackable.hpp"
@@ -43,7 +44,13 @@ void Asm::JCMP(
     }
     else { result = false; /* TODO: put error */ }
     
-    int index = static_cast<int>(dynamic_cast<stk::Address*>(stk.get())->get());
+    int index = -1;
+    if(stk->type == stk::Stackable::Type::Address)
+        index = static_cast<int>(dynamic_cast<stk::Address*>(stk.get())->get());
+    else if(stk->type == stk::Stackable::Type::Text)
+        index = static_cast<int>(rvm.LABEL[dynamic_cast<stk::Text*>(stk.get())->get()]);
+    else { result = false; /* TODO: put error */ }
+    
     if(cmp(result, true)) rvm.PC = index-1;
 }
 
