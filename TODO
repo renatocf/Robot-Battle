@@ -1,16 +1,30 @@
-[RVM]
+[stk]
+    [X] Implement basic stackables (Address, Bool, Number, Text).
+    [ ] Create game types (Direction).
+
+[vm]
     [X] Implement stack functions (PUSH, POP, DUP, SWAP).
     [X] Implement arithmetic functions (ADD, SUB, MUL, DIV, MOD).
     [X] Implement secondary memory functions (STO, RCL).
     [X] Implement comparisons (EQ, NE, GT, GE, LT, LE).
     [X] Implement jumps (JMP, JIT, JIF).
-    [ ] Correct jumps to work correcty with RVM.
+    [X] Correct jumps to work correcty with RVM.
+    [X] Correct memory modules and print them in the debug.
+    [X] Implement control syscalls (NOP, END).
+    [ ] Finish implementing syscalls.
 
-[Compiler]
+[parser]
     [X] Create scripts in Perl to parse Quark to C++.
     [X] Execute Quark programs on demand.
-    [ ] Make parser/quark automatically with Perl.
+    [X] Make parser/quark automatically with Perl.
     [ ] Implement Positron compiler with Flex/Bison.
+
+[option]
+    [X] Create an option for debugging.
+    [ ] Create a unique file for all game options.
+
+[Main]
+    [X] Integrate getopt.h lib/module to get options.
 
 [Makefile]
     [X] Test compilation with test with libs.
@@ -21,12 +35,14 @@
     [X] Remove 'test' PHONY target.
     [X] Check directories to remove trailing bars.
     [X] Create internal-use variables for flags.
+    [X] Create flag V to define a verbose mode.
     [X] Make possible to compile many binaries.
     [X] Support to more than one include file.
     [X] Adding external configuration file.
     [X] Finish comments on functions.
     [X] Test compilation of sbin and libexec binaries.
     [X] Deal with libraries with subdirectories.
+    [X] Create flag MORE to output errors while tabbing.
     [ ] Check for unidentified files to not delete them in clean's.
     [ ] Add install-info, install-html, install-ps, etc.
     [ ] Create vars to explore all .texi, .info, .ps, .html in DOCDIR.
