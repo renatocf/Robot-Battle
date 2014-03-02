@@ -16,6 +16,7 @@
 /**********************************************************************/
 
 // Default libraries
+#include <iomanip>
 #include <iostream>
 using namespace std;
 
@@ -28,7 +29,7 @@ void vm::RVM::exec() const
 {
     if(this->PROG[this->PC].cmd != vm::Command::Opcode::NONE)
     {
-        Debug::printCommand(*this, this->PC); 
+        Debug::printCommand(*this, this->PC);
         vm::ctrl(*this, this->PROG[this->PC]);
     }
 }
@@ -38,12 +39,12 @@ void vm::RVM::run()  const
     switch(this->activity)
     {
         case State::ACTIVE:
-            for(unsigned int i = 0; i < this->PROG.size(); i++)
-            { 
+            this->syscall = false;
+            while(!this->syscall)
+            {
                 this->exec(); 
-                if(!this->syscall) ++this->PC;
+                ++this->PC;
             }
-            this->PC = 0;
             break;
             
         case State::SLEEP:
