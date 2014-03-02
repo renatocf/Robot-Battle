@@ -16,6 +16,8 @@
 /**********************************************************************/
 
 // Default libraries
+#include <string>
+#include <iomanip>
 #include <iostream>
 
 // Internal libraries
@@ -23,8 +25,39 @@
 #include "Colors.hpp"
 using namespace vm;
 
+// Class variable initialization
+bool Debug::OFF { true };
+
+void vm::Debug::printRAM(const RVM& rvm)
+{
+    // Do nothing when debugging is off
+    if(Debug::OFF) return;
+    
+    std::cout << BLUE << "[RAM]" << RESTORE << std::endl;
+    
+    int count = 0;
+    bool first = true;
+    for(auto& dat : rvm.RAM)
+    {
+        for(; count < dat.first; ++count)
+        {
+            std::cout << BLUE << (first ? "    [ #" : " | #");
+            first = false;
+        }
+        std::cout << BLUE << (first ? "    [ " : " | ") 
+                  << PURPLE << dat.second << RESTORE;
+        first = false; 
+        ++count;
+    }
+    
+    std::cout << BLUE << " ]" << RESTORE << std::endl;
+}
+
 void vm::Debug::printStack(const RVM& rvm)
 {
+    // Do nothing when debugging is off
+    if(Debug::OFF) return;
+    
     std::cout << RED << "[STACK]" << RESTORE << std::endl;
     std::cout << "    ";
     for(stk::Stackable_ptr& p : rvm.DATA)
@@ -35,8 +68,26 @@ void vm::Debug::printStack(const RVM& rvm)
 
 void vm::Debug::printCommand(const RVM& rvm, int pos)
 {
-    using namespace std;
-    cout << YELLOW << pos << " ";
-    cout << YELLOW << rvm.PROG[pos].cmd << RESTORE << " ";
-    cout << PURPLE << rvm.PROG[pos].arg << RESTORE << endl;
+    // Do nothing when debugging is off
+    if(Debug::OFF) return;
+    
+    // Auxiliar var for ptinting
+    const Command& cmd = rvm.PROG[pos];
+    
+    // Line:
+    std::cout << YELLOW << std::right 
+         << std::setw(rvm.max_lin) << pos;
+    
+    // Command
+    std::cout << " ";
+    std::cout << YELLOW << std::left << std::setw(rvm.max_cmd) 
+       << cmd.cmd << RESTORE;
+    
+    // Argument
+    std::cout << " ";
+    std::cout << PURPLE << std::left << std::setw(rvm.max_arg) 
+       << ((cmd.arg) ? cmd.arg->to_string() : "") 
+       << RESTORE;
+    
+    std::cout << std::endl;
 }

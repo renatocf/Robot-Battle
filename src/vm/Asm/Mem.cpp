@@ -15,6 +15,7 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
+#include <iostream>
 // Libraries
 #include "Asm.hpp"
 #include "Debug.hpp"
@@ -25,6 +26,7 @@ void Asm::STO(const vm::RVM& rvm, const stk::Stackable_ptr& stk)
 {
     int pos = dynamic_cast<stk::Address*>(stk.get())->get();
     rvm.RAM[pos] = stk::Stackable_ptr { Asm::pop(rvm) };
+    Debug::printRAM(rvm);
 }
 
 void Asm::RCL(const vm::RVM& rvm, const stk::Stackable_ptr& stk)
@@ -32,4 +34,6 @@ void Asm::RCL(const vm::RVM& rvm, const stk::Stackable_ptr& stk)
     int pos = dynamic_cast<stk::Address*>(stk.get())->get();
     Asm::push(rvm, rvm.RAM[pos]);
     rvm.RAM.erase(pos);
+    Debug::printRAM(rvm);
+    Debug::printStack(rvm);
 }

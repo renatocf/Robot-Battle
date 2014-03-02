@@ -26,7 +26,11 @@ namespace vm
 {
     class Debug 
     {
+        private:
+        
         public:
+            static bool OFF; /* TODO: Make private */
+            static void printRAM     (const vm::RVM& rvm);
             static void printStack   (const vm::RVM& rvm);
             static void printCommand (const vm::RVM& rvm, int pos);
         
