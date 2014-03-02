@@ -24,12 +24,16 @@ using namespace std;
 #include "RVM.hpp"
 #include "Quark.hpp"
 #include "Command.hpp"
+#include "Options.hpp"
 #include "Stackable.hpp"
 
 int main(int argc, char **argv)
 {
+    // Process options
+    Options::parse_args(argc, argv);
+    
     // Usage
-    if(argc != 2)
+    if(optind < argc && argc-optind != 1)
     {
         cout << "USAGE: Main Program_name" << endl;
         return 0;
@@ -37,7 +41,7 @@ int main(int argc, char **argv)
     
     try {
         parser::quark::Func_ptr upload 
-            = parser::quark::functions.at(argv[1]);
+            = parser::quark::functions.at(argv[optind]);
         
         vm::RVM Bender { upload() };
         Bender.run();
