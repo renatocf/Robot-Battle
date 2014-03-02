@@ -27,40 +27,11 @@ namespace vm
     class Asm
     {
         private:
-            // Stack auxiliar    
-            static void 
-            push(const vm::RVM& rvm, const stk::Stackable_ptr& stk);
-            
-            static stk::Stackable_ptr 
-            pop(const vm::RVM& rvm);
-            
-            // Arithmetic auxiliar
-            template<typename Func>
-            static void operate(const vm::RVM& rvm, Func func);
-            
-            // Comparison auxiliar
-            template<typename T, typename F> 
-            static void compare(
-                const RVM& rvm, 
-                const stk::Stackable_ptr& arg1, 
-                const stk::Stackable_ptr& arg2, 
-                F cmp
-            );
-            
-            template<typename F> 
-            static void select(const RVM& rvm, F cmp);
-            
-            // Jump auxiliar
-            template<typename Func>
-            static void JCMP(
-                const RVM& rvm, 
-                const stk::Stackable_ptr& stk, 
-                Func cmp
-            );
+            using Stk_ptr = stk::Stackable_ptr;
             
         public:
             // Stack functions
-            static void PUSH (const vm::RVM& rvm, const stk::Stackable_ptr& stk);
+            static void PUSH (const vm::RVM& rvm, const Stk_ptr& stk);
             static void POP  (const vm::RVM& rvm);
             static void SWAP (const vm::RVM& rvm);
             static void DUP  (const vm::RVM& rvm);
@@ -73,8 +44,8 @@ namespace vm
             static void MOD  (const vm::RVM& rvm);
             
             // Memory functions
-            static void STO  (const vm::RVM& rvm, const stk::Stackable_ptr& stk);
-            static void RCL  (const vm::RVM& rvm, const stk::Stackable_ptr& stk);
+            static void STO  (const vm::RVM& rvm, const Stk_ptr& stk);
+            static void RCL  (const vm::RVM& rvm, const Stk_ptr& stk);
             
             // Comparison functions
             static void EQ   (const vm::RVM& rvm);
@@ -88,9 +59,45 @@ namespace vm
             static void PRN  (const vm::RVM& rvm);
             
             // Jump functions
-            static void JMP  (const vm::RVM& rvm, const stk::Stackable_ptr& stk);
-            static void JIT  (const vm::RVM& rvm, const stk::Stackable_ptr& stk);
-            static void JIF  (const vm::RVM& rvm, const stk::Stackable_ptr& stk);
+            static void JMP  (const vm::RVM& rvm, const Stk_ptr& stk);
+            static void JIT  (const vm::RVM& rvm, const Stk_ptr& stk);
+            static void JIF  (const vm::RVM& rvm, const Stk_ptr& stk);
+            
+            // Syscall functions
+            static void NOP  (const vm::RVM& rvm);
+            static void END  (const vm::RVM& rvm);
+            
+        public:
+            // Stack auxiliar    
+            static void 
+            push(const vm::RVM& rvm, const Stk_ptr& stk);
+            
+            static Stk_ptr 
+            pop(const vm::RVM& rvm);
+            
+            // Arithmetic auxiliar
+            template<typename Func>
+            static void operate(const vm::RVM& rvm, Func func);
+            
+            // Comparison auxiliar
+            template<typename T, typename F> 
+            static void compare(
+                const RVM& rvm, 
+                const Stk_ptr& arg1, 
+                const Stk_ptr& arg2, 
+                F cmp
+            );
+            
+            template<typename F> 
+            static void select(const RVM& rvm, F cmp);
+            
+            // Jump auxiliar
+            template<typename Func>
+            static void JCMP(
+                const RVM& rvm, 
+                const Stk_ptr& stk, 
+                Func cmp
+            );
     };
 }
 

@@ -19,6 +19,7 @@
 #define HPP_VM_RVM_DEFINED
 
 // Default libraries
+#include <map>
 #include <stack>
 #include <vector>
 #include <iostream>
@@ -34,15 +35,17 @@ namespace vm
     class RVM
     {
         private:
+            mutable unsigned int max_lin = 0, max_cmd = 0, max_arg = 0;
+            
             // Execution memory
-            std::vector        <Command>         PROG  {};
-            std::unordered_map <std::string,int> LABEL {};
+            mutable std::vector        <Command>                PROG  {};
+            mutable std::unordered_map <std::string,int>        LABEL {};
             
             // Internal-use memory
             mutable int                                         PC    {};
             mutable std::stack         <int>                    CTRL  {};
             mutable std::deque         <stk::Stackable_ptr>     DATA  {};
-            mutable std::unordered_map <int,stk::Stackable_ptr> RAM   {};
+            mutable std::map           <int,stk::Stackable_ptr> RAM   {};
             
             mutable bool syscall   { false };
             mutable State activity { State::ACTIVE };
@@ -55,7 +58,8 @@ namespace vm
             
             void upload(std::vector<Command> PROG)
             {
-                this->PROG = std::move(PROG); //upload_labels();
+                this->PROG = std::move(PROG); 
+                upload_labels();
             }
             
             void exec() const;
@@ -66,6 +70,28 @@ namespace vm
             
             friend class Debug;
             friend class Asm;
+        
+        private:
+            void upload_labels()
+            {
+                // Maximum command and argument size (debug purposes)
+                for(const Command& cmd : this->PROG)
+                {
+                    if(vm::to_string(cmd.cmd).size() > this->max_cmd) 
+                        this->max_cmd = vm::to_string(cmd.cmd).size();
+                    if(cmd.arg && cmd.arg->to_string().size() > this->max_arg) 
+                        this->max_arg = cmd.arg->to_string().size();
+                }
+                
+                // Maximum line size (debug purposes)
+                int aux = this->PROG.size(); 
+                for(this->max_lin = 1; aux /= 10; this->max_lin++);
+                
+                // Save label positions
+                for(unsigned int i = 0; i < this->PROG.size(); i++)
+                    if(this->PROG[i].lab != "")
+                        this->LABEL[this->PROG[i].lab] = static_cast<int>(i);
+            }
     };
     
     std::ostream& operator<<(std::ostream& os, const RVM& rvm);
