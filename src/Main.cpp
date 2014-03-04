@@ -15,11 +15,6 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-/** 
- * @file  Main.cpp 
- * Main class, which starts the program.
- */
-
 // Default libraries
 #include <iostream>
 #include <stdexcept>
@@ -38,7 +33,7 @@ int main(int argc, char **argv)
     Options::parse_args(argc, argv);
     
     // Usage
-    if(optind < argc && argc-optind != 1)
+    if(optind <= argc && argc-optind != 1)
     {
         cout << "USAGE: Main Program_name" << endl;
         return 0;
