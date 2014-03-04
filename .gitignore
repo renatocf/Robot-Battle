@@ -3,7 +3,7 @@ bin/
 dep/
 lib/
 build/
-doc/Doxyfile.mk
+doc/
 
 # Compiled Object files
 *.slo
