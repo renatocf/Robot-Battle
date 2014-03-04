@@ -48,7 +48,7 @@
     [X] Create vars to explore all .texi, .info, .ps, .html in DOCDIR.
     [X] Add install-info, install-html, install-ps, etc.
     [X] Complete installation target.
-    [ ] Add shortcuts to create new modules.
+    [X] Add shortcuts to create new modules.
 
 [tests]
     [ ] Finish implementing unit tests for all files.
