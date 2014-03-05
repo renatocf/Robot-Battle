@@ -49,6 +49,8 @@
     [X] Add install-info, install-html, install-ps, etc.
     [X] Complete installation target.
     [X] Add shortcuts to create new modules.
+    [ ] Add target to create automatically a .gitignore
+    [ ] Link libraries respecting the rule of many executables.
 
 [tests]
     [ ] Finish implementing unit tests for all files.
