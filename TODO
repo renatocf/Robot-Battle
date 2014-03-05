@@ -51,6 +51,7 @@
     [X] Add shortcuts to create new modules.
     [ ] Add target to create automatically a .gitignore
     [ ] Link libraries respecting the rule of many executables.
+    [ ] Create target 'standard' to put a project in the standard.
 
 [tests]
     [ ] Finish implementing unit tests for all files.
