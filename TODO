@@ -51,6 +51,7 @@
     [X] Add shortcuts to create new modules.
     [X] Create target 'standard' to put a project in the standard.
     [X] Add target to create automatically a .gitignore
+    [ ] Add other package types (.tgz, .tar.bz2, .zip)
     [ ] Link libraries respecting the rule of many executables.
 
 [tests]
