@@ -2,8 +2,10 @@
 bin/
 dep/
 lib/
+dist/
 build/
-doc/
+doc/doxygen/
+doc/Doxyfile.mk
 
 # Compiled Object files
 *.slo
