@@ -18,6 +18,14 @@
 #ifndef HPP_COLORS_DEFINED
 #define HPP_COLORS_DEFINED
 
+/** 
+ * @file  Colors.hpp
+ * @brief Define colors that can be outputed in Terminals.
+ * 
+ * If in a Windows environment, all variables are empty. 
+ * In a Unix-alike system, use ANSII Escape Colors.
+ */
+
 // Windows environment
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 static const std::string RESTORE = "";

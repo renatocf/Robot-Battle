@@ -18,11 +18,32 @@
 #ifndef HPP_OPTIONS_OPTIONS_DEFINED
 #define HPP_OPTIONS_OPTIONS_DEFINED
 
+/**
+ * @file  Options.hpp
+ * @brief Define options to be used in the game.
+ */
+
 // C Libraries
 #include <getopt.h>
 
+/**
+ * @namespace Options
+ * @brief All functions and variables related to Game options.
+ *
+ * Define the prototype to a function to parse arguments and 
+ * set variables to be used in this game.
+ */
 namespace Options 
 {
+    /**
+     * @brief Parse arguments came from the command line.
+     * 
+     * Set game options and flags, using as background 
+     * the getopt.h package.
+     * 
+     * @param argc Number of arguments in the command line
+     * @param argv Array of string with the arguments
+     */
     void parse_args(int argc, char **argv);
 }
 

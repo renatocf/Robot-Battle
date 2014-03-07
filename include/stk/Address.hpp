@@ -27,16 +27,38 @@
 
 namespace stk
 {
+    /**
+     * @class Address
+     * 
+     * @brief **Stores a positive integer with a program address**
+     * 
+     * Adresses can be used by any assembly opcode wich can manage
+     * memory (E.g: JMP, JIF, JIT). They are always strictly positive.
+     * 
+     * An adress is a stackable and can be put in the main stack
+     * of a virtual machine.
+     * 
+     * @see Stackable
+     * @see RVM
+     *
+     * @author Renato Cordeiro Ferreira
+     */
     class Address: public Stackable
     {
         private:
             int address;
         
         public:
+            /** 
+             * <b>Default constructor.</b>
+             * 
+             * @param a Address to be stored in this object.
+             */
             Address(int a = 0)
                 : Stackable(Stackable::Type::Address), 
                   address{a} {}
             
+            /// @return Address defined in the construction
             int get() const
             {
                 return this->address;
@@ -57,7 +79,7 @@ namespace stk
                 return new Address{};
             }
             
-            virtual const Address& typeref() const
+            const Address& typeref() const
             {
                 return *this;
             }

@@ -27,6 +27,17 @@ using namespace std;
 #include "Options.hpp"
 #include "Stackable.hpp"
 
+/** 
+ * @file  Main.cpp
+ * @brief Main function, which start the program
+ */
+
+/**
+ * @fn Main function.
+ * @param  argc Number of arguments in the command line
+ * @param  argv Array of string with the arguments
+ * @return 0 if success; non-zero otherwise
+ */
 int main(int argc, char **argv)
 {
     // Process options

@@ -25,20 +25,51 @@
 
 namespace stk
 {
+    /**
+     * @class Stackable
+     * 
+     * @brief **Type of element that can be stored in a RVM**
+     *
+     * This class is the base of a class hierarchy with the 
+     * default types accepted by the main stack (DATA) of a RVM.
+     * 
+     * @see    RVM
+     * @author Renato Cordeiro Ferreira
+     */
     class Stackable 
     {
         public:
+            /**
+             * @enum Type
+             * Subtypes of the stackable.
+             */
             enum class Type { Number, Text, Address, Bool };
+            
+            /// Underlying type of the stackable.
             const Type type;
             
-            virtual std::string to_string() const = 0;
+            /// <p>Default destructor.</p>
             virtual ~Stackable() {}
             
+            /// @return String representing the stackable
+            virtual std::string to_string() const = 0;
+            
+            /// @return Pointer to a clone of the stackable,
+            ///         built in the heap
             virtual Stackable        *clone  () const = 0;
+            
+            /// @return New stackable subtype with default value,
+            ///         built in the heap
             virtual Stackable        *create () const = 0;
+            
+            /// @return Constant reference to this object
             virtual const Stackable& typeref () const = 0;     
         
         protected:
+            /**
+             * <b>Default constructor.</b>
+             * No instances of this class allowed.
+             */
             Stackable(Type t)
                 : type{t} {}
             
@@ -47,9 +78,28 @@ namespace stk
             operator<<(std::ostream& os, const Stackable& stk);
     };
     
+    /**
+     * Outputs a stackable.
+     * @param  os  Output stream
+     * @param  stk Stackable to have its content outputed
+     * @return Reference to output stream
+     */
     std::ostream& operator<<(std::ostream& os, const Stackable& stk);
     
+    /**
+     * @def Stackable_ptr
+     * Shortcut to pointer to a stackable. Works as a shared pointer
+     * and properly does the garbage collector when there is no more
+     * pointers to the stackable.
+     */
     using Stackable_ptr = std::shared_ptr<stk::Stackable>;
+    
+    /**
+     * Outputs the pointed object of a stackable pointer.
+     * @param  os  Output stream
+     * @param  stk Stackable_ptr to have its pointed object outputed
+     * @return Reference to output stream
+     */
     std::ostream& operator<<(std::ostream& os, const Stackable_ptr& stk);
 }
 
