@@ -52,7 +52,9 @@
     [X] Create target 'standard' to put a project in the standard.
     [X] Add target to create automatically a .gitignore.
     [X] Add other package types (.tgz, .tar.bz2, .zip).
-    [ ] Link libraries respecting the rule of many executables.
+    [X] Link libraries respecting the rule of many executables.
+    [X] Set 'mainteiner-clean' to remove dirs even with extra files.
+    [X] Automatically link libraries in many library directories.
     [ ] Add option to automatically create a Debian package.
     [ ] Add option to automatically create a RPM package.
 
