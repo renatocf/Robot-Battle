@@ -4,6 +4,7 @@ dep/
 lib/
 dist/
 build/
+debian/
 doc/doxygen/
 doc/Doxyfile.mk
 
