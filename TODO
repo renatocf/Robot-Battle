@@ -55,7 +55,7 @@
     [X] Link libraries respecting the rule of many executables.
     [X] Set 'mainteiner-clean' to remove dirs even with extra files.
     [X] Automatically link libraries in many library directories.
-    [ ] Add option to automatically create a Debian package.
+    [X] Add option to automatically create a Debian package.
     [ ] Add option to automatically create a RPM package.
 
 [tests]
