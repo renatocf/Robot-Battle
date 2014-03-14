@@ -27,6 +27,7 @@ void Options::parse_args(int argc, char **argv)
 {
     static struct option long_options[] = {
         { "debug", no_argument, NULL, 'd' },
+        { "help" , no_argument, NULL, 'h' },
         { 0, 0, 0, 0 }
     };
     
@@ -38,6 +39,8 @@ void Options::parse_args(int argc, char **argv)
         {
             case 'd':
                 vm::Debug::OFF = false;
+                break;
+            case 'h':
                 break;
             case '?':
                 break;
