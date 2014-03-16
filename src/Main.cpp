@@ -15,6 +15,11 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
+/** 
+ * @file  Main.cpp
+ * @brief Main function, which start the program
+ */
+
 // Default libraries
 #include <iostream>
 #include <stdexcept>
@@ -26,11 +31,6 @@ using namespace std;
 #include "Command.hpp"
 #include "Options.hpp"
 #include "Stackable.hpp"
-
-/** 
- * @file  Main.cpp
- * @brief Main function, which start the program
- */
 
 /**
  * @fn Main function.

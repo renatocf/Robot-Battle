@@ -15,12 +15,25 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
+/** 
+ * @file  Arith.cpp
+ * @brief Provide assembly arithmetic operations for a RVM.
+ */
+
 // Libraries
 #include "Asm.hpp"
 #include "Debug.hpp"
 #include "Number.hpp"
 using namespace vm;
 
+/**
+ * Assembly auxiliar function operate. <br>
+ * Auxiliar to execute a binary arithmetic operation 
+ * over the two top most stackable in the main stack 
+ * of a Virtual Machine.
+ * @param rvm  Robot Virtual Machine
+ * @param func Lambda function with a binary arithmetic operation
+ */
 template<typename Func>
 void Asm::operate(const RVM& rvm, Func func)
 {
@@ -34,26 +47,53 @@ void Asm::operate(const RVM& rvm, Func func)
     Asm::push(rvm, std::move(nouveau));
 }
 
+/**
+ * Assembly function ADD. <br>
+ * Sum the two top most stackable of a RVM and push the result.
+ * @param rvm Robot Virtual Machine
+ */
 void Asm::ADD(const RVM& rvm)
 {
     operate(rvm, [] (long long a, long long b) { return a + b; });
 }
 
+/**
+ * Assembly function SUB. <br>
+ * Subtract the two top most stackable of a RVM and push the result.
+ * @param rvm Robot Virtual Machine
+ */
 void Asm::SUB(const RVM& rvm)
 {
     operate(rvm, [] (long long a, long long b) { return a - b; });
 }
 
+/**
+ * Assembly function MUL. <br>
+ * Multiply the two top most stackable of a RVM and push the result.
+ * @param rvm Robot Virtual Machine
+ */
 void Asm::MUL(const RVM& rvm)
 {
     operate(rvm, [] (long long a, long long b) { return a * b; });
 }
 
+/**
+ * Assembly function DIV. <br>
+ * Divide the two top most stackable (second / first) of a RVM 
+ * and push the result.
+ * @param rvm Robot Virtual Machine
+ */
 void Asm::DIV(const RVM& rvm)
 {
     operate(rvm, [] (long long a, long long b) { return a / b; });
 }
 
+/**
+ * Assembly function MOD. <br>
+ * Get the remainder of the division of the two top most 
+ * stackable (second % first) of a RVM and push the result.
+ * @param rvm Robot Virtual Machine
+ */
 void Asm::MOD(const RVM& rvm)
 {
     operate(rvm, [] (long long a, long long b) { return a % b; });
