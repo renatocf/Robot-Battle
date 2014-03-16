@@ -67,7 +67,7 @@ namespace vm
             static void NOP  (const vm::RVM& rvm);
             static void END  (const vm::RVM& rvm);
             
-        public:
+        private:
             // Stack auxiliar    
             static void 
             push(const vm::RVM& rvm, const Stk_ptr& stk);
