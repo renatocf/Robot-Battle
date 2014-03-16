@@ -15,9 +15,21 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-// Internal libraries
+/** 
+ * @file   Text.cpp
+ * @brief  Stackable for text (set of characters).
+ * @author Renato Cordeiro Ferreira
+ */
+
+// Libraries
 #include "Text.hpp"
 
+/**
+ * Overload the operator << to print Text. <br>
+ * @param  os   Standard output streams to print
+ * @param  addr Stackable text to be printed
+ * @return Standard output stream received as argument
+ */
 std::ostream& stk::operator<<(std::ostream& os, const Text& text)
 {
     os << text;

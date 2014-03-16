@@ -15,11 +15,19 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-// Internal libraries
+/** 
+ * @file   Number.cpp
+ * @brief  Stackable for numbers.
+ * @author Renato Cordeiro Ferreira
+ */
+
+// Libraries
 #include "Number.hpp"
 
-// template<typename T>
-// T stk::Number::get() const
+/**
+ * Number getter. <br>
+ * @return Number converted to C++ default type.
+ */
 long long stk::Number::get() const
 {
     switch(this->type)
@@ -33,6 +41,12 @@ long long stk::Number::get() const
     }
 }
 
+/**
+ * Overload the operator << to print numbers. <br>
+ * @param  os   Standard output streams to print
+ * @param  addr Stackable number to be printed
+ * @return Standard output stream received as argument
+ */
 std::ostream& stk::operator<<(std::ostream& os, const Number& n)
 {
     switch(n.type)

@@ -15,12 +15,23 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-// Internal libraries
+/** 
+ * @file   Bool.cpp
+ * @brief  Stackable for booleans (true/false).
+ * @author Renato Cordeiro Ferreira
+ */
+
+// Libraries
 #include "Bool.hpp"
 
+/**
+ * Overload the operator << to print booleans. <br>
+ * @param os   Standard output streams to print
+ * @param addr Stackable boolean to be printed
+ * @return Standard output stream received as argument
+ */
 std::ostream& stk::operator<<(std::ostream& os, const Bool& b)
 {
     os << b.boolean;
     return os;
 }
-

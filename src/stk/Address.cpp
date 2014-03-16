@@ -15,9 +15,21 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-// Internal libraries
+/** 
+ * @file   Address.cpp
+ * @brief  Stackable for adresses positions.
+ * @author Renato Cordeiro Ferreira
+ */
+
+// Libraries
 #include "Address.hpp"
 
+/**
+ * Overload the operator << to print addresses. <br>
+ * @param os   Standard output streams to print
+ * @param addr Stackable address to be printed
+ * @return Standard output stream received as argument
+ */
 std::ostream& stk::operator<<(std::ostream& os, const Address& addr)
 {
     os << addr.address;
