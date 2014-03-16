@@ -16,8 +16,9 @@
 /**********************************************************************/
 
 /** 
- * @file  IO.cpp
- * @brief Provide assembly input and output operations for a RVM.
+ * @file   IO.cpp
+ * @brief  Provide assembly input and output operations for a RVM.
+ * @author Renato Cordeiro Ferreira
  */
 
 // Default libraries

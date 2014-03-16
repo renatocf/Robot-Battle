@@ -16,8 +16,9 @@
 /**********************************************************************/
 
 /** 
- * @file  Arith.cpp
- * @brief Provide assembly arithmetic operations for a RVM.
+ * @file   Arith.cpp
+ * @brief  Provide assembly arithmetic operations for a RVM.
+ * @author Renato Cordeiro Ferreira
  */
 
 // Libraries

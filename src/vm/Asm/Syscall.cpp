@@ -15,6 +15,12 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
+/** 
+ * @file   Syscall.cpp
+ * @brief  Provide assembly system call operations for a RVM.
+ * @author Renato Cordeiro Ferreira
+ */
+
 // Libraries
 #include "Asm.hpp"
 #include "Debug.hpp"

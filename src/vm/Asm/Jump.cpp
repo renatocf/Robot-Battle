@@ -15,6 +15,12 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
+/** 
+ * @file   Jump.cpp
+ * @brief  Provide assembly jumps for a RVM.
+ * @author Renato Cordeiro Ferreira
+ */
+
 // Libraries
 #include "Asm.hpp"
 #include "Bool.hpp"
@@ -24,6 +30,14 @@
 #include "Stackable.hpp"
 using namespace vm;
 
+/**
+ * Assembly auxiliar function JCMP. <br>
+ * Given a comparison function, jump to the PC of a RVM to the position 
+ * of a stackable given as argument iff the condition is true.
+ * @param rvm Robot Virtual Machine
+ * @param cmp Boolean function to be tested in the top most stackable
+ *            of the main stack of a RVM
+ */
 template<typename Func>
 void Asm::JCMP(
     const RVM& rvm, 
@@ -46,24 +60,50 @@ void Asm::JCMP(
     
     int index = -1;
     if(stk->type == stk::Stackable::Type::Address)
-        index = static_cast<int>(dynamic_cast<stk::Address*>(stk.get())->get());
+        index = static_cast<int>(
+            dynamic_cast<stk::Address*>(stk.get())->get()
+        );
     else if(stk->type == stk::Stackable::Type::Text)
-        index = static_cast<int>(rvm.LABEL[dynamic_cast<stk::Text*>(stk.get())->get()]);
+        index = static_cast<int>(
+            rvm.LABEL[dynamic_cast<stk::Text*>(stk.get())->get()]
+        );
     else { result = false; /* TODO: put error */ }
     
     if(cmp(result, true)) rvm.PC = index-1;
 }
 
+/**
+ * Assembly function JMP. <br>
+ * Unconditionally jump the PC of a RVM to the position specified
+ * by a stackable given as argument.
+ * @param rvm Robot Virtual Machine
+ * @param stk Reference to pointer to stackable
+ */
 void Asm::JMP(const vm::RVM& rvm, const stk::Stackable_ptr& stk)
 {
     JCMP(rvm, stk, [] (bool result, bool b) { return true; });
 }
 
+/**
+ * Assembly function JIT. <br>
+ * If the top most stackable of a RVM is either a true boolean or a 
+ * non-zero number, jump the PC to the position specified by a 
+ * stackable given as argument.
+ * @param rvm Robot Virtual Machine
+ * @param stk Reference to pointer to stackable
+ */
 void Asm::JIT(const vm::RVM& rvm, const stk::Stackable_ptr& stk)
 {
     JCMP(rvm, stk, [] (bool result, bool b) { return result == b; });
 }
 
+/**
+ * Assembly function JIF. <br>
+ * If the top most stackable of a RVM is either a false boolean or zero,
+ * jump the PC to the position of a stackable given as argument.
+ * @param rvm Robot Virtual Machine
+ * @param stk Reference to pointer to stackable
+ */
 void Asm::JIF(const vm::RVM& rvm, const stk::Stackable_ptr& stk)
 {
     JCMP(rvm, stk, [] (bool result, bool b) { return result != b; });

@@ -15,6 +15,12 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
+/** 
+ * @file   Asm.hpp
+ * @brief  Class with definition of the assembly functions of a RVM.
+ * @author Renato Cordeiro Ferreira
+ */
+
 #ifndef HPP_VM_ASM_DEFINED
 #define HPP_VM_ASM_DEFINED
 
@@ -80,16 +86,20 @@ namespace vm
             static void operate(const vm::RVM& rvm, Func func);
             
             // Comparison auxiliar
-            template<typename T, typename F> 
+            template<typename T, typename Func>
             static void compare(
                 const RVM& rvm, 
                 const Stk_ptr& arg1, 
                 const Stk_ptr& arg2, 
-                F cmp
+                Func cmp
             );
             
-            template<typename F> 
-            static void select(const RVM& rvm, F cmp);
+            template<typename Func> 
+            static void select(const RVM& rvm, Func cmp);
+            
+            struct eq; struct ne;
+            struct gt; struct ge;
+            struct lt; struct le;
             
             // Jump auxiliar
             template<typename Func>

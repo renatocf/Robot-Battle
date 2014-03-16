@@ -16,8 +16,9 @@
 /**********************************************************************/
 
 /** 
- * @file  Mem.cpp
- * @brief Provide assembly RAM operations for a RVM.
+ * @file   Mem.cpp
+ * @brief  Provide assembly RAM operations for a RVM.
+ * @author Renato Cordeiro Ferreira
  */
 
 // Libraries
