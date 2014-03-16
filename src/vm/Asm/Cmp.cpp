@@ -15,8 +15,10 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#include <iostream>
-#include <typeinfo>
+/** 
+ * @file  Cmp.cpp
+ * @brief Provide assembly comparison operations for a RVM.
+ */
 
 // Libraries
 #include "Asm.hpp"
@@ -28,6 +30,15 @@
 #include "Stackable.hpp"
 using namespace vm;
 
+/**
+ * Assembly auxiliar function compare. <br>
+ * Auxiliar to execute a binary comparison operation 
+ * over its arguments and push the answer in a RVM.
+ * @param rvm  Robot Virtual Machine
+ * @param arg1 First argument for the binary comparison function
+ * @param arg2 Second argument for the binary comparison function
+ * @param cmp  Comparison function
+ */
 template<typename T, typename F> 
 void Asm::compare(
     const RVM& rvm, 
@@ -39,10 +50,19 @@ void Asm::compare(
     T* arg2_ptr = dynamic_cast<T*>(arg2.get());
     
     Asm::push(rvm, stk::Stackable_ptr { 
-        new stk::Bool { cmp(arg1_ptr->get(), arg2_ptr->get()) ? true : false }
+        new stk::Bool { cmp(arg1_ptr->get(), arg2_ptr->get()) 
+                        ? true : false }
     });
 }
 
+/**
+ * Assembly auxiliar function select. <br>
+ * Auxiliar to execute a binary comparison operation 
+ * over the two top most stackable in the main stack 
+ * of a Virtual Machine (accordingly to its type).
+ * @param rvm Robot Virtual Machine
+ * @param cmp Comparison function to be executed over the arguments
+ */
 template<typename F> 
 void Asm::select(const RVM& rvm, F cmp)
 {
@@ -70,67 +90,133 @@ void Asm::select(const RVM& rvm, F cmp)
     Debug::printStack(rvm);
 }
 
+/**
+ * Auxiliar functor for the 'equal' operation. <br>
+ * Provides a template for the operation above in any type.
+ */
 struct eq
 {
+    /// Overload the operator () to provide a functor.
     template<typename T>
     bool operator() (T x, T y) const { return x == y; }
 };
 
+/**
+ * Assembly function EQ. <br>
+ * Compare for equality the two top most stackable of a RVM 
+ * and push the result.
+ * @param rvm Robot Virtual Machine
+ */
 void Asm::EQ(const vm::RVM& rvm)
 {
     Asm::select(rvm, eq {});
 }
 
+/**
+ * Auxiliar functor for the 'not equal' operation. <br>
+ * Provides a template for the operation above in any type.
+ */
 struct ne
 {
+    /// Overload the operator () to provide a functor.
     template<typename T>
     bool operator() (T x, T y) const { return x != y; }
 };
 
+/**
+ * Assembly function NE. <br>
+ * Compare for inequality the two top most stackable of a RVM 
+ * and push the result.
+ * @param rvm Robot Virtual Machine
+ */
 void Asm::NE(const vm::RVM& rvm)
 {
     Asm::select(rvm, ne {});
 }
 
+/**
+ * Auxiliar functor for the 'greater than' operation. <br>
+ * Provides a template for the operation above in any type.
+ */
 struct gt
 {
+    /// Overload the operator () to provide a functor.
     template<typename T>
     bool operator() (T x, T y) const { return x > y; }
 };
 
+/**
+ * Assembly function GT. <br>
+ * Execute the greater than operation over the two top most 
+ * stackable of a RVM and push the result.
+ * @param rvm Robot Virtual Machine
+ */
 void Asm::GT(const vm::RVM& rvm)
 {
     Asm::select(rvm, gt {});
 }
 
+/**
+ * Auxiliar functor for the 'greater or equal' operation. <br>
+ * Provides a template for the operation above in any type.
+ */
 struct ge
 {
+    /// Overload the operator () to provide a functor.
     template<typename T>
     bool operator() (T x, T y) const { return x >= y; }
 };
 
+/**
+ * Assembly function GE. <br>
+ * Execute the greater or equal operation over the two top most 
+ * stackable of a RVM and push the result.
+ * @param rvm Robot Virtual Machine
+ */
 void Asm::GE(const vm::RVM& rvm)
 {
     Asm::select(rvm, ne {});
 }
 
+/**
+ * Auxiliar functor for the 'less than' operation. <br>
+ * Provides a template for the operation above in any type.
+ */
 struct lt
 {
+    /// Overload the operator () to provide a functor.
     template<typename T>
     bool operator() (T x, T y) const { return x < y; }
 };
 
+/**
+ * Assembly function LT. <br>
+ * Execute the less than operation over the two top most 
+ * stackable of a RVM and push the result.
+ * @param rvm Robot Virtual Machine
+ */
 void Asm::LT(const vm::RVM& rvm)
 {
     Asm::select(rvm, lt {});
 }
 
+/**
+ * Auxiliar functor for the 'less or equal' operation. <br>
+ * Provides a template for the operation above in any type.
+ */
 struct le
 {
+    /// Overload the operator () to provide a functor.
     template<typename T>
     bool operator() (T x, T y) const { return x <= y; }
 };
 
+/**
+ * Assembly function LE. <br>
+ * Execute the less or equal operation over the two top most 
+ * stackable of a RVM and push the result.
+ * @param rvm Robot Virtual Machine
+ */
 void Asm::LE(const vm::RVM& rvm)
 {
     Asm::select(rvm, le {});

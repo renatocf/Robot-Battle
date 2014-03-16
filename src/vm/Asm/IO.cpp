@@ -15,7 +15,12 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-// Default Libraries
+/** 
+ * @file  IO.cpp
+ * @brief Provide assembly input and output operations for a RVM.
+ */
+
+// Default libraries
 #include <iostream>
 
 // Libraries
@@ -23,6 +28,11 @@
 #include "Debug.hpp"
 using namespace vm;
 
+/**
+ * Assembly function PRN. <br>
+ * Print the top most argument of a RVM, consuming it.
+ * @param rvm Robot Virtual Machine
+ */
 void Asm::PRN(const vm::RVM& rvm)
 {
     std::cout << Asm::pop(rvm) << std::endl;

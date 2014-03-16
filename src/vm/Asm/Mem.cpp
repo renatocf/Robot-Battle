@@ -15,13 +15,24 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#include <iostream>
+/** 
+ * @file  Mem.cpp
+ * @brief Provide assembly RAM operations for a RVM.
+ */
+
 // Libraries
 #include "Asm.hpp"
 #include "Debug.hpp"
 #include "Address.hpp"
 using namespace vm;
 
+/**
+ * Assembly function STO. <br>
+ * Remove the top most argument of the main stack of a RVM and 
+ * stores it in the position specified by a numeric argument.
+ * @param rvm Robot Virtual Machine
+ * @param stk Reference to pointer to stackable
+ */
 void Asm::STO(const vm::RVM& rvm, const stk::Stackable_ptr& stk)
 {
     int pos = dynamic_cast<stk::Address*>(stk.get())->get();
@@ -29,6 +40,13 @@ void Asm::STO(const vm::RVM& rvm, const stk::Stackable_ptr& stk)
     Debug::printRAM(rvm);
 }
 
+/**
+ * Assembly function RCL. <br>
+ * Remove the RAM stackable specified by a numerical argument
+ * and pushes it in the main stack of its RVM.
+ * @param rvm Robot Virtual Machine
+ * @param stk Reference to pointer to stackable
+ */
 void Asm::RCL(const vm::RVM& rvm, const stk::Stackable_ptr& stk)
 {
     int pos = dynamic_cast<stk::Address*>(stk.get())->get();

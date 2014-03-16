@@ -24,6 +24,7 @@ using namespace vm;
  * Assembly funcion NOP. <br>
  * Do nothing for one step.
  * (Equivalent to a syscall)
+ * @param rvm Robot Virtual Machine
  */
 void Asm::NOP(const RVM& rvm) 
 { 
@@ -36,6 +37,7 @@ void Asm::NOP(const RVM& rvm)
  * Sets the counter to indicate
  * the END of the program.
  * the execution for 1 step.
+ * @param rvm Robot Virtual Machine
  */
 void Asm::END(const RVM& rvm) 
 { 
