@@ -1,8 +1,8 @@
 #include <iostream>
 #include "Syntax_C.hpp"
 
-std::ostream& parser::operator<<(std::ostream& os, const ArithC& arithC)
+std::ostream& parser::operator<<(std::ostream& os, const ExprC& exprC)
 {
-    arithC.print(0, ' ');
+    exprC.print(0, ' ');
     return os;
 }

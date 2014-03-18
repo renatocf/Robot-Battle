@@ -8,79 +8,89 @@
 
 namespace parser
 {
-    class ArithC
-    {   
-        public:
-            virtual void print(int n_spaces, char sep) const = 0;
-        
+    class ExprC
+    {
         protected:
             enum class Type { numC, plusC, multC };
-            Type type {};
+            std::vector<const ExprC *> sons;
             
-            std::vector<const ArithC *> sons;
+        public:
+            const Type type;
+            virtual void print(int n_spaces, char sep) const = 0;
             
-            ArithC(Type t) : type{t} {}
+            virtual const std::vector<const ExprC *>& 
+            get() const { return sons; }
+             
+        protected:
+            ExprC(Type t) : type{t} {}
             
             friend std::ostream& 
-            operator<<(std::ostream& os, const ArithC& arithC);
+            operator<<(std::ostream& os, const ExprC& exprC);
+            
+        friend class Compiler;
     };
     
-    std::ostream& operator<<(std::ostream& os, const ArithC& arithC);
+    std::ostream& operator<<(std::ostream& os, const ExprC& exprC);
     
-    class plusC : public ArithC
+    class plusC : public ExprC
     {
         public:
-            const ArithC *l, *r;
-            
-            plusC(const ArithC& l, const ArithC& r)
-                : ArithC{ArithC::Type::plusC}, l{&l}, r{&r} {}
+            plusC(const ExprC& l, const ExprC& r)
+                : ExprC{ExprC::Type::plusC}
+            {
+                sons.push_back(&l); sons.push_back(&r);
+            }
             
             void print(int n_spaces, char sep) const
             {
                 std::cout << "plusC" << std::endl;
-                
+
                 for(int i = 0; i < n_spaces; i++) std::cout << sep << "  ";
-                std::cout << "|- "; l->print(n_spaces+1, '|');
-                
+                std::cout << "|- "; sons[0]->print(n_spaces+1, '|');
+
                 for(int i = 0; i < n_spaces; i++) std::cout << sep << "  ";
-                std::cout << "'- "; r->print(n_spaces+1, ' ');
+                std::cout << "'- "; sons[1]->print(n_spaces+1, ' ');
             }
     };
     
-    class multC : public ArithC
+    class multC : public ExprC
     {
         public:
-            const ArithC *l, *r;
+            multC(const ExprC& l, const ExprC& r)
+                : ExprC{ExprC::Type::multC}
+            {
+                sons.push_back(&l); sons.push_back(&r);
+            }
             
             void print(int n_spaces, char sep) const
             {
                 std::cout << "multC" << std::endl;
-                
+
                 for(int i = 0; i < n_spaces; i++) std::cout << sep << "  ";
-                std::cout << "|- "; l->print(n_spaces+1, '|');
-                
+                std::cout << "|- "; sons[0]->print(n_spaces+1, '|');
+
                 for(int i = 0; i < n_spaces; i++) std::cout << sep << "  ";
-                std::cout << "'- "; r->print(n_spaces+1, ' ');
+                std::cout << "'- "; sons[1]->print(n_spaces+1, ' ');
             }
-        
-            multC(const ArithC& l, const ArithC& r)
-                : ArithC{ArithC::Type::multC}, l{&l}, r{&r} {}
     };
     
-    class numC : public ArithC
+    class numC : public ExprC
     {
-        public:
+        private:
             long long n; 
+         
+        public:
+            numC(int n)
+                : ExprC{ExprC::Type::numC}, n{n} {}
+            numC(long long n)
+                : ExprC{ExprC::Type::numC}, n{n} {}
             
             void print(int n_spaces, char sep) const
             {
                 std::cout << this->n << std::endl;
             }
             
-            numC(int n)
-                : ArithC{ArithC::Type::numC}, n{n} {}
-            numC(long long n)
-                : ArithC{ArithC::Type::numC}, n{n} {}
+            long long get_content() const { return this->n; }
     };
 }
 
