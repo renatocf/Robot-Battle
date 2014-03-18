@@ -6,8 +6,12 @@
 #include <typeinfo>
 #include <iostream>
 
+// Libraries
+// #include "Visitor.hpp"
+
 namespace parser
 {
+    
     class ExprC
     {
         protected:
@@ -16,10 +20,21 @@ namespace parser
             
         public:
             const Type type;
-            virtual void print(int n_spaces, char sep) const = 0;
+
+            virtual void 
+            print(int n_spaces, char sep) const = 0;
             
             virtual const std::vector<const ExprC *>& 
             get() const { return sons; }
+            
+            class Visitor
+            {
+                public:
+                    virtual void visit(const ExprC *exprC) const {}
+            };
+            
+            virtual void
+            visit(const ExprC::Visitor& visitor) { visitor.visit(this); }
              
         protected:
             ExprC(Type t) : type{t} {}
