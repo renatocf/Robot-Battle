@@ -57,7 +57,7 @@ std::string vm::to_string(const vm::Command::Opcode& op)
 {
     switch(op)
     {
-        case Command::Opcode::NONE: return "NONE";
+        case Command::Opcode::NONE: return "";
         case Command::Opcode::PRN:  return "PRN";
         case Command::Opcode::PUSH: return "PUSH";
         case Command::Opcode::POP:  return "POP";
