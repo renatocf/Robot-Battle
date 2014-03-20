@@ -13,14 +13,16 @@
     [X] Implement control syscalls (NOP, END).
     [ ] Finish implementing syscalls.
 
-[parser]
+[Positron]
     [X] Create scripts in Perl to parse Quark to C++.
     [X] Execute Quark programs on demand.
     [X] Make parser/quark automatically with Perl.
-    [ ] Add IF in the Syntatic Base Tree.
-    [ ] Create a tree for Syntatic Sygar.
+    [X] Add ifC in the Syntatic Base Tree.
+    [ ] Add a solution to compilate ifC in Assembly.
+    [ ] Create a tree for Syntatic Sugar.
     [ ] Implement Positron lexer/parser with Flex/Bison.
     [ ] Generate Syntatic Tree from the parser.
+    [ ] Add Doxygen documentation in all Positron C++ code.
 
 [option]
     [X] Create an option for debugging.
@@ -70,8 +72,4 @@
 
 [tests]
     [ ] Finish implementing unit tests for all files.
-
-[documentation]
-    [X] Include Doxygen documentation in all source files.
-    [ ] Include Doxygen documentation in all include files.
 
