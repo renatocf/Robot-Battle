@@ -18,60 +18,23 @@
 #ifndef HPP_PARSER_COMPILER_DEFINED
 #define HPP_PARSER_COMPILER_DEFINED
 
-// Default libraries
-#include <memory>
-
 // Libraries
-#include "Number.hpp"
 #include "Command.hpp"
 #include "Syntax_C.hpp"
-#include "Stackable.hpp"
-
-#include <iostream>
-using namespace std;
+#include "SyntaxC2Asm.hpp"
 
 namespace parser
 {
     class Compiler
     {
         public:
-            vm::Prog 
-            compile(const ExprC& root)
+            vm::Prog compile(const ExprC& root)
             {
-                vm::Prog prog {};
-                prog = std::move(compileR(root, prog));
+                SyntaxC2Asm visitor {};
+                root.accept(visitor);
+                vm::Prog prog { std::move(visitor.get()) };
                 prog.push_back(vm::Command { vm::Command::Opcode::PRN });
                 prog.push_back(vm::Command { vm::Command::Opcode::END });
-                return prog;
-            }
-            
-        private:
-            vm::Prog compileR(const ExprC& root, vm::Prog& prog)
-            {
-                switch(root.type)
-                {
-                    case ExprC::Type::plusC:
-                        for(const ExprC *arg : root.get())
-                            compileR(*arg, prog);
-                        prog.push_back(vm::Command { 
-                            vm::Command::Opcode::ADD });
-                        break;
-                        
-                    case ExprC::Type::multC:
-                        for(const ExprC *arg : root.get())
-                            compileR(*arg, prog);
-                        prog.push_back(vm::Command {
-                            vm::Command::Opcode::MUL });
-                        break;
-                    
-                    case ExprC::Type::numC:
-                        stk::Stackable_ptr num { new stk::Number {
-                            dynamic_cast<const numC&>(root).get_content()
-                        }};
-                        prog.push_back(vm::Command {
-                            vm::Command::Opcode::PUSH, num });
-                        break;
-                }
                 return prog;
             }
     };
