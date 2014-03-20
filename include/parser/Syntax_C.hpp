@@ -6,16 +6,12 @@
 #include <typeinfo>
 #include <iostream>
 
-// Libraries
-// #include "Visitor.hpp"
-
 namespace parser
 {
-    
     class ExprC
     {
         protected:
-            enum class Type { numC, plusC, multC };
+            enum class Type { numC, plusC, multC, ifC };
             std::vector<const ExprC *> sons;
             
         public:
@@ -26,23 +22,16 @@ namespace parser
             
             virtual const std::vector<const ExprC *>& 
             get() const { return sons; }
-            
-            class Visitor
-            {
-                public:
-                    virtual void visit(const ExprC *exprC) const {}
-            };
-            
-            virtual void
-            visit(const ExprC::Visitor& visitor) { visitor.visit(this); }
+    
+            virtual void 
+            accept(const class Visitor& visitor) const = 0;
              
         protected:
-            ExprC(Type t) : type{t} {}
+            ExprC(Type t, std::vector<const ExprC *> sons = {}) 
+                : sons{sons}, type{t} {}
             
             friend std::ostream& 
             operator<<(std::ostream& os, const ExprC& exprC);
-            
-        friend class Compiler;
     };
     
     std::ostream& operator<<(std::ostream& os, const ExprC& exprC);
@@ -51,61 +40,56 @@ namespace parser
     {
         public:
             plusC(const ExprC& l, const ExprC& r)
-                : ExprC{ExprC::Type::plusC}
-            {
-                sons.push_back(&l); sons.push_back(&r);
-            }
+                : ExprC{ExprC::Type::plusC, {&l,&r}} {}
             
-            void print(int n_spaces, char sep) const
-            {
-                std::cout << "plusC" << std::endl;
-
-                for(int i = 0; i < n_spaces; i++) std::cout << sep << "  ";
-                std::cout << "|- "; sons[0]->print(n_spaces+1, '|');
-
-                for(int i = 0; i < n_spaces; i++) std::cout << sep << "  ";
-                std::cout << "'- "; sons[1]->print(n_spaces+1, ' ');
-            }
+            void print  (int n_spaces, char sep) const;
+            void accept (const Visitor& visitor) const;
     };
     
     class multC : public ExprC
     {
         public:
             multC(const ExprC& l, const ExprC& r)
-                : ExprC{ExprC::Type::multC}
-            {
-                sons.push_back(&l); sons.push_back(&r);
-            }
+                : ExprC{ExprC::Type::multC, {&l,&r}} {}
             
-            void print(int n_spaces, char sep) const
-            {
-                std::cout << "multC" << std::endl;
+            void print  (int n_spaces, char sep) const;
+            void accept (const Visitor& visitor) const;
+    };
+    
+    class ifC : public ExprC
+    {
+        public:
+            ifC(const ExprC& cond, const ExprC& yes, const ExprC& no)
+                : ExprC{ExprC::Type::ifC, {&cond,&yes,&no}} {}
 
-                for(int i = 0; i < n_spaces; i++) std::cout << sep << "  ";
-                std::cout << "|- "; sons[0]->print(n_spaces+1, '|');
-
-                for(int i = 0; i < n_spaces; i++) std::cout << sep << "  ";
-                std::cout << "'- "; sons[1]->print(n_spaces+1, ' ');
-            }
+            void print  (int n_spaces, char sep) const;
+            void accept (const Visitor& visitor) const;
     };
     
     class numC : public ExprC
     {
         private:
             long long n; 
-         
+
         public:
             numC(int n)
                 : ExprC{ExprC::Type::numC}, n{n} {}
             numC(long long n)
                 : ExprC{ExprC::Type::numC}, n{n} {}
-            
-            void print(int n_spaces, char sep) const
-            {
-                std::cout << this->n << std::endl;
-            }
-            
+
             long long get_content() const { return this->n; }
+
+            void print  (int n_spaces, char sep) const;
+            void accept (const Visitor& visitor) const;
+    };
+    
+    class Visitor
+    {
+        public:
+            virtual void visit(const numC  *exprC) const = 0;
+            virtual void visit(const plusC *exprC) const = 0;
+            virtual void visit(const multC *exprC) const = 0;
+            virtual void visit(const ifC   *exprC) const = 0;
     };
 }
 
