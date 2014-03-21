@@ -66,7 +66,7 @@
     [X] Add a MODULE in 'new' and 'delete', for header + directory.
     [X] Add variable FORTRAN_FILE to create a FORTRAN module with 'new'.
     [X] Make 'delete' work with files of any extension.
-    [ ] Add namespace when creating C++ in a subdirectory.
+    [X] Add namespace when creating C++ in a subdirectory.
     [ ] Support Java compilation and generation of .jar.
     [ ] Add option to automatically create a RPM package.
 
