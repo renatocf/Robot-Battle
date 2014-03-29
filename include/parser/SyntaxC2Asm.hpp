@@ -40,9 +40,9 @@ namespace parser
             
             void visit(const numC *exprC) const 
             {
-                stk::Stackable_ptr num { new stk::Number {
+                stk::Number num {
                     dynamic_cast<const numC *>(exprC)->get_content()
-                }};
+                };
                 prog.push_back(vm::Command 
                     { vm::Command::Opcode::PUSH, num });
             }
@@ -90,16 +90,13 @@ namespace parser
                     vm::Command::Opcode::JIT, stk::Text{"IF" + c_if} });
                 prog.push_back(vm::Command {
                     vm::Command::Opcode::JIF, stk::Text{"ELSE" + c_if} });
-                prog.push_back(vm::Command {
-                    vm::Command::Opcode::NONE, nullptr, "IF" + c_if });
+                prog.push_back(vm::Command { "IF" + c_if });
                 exprC->accept_r(*this);
                 prog.push_back(vm::Command {
                     vm::Command::Opcode::JMP, stk::Text{"ENDIF" + c_if} });
-                prog.push_back(vm::Command {
-                    vm::Command::Opcode::NONE, nullptr, "ELSE" + c_if });
+                prog.push_back(vm::Command { "ELSE" + c_if });
                 exprC->accept_x(*this);
-                prog.push_back(vm::Command {
-                    vm::Command::Opcode::NONE, nullptr, "ENDIF" + c_if });
+                prog.push_back(vm::Command { "ENDIF" + c_if });
                 c_if++;
                 // exprC->accept_sons(*this);
             }

@@ -55,19 +55,27 @@ namespace vm
             const stk::Stackable_ptr arg {}; // argument
             const std::string        lab {}; // label
             
-            Command(
-                vm::Command::Opcode cmd = {}, 
-                stk::Stackable_ptr  arg = {}, 
-                std::string         lab = {}
-            )
-                : cmd{cmd}, arg{std::move(arg)}, lab{lab} {}
+            // Command(
+            //     vm::Command::Opcode cmd = {}, 
+            //     stk::Stackable_ptr  arg = {}, 
+            //     std::string         lab = {}
+            // )
+            //     : cmd{cmd}, arg{std::move(arg)}, lab{lab} {}
             
-            // Command(const vm::Command::Opcode& cmd)
-                // : cmd{cmd} {}
+            Command(const vm::Command::Opcode& cmd)
+                : cmd{cmd} {}
+            
+            Command(const std::string& lab)
+                : lab{lab} {}
             
             Command(
                 const vm::Command::Opcode& cmd, 
-                const stk::Stackable&      arg, 
+                const std::string& lab)
+                : cmd{cmd}, lab{lab} {}
+            
+            Command(
+                const vm::Command::Opcode& cmd, 
+                const stk::Stackable&      arg,
                 const std::string&         lab = {}
             )
                 : cmd{cmd}, arg{arg.clone()}, lab{lab} {}
