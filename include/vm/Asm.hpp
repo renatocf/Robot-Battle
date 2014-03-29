@@ -106,7 +106,8 @@ namespace vm
             static void JCMP(
                 const RVM& rvm, 
                 const Stk_ptr& stk, 
-                Func cmp
+                Func cmp,
+                bool pop = true
             );
     };
 }

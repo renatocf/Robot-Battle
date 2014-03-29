@@ -42,21 +42,25 @@ template<typename Func>
 void Asm::JCMP(
     const RVM& rvm, 
     const stk::Stackable_ptr& stk, 
-    Func cmp)
+    Func cmp, 
+    bool pop)
 {
-    bool result;
-    stk::Stackable_ptr b { Asm::pop(rvm) };
-    
-    if(b->type == stk::Stackable::Type::Bool)
+    bool result = true;
+    if(pop)
     {
-        result = dynamic_cast<stk::Bool*>(b.get())->get();
+        stk::Stackable_ptr b { Asm::pop(rvm) };
+        
+        if(b->type == stk::Stackable::Type::Bool)
+        {
+            result = dynamic_cast<stk::Bool*>(b.get())->get();
+        }
+        else if(b->type == stk::Stackable::Type::Number)
+        {
+            result = (dynamic_cast<stk::Number*>(b.get())->get() != 0)
+                ? true : false;
+        }
+        else { result = false; /* TODO: put error */ }
     }
-    else if(b->type == stk::Stackable::Type::Number)
-    {
-        result = (dynamic_cast<stk::Number*>(b.get())->get() != 0)
-            ? true : false;
-    }
-    else { result = false; /* TODO: put error */ }
     
     int index = -1;
     if(stk->type == stk::Stackable::Type::Address)
@@ -81,7 +85,7 @@ void Asm::JCMP(
  */
 void Asm::JMP(const vm::RVM& rvm, const stk::Stackable_ptr& stk)
 {
-    JCMP(rvm, stk, [] (bool result, bool b) { return true; });
+    JCMP(rvm, stk, [] (bool result, bool b) { return true; }, false);
 }
 
 /**
