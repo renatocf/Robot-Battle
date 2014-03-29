@@ -292,10 +292,14 @@ sub preproc
     my $obj = shift;
 
     # Get items from item directory
-    opendir ITEMS, $obj->{ITEMDIR};
-    map  { s/\.cpp//; $obj->{ITEM}{$_} = 0 } 
-    grep { not /^\./ and not /^Item/ and -f "$obj->{ITEMDIR}/$_"} readdir ITEMS;
-    closedir ITEMS;
+    if(-d $obj->{ITEMDIR})
+    {
+        opendir ITEMS, $obj->{ITEMDIR};
+        map  { s/\.cpp//; $obj->{ITEM}{$_} = 0 } 
+        grep { not /^\./ and not /^Item/ and -f "$obj->{ITEMDIR}/$_"}
+            readdir ITEMS;
+        closedir ITEMS;
+    }
     
     my ($t, $n, $a, $v) = (0, 0, 0, 0);
     for my $line (@{$obj->{PROG}})
@@ -324,7 +328,7 @@ sub preproc
                 {
                     $a++; $line->[1] = "adr$a";
                     $obj->{ADDRESS}{$arg} = 
-                        [ $a, "Stackable_ptr adr$a { new Address { $arg } };" ];
+                        [ $a, "Address adr$a { $arg };" ];
                 }
                 else { $line->[1] = "adr$obj->{ADDRESS}{$arg}[0]"; }
             }
@@ -336,7 +340,7 @@ sub preproc
                 {
                     $n++; $line->[1] = "num$n";
                     $obj->{NUMERIC}{$arg} = 
-                        [ $n, "Stackable_ptr num$n { new Number { $arg } };" ];
+                        [ $n, "Number num$n { $arg };" ];
                 }
                 else { $line->[1] = "num$obj->{NUMERIC}{$arg}[0]"; }
             }
@@ -348,7 +352,7 @@ sub preproc
                 $arg =~ s/->//; 
                 $line->[1] = "d$arg";
                 $obj->{DIRECTION}{$arg} 
-                    = "Stackable_ptr d$arg { new Direction { \"$arg\" } };";
+                    = "Direction d$arg { \"$arg\" };";
             }
             
             # Attack argument
@@ -358,7 +362,7 @@ sub preproc
                 $arg =~ s/\(X\)//; 
                 $line->[1] = "x$arg";
                 $obj->{ATTACK}{$arg} 
-                    = "Stackable_ptr x$arg { new Attack { \"$arg\" } };";
+                    = "Attack x$arg { \"$arg\" };";
             }
             
             # Stackable (item) argument
@@ -379,7 +383,7 @@ sub preproc
                 {
                     $v++; $line->[1] = "var$v";
                     $obj->{VARS}{$arg} = 
-                        [ $v, "Stackable_ptr var$v { new stk::Text { \"$arg\" } };" ];
+                        [ $v, "stk::Text var$v { \"$arg\" };" ];
                 }
                 else { $line->[1] = "var$obj->{VARS}{$arg}[0]"; }
             }
@@ -391,7 +395,7 @@ sub preproc
                 {
                     $t++; $line->[1] = "msg$t";
                     $obj->{TEXTUAL}{$arg} = 
-                        [ $t, "Stackable_ptr msg$t { new stk::Text { \"$arg\" } };" ];
+                        [ $t, "stk::Text msg$t { \"$arg\" };" ];
                 }
                 else { $line->[1] = "msg$obj->{TEXTUAL}{$arg}[0]"; }
             }
