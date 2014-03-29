@@ -12,6 +12,7 @@
     [X] Correct jumps to work correcty with RVM.
     [X] Correct memory modules and print them in the debug.
     [X] Implement control syscalls (NOP, END).
+    [X] Remove Stackable_ptr from Command constructor.
     [ ] Finish implementing syscalls.
 
 [Positron]
@@ -21,6 +22,7 @@
     [X] Add ifC in the Syntatic Base Tree.
     [X] Move recursive calls from visit method to visitors.
     [X] Add a solution to compilate ifC in Assembly.
+    [X] Create directories needed to compile Perl.
     [ ] Create a tree for Syntatic Sugar.
     [ ] Implement Positron lexer/parser with Flex/Bison.
     [ ] Generate Syntatic Tree from the parser.
