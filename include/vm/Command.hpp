@@ -62,10 +62,20 @@ namespace vm
             )
                 : cmd{cmd}, arg{std::move(arg)}, lab{lab} {}
             
-            Command(const Command& cmd)
-                : cmd{cmd.cmd}, 
-                  arg{cmd.arg ? cmd.arg->clone() : nullptr},
-                  lab{cmd.lab} {}
+            // Command(const vm::Command::Opcode& cmd)
+                // : cmd{cmd} {}
+            
+            Command(
+                const vm::Command::Opcode& cmd, 
+                const stk::Stackable&      arg, 
+                const std::string&         lab = {}
+            )
+                : cmd{cmd}, arg{arg.clone()}, lab{lab} {}
+            
+            // Command(const Command& cmd)
+                // : cmd{cmd.cmd}, 
+                  // arg{cmd.arg ? cmd.arg->clone() : nullptr},
+                  // lab{cmd.lab} {}
             
             // Command(const Command&& cmd)
                 // : cmd{cmd.cmd}, arg{cmd.arg->clone()}, lab{cmd.lab} {}
