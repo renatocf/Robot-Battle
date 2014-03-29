@@ -19,6 +19,7 @@
 #define HPP_PARSER_SYNTAXC2ASM_DEFINED
 
 // Libraries
+#include "Text.hpp"
 #include "Bool.hpp"
 #include "Number.hpp"
 #include "Command.hpp"
@@ -49,23 +50,59 @@ namespace parser
             
             void visit(const plusC *exprC) const 
             {
+                exprC->accept_l(*this); 
+                exprC->accept_r(*this);
                 prog.push_back(vm::Command 
                     { vm::Command::Opcode::ADD });
             }
             
+            void visit(const bminusC *exprC) const 
+            {
+                exprC->accept_l(*this); 
+                exprC->accept_r(*this);
+                prog.push_back(vm::Command 
+                    { vm::Command::Opcode::SUB });
+            }
+            
             void visit(const multC *exprC) const 
             {
+                exprC->accept_l(*this); 
+                exprC->accept_r(*this);
                 prog.push_back(vm::Command {
                     vm::Command::Opcode::MUL });
             }
             
+            void visit(const divC *exprC) const 
+            {
+                exprC->accept_l(*this); 
+                exprC->accept_r(*this);
+                prog.push_back(vm::Command {
+                    vm::Command::Opcode::DIV });
+            }
+            
             void visit(const ifC *exprC) const 
             {
-                stk::Stackable_ptr test { new stk::Bool{true} };
+                exprC->accept_l(*this); 
                 prog.push_back(vm::Command {
-                    vm::Command::Opcode::JIT,  });
+                    vm::Command::Opcode::PUSH, stk::Number{1} });
+                prog.push_back(vm::Command {
+                    vm::Command::Opcode::EQ });
+                prog.push_back(vm::Command {
+                    vm::Command::Opcode::JIT, stk::Text{"IF" + c_if} });
+                prog.push_back(vm::Command {
+                    vm::Command::Opcode::JIF, stk::Text{"ELSE" + c_if} });
                 prog.push_back(vm::Command {
                     vm::Command::Opcode::NONE, nullptr, "IF" + c_if });
+                exprC->accept_r(*this);
+                prog.push_back(vm::Command {
+                    vm::Command::Opcode::JMP, stk::Text{"ENDIF" + c_if} });
+                prog.push_back(vm::Command {
+                    vm::Command::Opcode::NONE, nullptr, "ELSE" + c_if });
+                exprC->accept_x(*this);
+                prog.push_back(vm::Command {
+                    vm::Command::Opcode::NONE, nullptr, "ENDIF" + c_if });
+                c_if++;
+                // exprC->accept_sons(*this);
             }
     };
 }
