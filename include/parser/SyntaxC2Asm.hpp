@@ -40,6 +40,7 @@ namespace parser
             
             void visit(const numC *exprC) const 
             {
+                if(exprC == nullptr) return;
                 stk::Number num {
                     dynamic_cast<const numC *>(exprC)->get_content()
                 };
@@ -49,6 +50,7 @@ namespace parser
             
             void visit(const plusC *exprC) const 
             {
+                if(exprC == nullptr) return;
                 exprC->accept_l(*this); 
                 exprC->accept_r(*this);
                 prog.push_back(vm::Command 
@@ -57,6 +59,7 @@ namespace parser
             
             void visit(const bminusC *exprC) const 
             {
+                if(exprC == nullptr) return;
                 exprC->accept_l(*this); 
                 exprC->accept_r(*this);
                 prog.push_back(vm::Command 
@@ -65,6 +68,7 @@ namespace parser
             
             void visit(const multC *exprC) const 
             {
+                if(exprC == nullptr) return;
                 exprC->accept_l(*this); 
                 exprC->accept_r(*this);
                 prog.push_back(vm::Command {
@@ -73,6 +77,7 @@ namespace parser
             
             void visit(const divC *exprC) const 
             {
+                if(exprC == nullptr) return;
                 exprC->accept_l(*this); 
                 exprC->accept_r(*this);
                 prog.push_back(vm::Command {
@@ -81,23 +86,28 @@ namespace parser
             
             void visit(const ifC *exprC) const 
             {
+                if(exprC == nullptr) return;
+                int lvl = c_if; c_if++;
+                std::string s_if    { "IF"    + std::to_string(lvl) };
+                std::string s_else  { "ELSE"  + std::to_string(lvl) };
+                std::string s_endif { "ENDIF" + std::to_string(lvl) };
+                
                 exprC->accept_l(*this); 
                 prog.push_back(vm::Command {
                     vm::Command::Opcode::PUSH, stk::Number{1} });
                 prog.push_back(vm::Command {
                     vm::Command::Opcode::EQ });
                 prog.push_back(vm::Command {
-                    vm::Command::Opcode::JIT, stk::Text{"IF" + c_if} });
+                    vm::Command::Opcode::JIT, stk::Text{s_if} });
                 prog.push_back(vm::Command {
-                    vm::Command::Opcode::JIF, stk::Text{"ELSE" + c_if} });
-                prog.push_back(vm::Command { "IF" + c_if });
+                    vm::Command::Opcode::JMP, stk::Text{s_else} });
+                prog.push_back(vm::Command { s_if });
                 exprC->accept_r(*this);
                 prog.push_back(vm::Command {
-                    vm::Command::Opcode::JMP, stk::Text{"ENDIF" + c_if} });
-                prog.push_back(vm::Command { "ELSE" + c_if });
+                    vm::Command::Opcode::JMP, stk::Text{s_endif} });
+                prog.push_back(vm::Command { s_else });
                 exprC->accept_x(*this);
-                prog.push_back(vm::Command { "ENDIF" + c_if });
-                c_if++;
+                prog.push_back(vm::Command { s_endif });
                 // exprC->accept_sons(*this);
             }
     };

@@ -36,6 +36,7 @@ namespace parser
         public:
             void visit(const numC *exprC) const 
             {
+                if(exprC == nullptr) return;
                 stk::Stackable_ptr num { new stk::Number {
                     dynamic_cast<const numC *>(exprC)->get_content()
                 }};
@@ -44,6 +45,7 @@ namespace parser
             
             void visit(const plusC *exprC) const 
             {
+                if(exprC == nullptr) return;
                 std::cout << "plusC" << std::endl;
                 visit_l(exprC, "|- ", "|  "); 
                 visit_r(exprC, "'- ", "|  ");
@@ -51,6 +53,7 @@ namespace parser
             
             void visit(const bminusC *exprC) const 
             {
+                if(exprC == nullptr) return;
                 std::cout << "bminusC" << std::endl;
                 visit_l(exprC, "|- ", "|  "); 
                 visit_r(exprC, "'- ", "|  ");
@@ -58,6 +61,7 @@ namespace parser
             
             void visit(const multC *exprC) const 
             {
+                if(exprC == nullptr) return;
                 std::cout << "multC" << std::endl;
                 visit_l(exprC, "|- ", "|  "); 
                 visit_r(exprC, "'- ", "|  ");
@@ -65,6 +69,7 @@ namespace parser
             
             void visit(const divC *exprC) const 
             {
+                if(exprC == nullptr) return;
                 std::cout << "divC" << std::endl;
                 visit_l(exprC, "|- ", "|  "); 
                 visit_r(exprC, "'- ", "|  ");
@@ -72,6 +77,7 @@ namespace parser
             
             void visit(const ifC *exprC) const 
             {
+                if(exprC == nullptr) return;
                 std::cout << "ifC" << std::endl;
                 visit_l(exprC, "|- ", "|  "); 
                 visit_r(exprC, "|- ", "|  ");
@@ -84,6 +90,7 @@ namespace parser
                 std::string itm, 
                 std::string sep) const
             {
+                if(exprC == nullptr) return;
                 for(std::string s : separator) std::cout << s;
                 std::cout << itm; separator.push_back(sep);
                 exprC->accept_l(*this);
@@ -95,6 +102,7 @@ namespace parser
                 std::string itm, 
                 std::string sep) const
             {
+                if(exprC == nullptr) return;
                 for(std::string s : separator) std::cout << s;
                 std::cout << itm; separator.push_back(sep);
                 exprC->accept_r(*this);
@@ -106,9 +114,10 @@ namespace parser
                 std::string itm, 
                 std::string sep) const
             {
+                if(exprC == nullptr) return;
                 for(std::string s : separator) std::cout << s;
                 std::cout << itm; separator.push_back(sep);
-                exprC->accept_r(*this);
+                exprC->accept_x(*this);
                 separator.pop_back();
             }
     };

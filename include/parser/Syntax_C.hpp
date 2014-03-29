@@ -36,13 +36,13 @@ namespace parser
             accept(const class Visitor& visitor) const = 0;
             
             void accept_l(const Visitor& visitor) const
-            { l->accept(visitor); }
+            { if(l) l->accept(visitor); }
             
             void accept_r(const Visitor& visitor) const
-            { r->accept(visitor); }
+            { if(r) r->accept(visitor); }
             
             void accept_x(const Visitor& visitor) const
-            { x->accept(visitor); }
+            { if(x) x->accept(visitor); }
             
         protected:
             ExprC(Core t, 
