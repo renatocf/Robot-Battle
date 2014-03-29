@@ -1,6 +1,6 @@
 [stk]
-    [X] Implement basic stackables (Address, Bool, Number, Text).
-    [ ] Remove boolean type (unnecessary).
+    [X] Implement basic stackables (Address, Number, Text).
+    [X] Remove boolean type (unnecessary).
     [ ] Create game types (Direction).
 
 [vm]
