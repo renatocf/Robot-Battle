@@ -20,7 +20,6 @@
 
 // Libraries
 #include "Text.hpp"
-#include "Bool.hpp"
 #include "Number.hpp"
 #include "Command.hpp"
 #include "Syntax_C.hpp"

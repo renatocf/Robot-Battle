@@ -43,7 +43,7 @@ namespace stk
              * @enum Type
              * Subtypes of the stackable.
              */
-            enum class Type { Number, Text, Address, Bool };
+            enum class Type { Number, Text, Address };
             
             /// Underlying type of the stackable.
             const Type type;

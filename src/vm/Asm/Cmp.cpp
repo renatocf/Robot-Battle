@@ -23,7 +23,6 @@
 
 // Libraries
 #include "Asm.hpp"
-#include "Bool.hpp"
 #include "Text.hpp"
 #include "Debug.hpp"
 #include "Number.hpp"
@@ -51,8 +50,7 @@ void Asm::compare(
     T* arg2_ptr = dynamic_cast<T*>(arg2.get());
     
     Asm::push(rvm, stk::Stackable_ptr { 
-        new stk::Bool { cmp(arg1_ptr->get(), arg2_ptr->get()) 
-                        ? true : false }
+        new stk::Number { cmp(arg1_ptr->get(), arg2_ptr->get()) ? 1 : 0 }
     });
 }
 
@@ -82,9 +80,6 @@ void Asm::select(const RVM& rvm, Func cmp)
                 break;
             case stk::Stackable::Type::Address: 
                 Asm::compare<stk::Address>(rvm, arg1, arg2, cmp);
-                break;
-            case stk::Stackable::Type::Bool: 
-                Asm::compare<stk::Bool>(rvm, arg1, arg2, cmp);
                 break;
         }
     }

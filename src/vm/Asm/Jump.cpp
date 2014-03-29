@@ -23,7 +23,6 @@
 
 // Libraries
 #include "Asm.hpp"
-#include "Bool.hpp"
 #include "Text.hpp"
 #include "Number.hpp"
 #include "Address.hpp"
@@ -50,14 +49,10 @@ void Asm::JCMP(
     {
         stk::Stackable_ptr b { Asm::pop(rvm) };
         
-        if(b->type == stk::Stackable::Type::Bool)
+        if(b->type == stk::Stackable::Type::Number)
         {
-            result = dynamic_cast<stk::Bool*>(b.get())->get();
-        }
-        else if(b->type == stk::Stackable::Type::Number)
-        {
-            result = (dynamic_cast<stk::Number*>(b.get())->get() != 0)
-                ? true : false;
+            auto num = dynamic_cast<stk::Number*>(b.get())->get();
+            result = (num != 0) ? true : false;
         }
         else { result = false; /* TODO: put error */ }
     }

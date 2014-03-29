@@ -32,6 +32,10 @@ using namespace std;
 #include "Options.hpp"
 #include "Stackable.hpp"
 
+#include "Syntax_C.hpp"
+#include "Compiler.hpp"
+#include "SyntaxC2Asm.hpp"
+
 /**
  * @fn Main function.
  * @param  argc Number of arguments in the command line
@@ -40,27 +44,41 @@ using namespace std;
  */
 int main(int argc, char **argv)
 {
+    using namespace parser;
+    
     // Process options
     Options::parse_args(argc, argv);
     
-    // Usage
-    if(optind <= argc && argc-optind != 1)
-    {
-        cout << "USAGE: Main Program_name" << endl;
-        return 0;
-    }
+    // // Usage
+    // if(optind <= argc && argc-optind != 1)
+    // {
+    //     cout << "USAGE: Main Program_name" << endl;
+    //     return 0;
+    // }
+    // 
+    // try {
+    //     parser::quark::Func_ptr upload 
+    //         = parser::quark::functions.at(argv[optind]);
+    //     
+    //     vm::RVM Bender { upload() };
+    //     Bender.run();
+    //     
+    // } catch (const std::out_of_range& exc) {
+    //     cerr << "ERROR: Program \"" << argv[1] << "\" unknown." << endl;
+    //     return -1;
+    // }
     
-    try {
-        parser::quark::Func_ptr upload 
-            = parser::quark::functions.at(argv[optind]);
-        
-        vm::RVM Bender { upload() };
-        Bender.run();
-        
-    } catch (const std::out_of_range& exc) {
-        cerr << "ERROR: Program \"" << argv[1] << "\" unknown." << endl;
-        return -1;
-    }
+    // vm::Prog minus { Compiler{}.compile(bminusC{numC{2},numC{1}}) };
+    // cout << minus << endl;
+    // vm::RVM{ minus }.run();
+    
+    vm::Prog ifelse { Compiler{}.compile(ifC{numC{1},numC{2},numC{3}}) };
+    cout << ifelse << endl;
+    vm::RVM{ ifelse }.run();
+    
+    // vm::Prog test { Compiler{}.compile(plusC{numC{2},numC{2}}) };
+    // cout << test << endl;
+    // vm::RVM{ test }.run();
     
     return 0;
 }
