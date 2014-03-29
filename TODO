@@ -23,6 +23,7 @@
     [X] Move recursive calls from visit method to visitors.
     [X] Add a solution to compilate ifC in Assembly.
     [X] Create directories needed to compile Perl.
+    [X] Add guards against null pointers.
     [ ] Create a tree for Syntatic Sugar.
     [ ] Implement Positron lexer/parser with Flex/Bison.
     [ ] Generate Syntatic Tree from the parser.
