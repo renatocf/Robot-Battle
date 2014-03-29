@@ -1,5 +1,6 @@
 [stk]
     [X] Implement basic stackables (Address, Bool, Number, Text).
+    [ ] Remove boolean type (unnecessary).
     [ ] Create game types (Direction).
 
 [vm]
@@ -18,7 +19,8 @@
     [X] Execute Quark programs on demand.
     [X] Make parser/quark automatically with Perl.
     [X] Add ifC in the Syntatic Base Tree.
-    [ ] Add a solution to compilate ifC in Assembly.
+    [X] Move recursive calls from visit method to visitors.
+    [X] Add a solution to compilate ifC in Assembly.
     [ ] Create a tree for Syntatic Sugar.
     [ ] Implement Positron lexer/parser with Flex/Bison.
     [ ] Generate Syntatic Tree from the parser.
