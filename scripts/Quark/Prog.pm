@@ -157,8 +157,10 @@ sub make_header
     # Get object for the method
     my $obj = shift;
     
+    mkdir "$obj->{INCDIR}" unless -d $obj->{INCDIR};
     open(my $PARSER_HPP, ">", "$obj->{INCDIR}/$obj->{BASENAME}.hpp")
-        or die "Unable to open new file $obj->{INCDIR}/$obj->{BASENAME}.hpp";
+        or die "Unable to open new file ".
+               "$obj->{INCDIR}/$obj->{BASENAME}.hpp";
     
     select $PARSER_HPP;
     print $obj->{PROG_HEADER};
@@ -170,8 +172,10 @@ sub make_source
     # Get object for the method
     my $obj = shift;
     
+    mkdir "$obj->{SRCDIR}" unless -d $obj->{SRCDIR};
     open(my $PARSER_CPP, ">", "$obj->{SRCDIR}/$obj->{BASENAME}.cpp")
-        or die "Unable to open new file $obj->{SRCDIR}/$obj->{BASENAME}.cpp";
+        or die "Unable to open new file ".
+               "$obj->{SRCDIR}/$obj->{BASENAME}.cpp";
 
     select $PARSER_CPP;
     say $obj->{PROG_SOURCE_INIT};
