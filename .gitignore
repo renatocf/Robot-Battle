@@ -7,6 +7,8 @@ build/
 debian/
 doc/doxygen/
 doc/Doxyfile.mk
+src/parser/quark/
+include/parser/quark/
 
 # Compiled Object files
 *.slo
