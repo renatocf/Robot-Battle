@@ -56,3 +56,10 @@ std::ostream& parser::operator<<(std::ostream& os, const ExprC& exprC)
     exprC.accept(printer);
     return os;
 }
+
+std::ostream& parser::operator<<(std::ostream& os, const ExprC *exprC)
+{
+    Syntax2Stdout printer {};
+    exprC->accept(printer);
+    return os;
+}

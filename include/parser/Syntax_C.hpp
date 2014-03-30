@@ -45,6 +45,13 @@ namespace parser
             void accept_x(const Visitor& visitor) const
             { if(x) x->accept(visitor); }
             
+            virtual ~ExprC()
+            { 
+                if(l) delete l; 
+                if(r) delete r; 
+                if(x) delete x; 
+            }
+            
         protected:
             ExprC(Core t, 
                 const ExprC *l = {}, 
@@ -53,13 +60,15 @@ namespace parser
             ) 
                 : l{l}, r{r}, x{x}, type{t} {}
             
-            virtual ~ExprC() {};
-            
             friend std::ostream& 
             operator<<(std::ostream& os, const ExprC& exprC);
+            
+            friend std::ostream& 
+            operator<<(std::ostream& os, const ExprC *exprC);
     };
     
     std::ostream& operator<<(std::ostream& os, const ExprC& exprC);
+    std::ostream& operator<<(std::ostream& os, const ExprC *exprC);
     
     class plusC : public ExprC
     {
