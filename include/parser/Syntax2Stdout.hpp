@@ -38,7 +38,7 @@ namespace parser
             {
                 if(exprC == nullptr) return;
                 stk::Stackable_ptr num { new stk::Number {
-                    dynamic_cast<const numC *>(exprC)->get_content()
+                    dynamic_cast<const numC *>(exprC)->get()
                 }};
                 std::cout << num << std::endl;
             }

@@ -45,7 +45,7 @@ namespace parser
             {
                 if(exprC == nullptr) return;
                 stk::Number num {
-                    dynamic_cast<const numC *>(exprC)->get_content()
+                    dynamic_cast<const numC *>(exprC)->get()
                 };
                 prog.push_back(vm::Command 
                     { vm::Command::Opcode::PUSH, num });
