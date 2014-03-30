@@ -23,11 +23,21 @@ namespace parser
     struct ExprS
     {
         protected:
-            enum class Sugar { numS, plusS, bminusS, multS, divS, ifS };
+            enum class Sugar { 
+                numS, plusS, bminusS, multS, divS, ifS,
+                uminusS
+            };
             const ExprS *l; const ExprS *r; const ExprS *x;
             
         public:
             const Sugar type;
+            
+            virtual ~ExprS()
+            { 
+                if(l) delete l; 
+                if(r) delete r; 
+                if(x) delete x; 
+            }
             
         protected:
             ExprS(Sugar t, 
@@ -36,42 +46,40 @@ namespace parser
                 const ExprS *x = {}
             )
                 : l{l}, r{r}, x{x}, type{t} {}
-            
-            virtual ~ExprS() {};
         
         friend class Desugar;
     };
     
     struct plusS : public ExprS
     {
-        plusS(const ExprS& l, const ExprS& r)
-            : ExprS{ExprS::Sugar::plusS, &l, &r} {}
+        plusS(const ExprS *l, const ExprS *r)
+            : ExprS{ExprS::Sugar::plusS, l, r} {}
     };
     
     struct bminusS : public ExprS
     {
-        bminusS(const ExprS& l, const ExprS& r)
-            : ExprS{ExprS::Sugar::bminusS, &l, &r} {}
+        bminusS(const ExprS *l, const ExprS *r)
+            : ExprS{ExprS::Sugar::bminusS, l, r} {}
     };
     
     struct multS : public ExprS
     {
-        multS(const ExprS& l, const ExprS& r)
-            : ExprS{ExprS::Sugar::multS, &l, &r} {}
+        multS(const ExprS *l, const ExprS *r)
+            : ExprS{ExprS::Sugar::multS, l, r} {}
     };
     
     struct divS : public ExprS
     {
-        divS(const ExprS& l, const ExprS& r)
-            : ExprS{ExprS::Sugar::divS, &l, &r} {}
+        divS(const ExprS *l, const ExprS *r)
+            : ExprS{ExprS::Sugar::divS, l, r} {}
     };
     
     struct ifS : public ExprS
     {
-        ifS(const ExprS& cond, const ExprS& yes)
-            : ExprS{ExprS::Sugar::ifS, &cond, &yes} {}
-        ifS(const ExprS& cond, const ExprS& yes, const ExprS& no)
-            : ExprS{ExprS::Sugar::ifS, &cond, &yes, &no} {}
+        ifS(const ExprS *cond, const ExprS *yes)
+            : ExprS{ExprS::Sugar::ifS, cond, yes} {}
+        ifS(const ExprS *cond, const ExprS *yes, const ExprS *no)
+            : ExprS{ExprS::Sugar::ifS, cond, yes, no} {}
     };
     
     class numS : public ExprS
@@ -86,6 +94,12 @@ namespace parser
                 : ExprS{ExprS::Sugar::numS}, n{n} {}
             
             long long get() const { return this->n; }
+    };
+    
+    struct uminusS : public ExprS
+    {
+        uminusS(const ExprS *l)
+            : ExprS{ExprS::Sugar::uminusS, l} {}
     };
 }
 
