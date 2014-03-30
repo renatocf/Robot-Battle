@@ -1,5 +1,5 @@
 #include <iostream>
-#include "SyntaxC2Print.hpp"
+#include "Syntax2Stdout.hpp"
 #include "Syntax_C.hpp"
 using namespace parser;
 
@@ -35,7 +35,7 @@ void ifC::accept(const Visitor& visitor) const
 
 std::ostream& parser::operator<<(std::ostream& os, const ExprC& exprC)
 {
-    SyntaxC2Print printer {};
+    Syntax2Stdout printer {};
     exprC.accept(printer);
     return os;
 }

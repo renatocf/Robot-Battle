@@ -15,8 +15,11 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
                                                       
-#ifndef HPP_PARSER_SYNTAXC2ASM_DEFINED
-#define HPP_PARSER_SYNTAXC2ASM_DEFINED
+#ifndef HPP_PARSER_SYNTAX2ASM_DEFINED
+#define HPP_PARSER_SYNTAX2ASM_DEFINED
+
+// Default libraries
+#include <string>
 
 // Libraries
 #include "Text.hpp"
@@ -26,7 +29,7 @@
 
 namespace parser
 {
-    class SyntaxC2Asm : public Visitor
+    class Syntax2Asm : public Visitor
     {
         private:
             mutable vm::Prog prog {};
@@ -87,12 +90,17 @@ namespace parser
             void visit(const ifC *exprC) const 
             {
                 if(exprC == nullptr) return;
+                
+                // Create tags for jumps
                 int lvl = c_if; c_if++;
                 std::string s_if    { "IF"    + std::to_string(lvl) };
                 std::string s_else  { "ELSE"  + std::to_string(lvl) };
                 std::string s_endif { "ENDIF" + std::to_string(lvl) };
                 
+                // Calculate condition
                 exprC->accept_l(*this); 
+                
+                // Test condition
                 prog.push_back(vm::Command {
                     vm::Command::Opcode::PUSH, stk::Number{1} });
                 prog.push_back(vm::Command {
@@ -101,14 +109,17 @@ namespace parser
                     vm::Command::Opcode::JIT, stk::Text{s_if} });
                 prog.push_back(vm::Command {
                     vm::Command::Opcode::JMP, stk::Text{s_else} });
+                
+                // Condition if true
                 prog.push_back(vm::Command { s_if });
                 exprC->accept_r(*this);
                 prog.push_back(vm::Command {
                     vm::Command::Opcode::JMP, stk::Text{s_endif} });
+                
+                // Condition if false
                 prog.push_back(vm::Command { s_else });
                 exprC->accept_x(*this);
                 prog.push_back(vm::Command { s_endif });
-                // exprC->accept_sons(*this);
             }
     };
 }

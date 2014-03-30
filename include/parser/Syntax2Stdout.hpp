@@ -15,8 +15,8 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_PARSER_SYNTAXC2PRINT_DEFINED
-#define HPP_PARSER_SYNTAXC2PRINT_DEFINED
+#ifndef HPP_PARSER_SYNTAX2STDOUT_DEFINED
+#define HPP_PARSER_SYNTAX2STDOUT_DEFINED
 
 // Default libraries
 #include <string>
@@ -28,7 +28,7 @@
 
 namespace parser 
 {
-    class SyntaxC2Print : public Visitor
+    class Syntax2Stdout : public Visitor
     {
         private:
             mutable std::vector<std::string> separator {};

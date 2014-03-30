@@ -21,7 +21,7 @@
 // Libraries
 #include "Command.hpp"
 #include "Syntax_C.hpp"
-#include "SyntaxC2Asm.hpp"
+#include "Syntax2Asm.hpp"
 
 namespace parser
 {
@@ -30,7 +30,7 @@ namespace parser
         public:
             vm::Prog compile(const ExprC& root)
             {
-                SyntaxC2Asm visitor {};
+                Syntax2Asm visitor {};
                 root.accept(visitor);
                 vm::Prog prog { std::move(visitor.get()) };
                 prog.push_back(vm::Command { vm::Command::Opcode::PRN });
