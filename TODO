@@ -26,7 +26,7 @@
     [X] Add guards against null pointers.
     [X] Create a tree for Syntatic Sugar.
     [X] Add pointers for construction in the Syntax trees.
-    [ ] Remove Memory leak and solve memory management of trees.
+    [X] Remove Memory leak and solve memory management of trees.
     [ ] Implement Positron lexer/parser with Flex/Bison.
     [ ] Generate Syntatic Tree from the parser.
     [ ] Add Doxygen documentation in all Positron C++ code.
