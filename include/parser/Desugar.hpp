@@ -32,36 +32,7 @@ namespace parser
                 return desugar(&root);
             }
             
-            ExprC *desugar(const ExprS *node) const
-            {
-                if(node) switch(node->type)
-                {
-                    case ExprS::Sugar::numS: 
-                        return new numC{
-                            dynamic_cast<const numS *>(node)->get()};
-                    
-                    case ExprS::Sugar::plusS:
-                        return new plusC{ 
-                            desugar(node->l), desugar(node->r)};
-                    
-                    case ExprS::Sugar::bminusS:
-                        return new bminusC{
-                            desugar(node->l), desugar(node->r)};
-                    
-                    case ExprS::Sugar::multS: 
-                        return new multC{ 
-                            desugar(node->l), desugar(node->r)};
-                    
-                    case ExprS::Sugar::divS: 
-                        return new divC{ 
-                            desugar(node->l), desugar(node->r)};
-                    
-                    case ExprS::Sugar::ifS:
-                        return new ifC{ desugar(node->l), 
-                            desugar(node->r), desugar(node->x)};
-                }
-                return new numC{1};
-            }
+            ExprC *desugar(const ExprS *node) const;
     };
 }
 
