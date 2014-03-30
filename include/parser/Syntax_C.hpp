@@ -15,11 +15,12 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_SYNTAX_C_DEFINED
-#define HPP_SYNTAX_C_DEFINED
+#ifndef HPP_PARSER_SYNTAX_C_DEFINED
+#define HPP_PARSER_SYNTAX_C_DEFINED
 
 // Default libraries
 #include <vector>
+#include <iostream>
 
 namespace parser
 {
@@ -63,8 +64,8 @@ namespace parser
     class plusC : public ExprC
     {
         public:
-            plusC(const ExprC& l, const ExprC& r)
-                : ExprC{ExprC::Core::plusC, &l, &r} {}
+            plusC(const ExprC *l, const ExprC *r)
+                : ExprC{ExprC::Core::plusC, l, r} {}
             
             void accept (const Visitor& visitor) const;
     };
@@ -72,8 +73,8 @@ namespace parser
     class bminusC : public ExprC
     {
         public:
-            bminusC(const ExprC& l, const ExprC& r)
-                : ExprC{ExprC::Core::bminusC, &l, &r} {}
+            bminusC(const ExprC *l, const ExprC *r)
+                : ExprC{ExprC::Core::bminusC, l, r} {}
             
             void accept (const Visitor& visitor) const;
     };
@@ -81,8 +82,8 @@ namespace parser
     class multC : public ExprC
     {
         public:
-            multC(const ExprC& l, const ExprC& r)
-                : ExprC{ExprC::Core::multC, &l, &r} {}
+            multC(const ExprC *l, const ExprC *r)
+                : ExprC{ExprC::Core::multC, l, r} {}
             
             void accept (const Visitor& visitor) const;
     };
@@ -90,8 +91,8 @@ namespace parser
     class divC : public ExprC
     {
         public:
-            divC(const ExprC& l, const ExprC& r)
-                : ExprC{ExprC::Core::divC, &l, &r} {}
+            divC(const ExprC *l, const ExprC *r)
+                : ExprC{ExprC::Core::divC, l, r} {}
             
             void accept (const Visitor& visitor) const;
     };
@@ -99,10 +100,10 @@ namespace parser
     class ifC : public ExprC
     {
         public:
-            ifC(const ExprC& cond, const ExprC& yes)
-                : ExprC{ExprC::Core::ifC, &cond, &yes} {}
-            ifC(const ExprC& cond, const ExprC& yes, const ExprC& no)
-                : ExprC{ExprC::Core::ifC, &cond, &yes, &no} {}
+            ifC(const ExprC *cond, const ExprC *yes)
+                : ExprC{ExprC::Core::ifC, cond, yes} {}
+            ifC(const ExprC *cond, const ExprC *yes, const ExprC *no)
+                : ExprC{ExprC::Core::ifC, cond, yes, no} {}
 
             void accept (const Visitor& visitor) const;
     };
@@ -118,7 +119,7 @@ namespace parser
             numC(long long n)
                 : ExprC{ExprC::Core::numC}, n{n} {}
             
-            long long get_content() const { return this->n; }
+            long long get() const { return this->n; }
             
             void accept (const Visitor& visitor) const;
     };

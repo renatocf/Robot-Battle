@@ -30,8 +30,13 @@ namespace parser
         public:
             vm::Prog compile(const ExprC& root)
             {
+                return compile(&root);
+            }
+            
+            vm::Prog compile(const ExprC *root)
+            {
                 Syntax2Asm visitor {};
-                root.accept(visitor);
+                root->accept(visitor);
                 vm::Prog prog { std::move(visitor.get()) };
                 prog.push_back(vm::Command { vm::Command::Opcode::PRN });
                 prog.push_back(vm::Command { vm::Command::Opcode::END });
