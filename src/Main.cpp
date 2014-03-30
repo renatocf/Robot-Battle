@@ -40,8 +40,6 @@ using namespace std;
  */
 int main(int argc, char **argv)
 {
-    using namespace parser;
-    
     // Process options
     Options::parse_args(argc, argv);
     
