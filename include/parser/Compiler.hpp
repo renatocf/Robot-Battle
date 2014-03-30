@@ -18,9 +18,14 @@
 #ifndef HPP_PARSER_COMPILER_DEFINED
 #define HPP_PARSER_COMPILER_DEFINED
 
+// Default libraries
+#include <memory>
+
 // Libraries
 #include "Command.hpp"
+#include "Desugar.hpp"
 #include "Syntax_C.hpp"
+#include "Syntax_S.hpp"
 #include "Syntax2Asm.hpp"
 
 namespace parser
@@ -28,18 +33,30 @@ namespace parser
     class Compiler
     {
         public:
-            vm::Prog compile(const ExprC& root)
-            {
-                return compile(&root);
-            }
-            
-            vm::Prog compile(const ExprC *root)
+            vm::Prog compile(const ExprC *root) const
             {
                 Syntax2Asm visitor {};
                 root->accept(visitor);
                 vm::Prog prog { std::move(visitor.get()) };
                 prog.push_back(vm::Command { vm::Command::Opcode::PRN });
                 prog.push_back(vm::Command { vm::Command::Opcode::END });
+                return prog;
+            }
+            
+            vm::Prog compile(const ExprC& root) const
+            {
+                return compile(&root);
+            }
+            
+            vm::Prog compile(const ExprS& root) const
+            {
+                return compile(&root);
+            }
+            
+            vm::Prog compile(const ExprS *root) const
+            {
+                std::shared_ptr<ExprC> core { Desugar{}.desugar(root) };
+                vm::Prog prog { compile(core.get()) };
                 return prog;
             }
     };
