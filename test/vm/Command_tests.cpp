@@ -16,11 +16,11 @@ int main()
     cout << cmd01 << endl;
 
     // Test 02: Command with argument
-    Command cmd02 { Command::Opcode::PUSH, stk::Stackable_ptr{ new stk::Number{2} } };
+    Command cmd02 { Command::Opcode::PUSH, stk::Number{2} };
     cout << cmd02 << endl;
     
     // Test 03: Command with argument and label
-    Command cmd03 { Command::Opcode::PUSH, stk::Stackable_ptr{ new stk::Number{2} }, "label03" };
+    Command cmd03 { Command::Opcode::PUSH, stk::Number{2}, "label03" };
     cout << cmd03 << endl;
     
     // Test 04: Copy constructor
