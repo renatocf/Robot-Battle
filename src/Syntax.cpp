@@ -48,7 +48,7 @@ int main(int argc, char **argv)
     // Usage
     if(optind <= argc && argc-optind != 0)
     {
-        cout << "USAGE: Main" << endl;
+        cout << "USAGE: Syntax" << endl;
         return 0;
     }
     
@@ -61,7 +61,13 @@ int main(int argc, char **argv)
     //     }) 
     // << endl;
     
-    /* cout << *Desugar{}.desugar(ifS{numS{1},numS{2},numS{3}}); */
+    // cout << Desugar{}.desugar(ifS{numS{1},numS{2},numS{3}});
+    
+    ExprS *tree = new uminusS{ new numS{5} };
+    vm::Prog prog { Compiler{}.compile(tree) };
+    cout << prog << endl;
+    vm::RVM{ prog }.run();
+    delete tree;
     
     // vm::Prog minus { Compiler{}.compile(bminusC{numC{2},numC{1}}) };
     // cout << minus << endl;
