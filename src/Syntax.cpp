@@ -52,7 +52,7 @@ int main(int argc, char **argv)
         return 0;
     }
     
-    using namespace parser;
+    using namespace positron;
     /* vm::RVM{ Compiler{}.compile(plusC { numC{2}, numC{2} }) }.run(); */
     // cout << Compiler{}.compile(
     //     ifC { numC{1},
