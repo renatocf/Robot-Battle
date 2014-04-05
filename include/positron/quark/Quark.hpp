@@ -1,5 +1,5 @@
 /**********************************************************************/
-/* Copyright 2014 RCF                                                 */
+/* Copyright 2014 RCF                                                 */ 
 /*                                                                    */
 /* Licensed under the Apache License, Version 2.0 (the "License");    */
 /* you may not use this file except in compliance with the License.   */
@@ -14,7 +14,28 @@
 /* See the License for the specific language governing permissions    */
 /* and limitations under the License.                                 */
 /**********************************************************************/
-                                                      
-// Libraries                                          
-#include "Syntax2Asm.hpp"                         
 
+#ifndef HPP_QUARK_DEFINED
+#define HPP_QUARK_DEFINED
+
+// Default libraries
+#include <string>
+#include <unordered_map>
+
+// Libraries
+#include "Command.hpp"
+
+// Auto-Generated Libraries
+#include "Sum.hpp"
+#include "Fibonacci.hpp"
+
+// Mapping strings in functions
+namespace parser {
+namespace quark {
+
+    typedef vm::Prog (*Func_ptr)();
+    extern std::unordered_map<std::string,Func_ptr> functions;
+
+}}
+
+#endif

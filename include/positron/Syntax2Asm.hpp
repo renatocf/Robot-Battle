@@ -15,8 +15,8 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
                                                       
-#ifndef HPP_PARSER_SYNTAX2ASM_DEFINED
-#define HPP_PARSER_SYNTAX2ASM_DEFINED
+#ifndef HPP_POSITRON_SYNTAX2ASM_DEFINED
+#define HPP_POSITRON_SYNTAX2ASM_DEFINED
 
 // Default libraries
 #include <string>
@@ -27,7 +27,7 @@
 #include "Command.hpp"
 #include "Syntax_C.hpp"
 
-namespace parser
+namespace positron
 {
     class Syntax2Asm : public Visitor
     {

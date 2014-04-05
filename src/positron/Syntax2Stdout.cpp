@@ -17,4 +17,5 @@
 
 // Libraries
 #include "Syntax2Stdout.hpp"
+using namespace positron;
 

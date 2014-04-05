@@ -15,10 +15,10 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_PARSER_SYNTAX_S_DEFINED
-#define HPP_PARSER_SYNTAX_S_DEFINED
+#ifndef HPP_POSITRON_SYNTAX_S_DEFINED
+#define HPP_POSITRON_SYNTAX_S_DEFINED
 
-namespace parser 
+namespace positron
 {
     struct ExprS
     {

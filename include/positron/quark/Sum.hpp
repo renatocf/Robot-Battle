@@ -1,5 +1,5 @@
 /**********************************************************************/
-/* Copyright 2014 RCF                                                 */
+/* Copyright 2014 RCF                                                 */ 
 /*                                                                    */
 /* Licensed under the Apache License, Version 2.0 (the "License");    */
 /* you may not use this file except in compliance with the License.   */
@@ -15,51 +15,17 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-// Default libraries
-#include "Syntax_C.hpp"
-#include "Syntax2Stdout.hpp"
-using namespace parser;
+#ifndef HPP_Sum_DEFINED
+#define HPP_Sum_DEFINED
 
-void numC::accept(const Visitor& visitor) const
-{
-    visitor.visit(this);
-}
+// Libraries
+#include "Command.hpp"
 
-void plusC::accept(const Visitor& visitor) const
-{
-    visitor.visit(this);
-}
+namespace parser {
+namespace quark {
+    
+    vm::Prog upload_Sum();
+    
+}}
 
-void bminusC::accept(const Visitor& visitor) const
-{
-    visitor.visit(this);
-}
-
-void multC::accept(const Visitor& visitor) const
-{
-    visitor.visit(this);
-}
-
-void divC::accept(const Visitor& visitor) const
-{
-    visitor.visit(this);
-}
-
-void ifC::accept(const Visitor& visitor) const
-{
-    visitor.visit(this);
-}
-
-std::ostream& parser::operator<<(std::ostream& os, const ExprC& exprC)
-{
-    Syntax2Stdout printer {};
-    exprC.accept(printer);
-    return os;
-}
-
-std::ostream& parser::operator<<(std::ostream& os, const ExprC *exprC)
-{
-    Syntax2Stdout printer {};
-    exprC->accept(printer);
-    return os;
-}
+#endif

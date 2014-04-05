@@ -15,24 +15,50 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_PARSER_DESUGAR_DEFINED
-#define HPP_PARSER_DESUGAR_DEFINED
+#ifndef HPP_POSITRON_COMPILER_DEFINED
+#define HPP_POSITRON_COMPILER_DEFINED
+
+// Default libraries
+#include <memory>
 
 // Libraries
+#include "Command.hpp"
+#include "Desugar.hpp"
 #include "Syntax_C.hpp"
 #include "Syntax_S.hpp"
+#include "Syntax2Asm.hpp"
 
-namespace parser 
+namespace positron
 {
-    class Desugar
+    class Compiler
     {
         public:
-            ExprC *desugar(const ExprS& root) const
+            vm::Prog compile(const ExprC *root) const
             {
-                return desugar(&root);
+                Syntax2Asm visitor {};
+                root->accept(visitor);
+                vm::Prog prog { std::move(visitor.get()) };
+                prog.push_back(vm::Command { vm::Command::Opcode::PRN });
+                prog.push_back(vm::Command { vm::Command::Opcode::END });
+                return prog;
             }
             
-            ExprC *desugar(const ExprS *node) const;
+            vm::Prog compile(const ExprC& root) const
+            {
+                return compile(&root);
+            }
+            
+            vm::Prog compile(const ExprS& root) const
+            {
+                return compile(&root);
+            }
+            
+            vm::Prog compile(const ExprS *root) const
+            {
+                std::shared_ptr<ExprC> core { Desugar{}.desugar(root) };
+                vm::Prog prog { compile(core.get()) };
+                return prog;
+            }
     };
 }
 

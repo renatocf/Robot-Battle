@@ -15,51 +15,51 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_PARSER_COMPILER_DEFINED
-#define HPP_PARSER_COMPILER_DEFINED
-
 // Default libraries
-#include <memory>
-
-// Libraries
-#include "Command.hpp"
-#include "Desugar.hpp"
 #include "Syntax_C.hpp"
-#include "Syntax_S.hpp"
-#include "Syntax2Asm.hpp"
+#include "Syntax2Stdout.hpp"
+using namespace positron;
 
-namespace parser
+void numC::accept(const Visitor& visitor) const
 {
-    class Compiler
-    {
-        public:
-            vm::Prog compile(const ExprC *root) const
-            {
-                Syntax2Asm visitor {};
-                root->accept(visitor);
-                vm::Prog prog { std::move(visitor.get()) };
-                prog.push_back(vm::Command { vm::Command::Opcode::PRN });
-                prog.push_back(vm::Command { vm::Command::Opcode::END });
-                return prog;
-            }
-            
-            vm::Prog compile(const ExprC& root) const
-            {
-                return compile(&root);
-            }
-            
-            vm::Prog compile(const ExprS& root) const
-            {
-                return compile(&root);
-            }
-            
-            vm::Prog compile(const ExprS *root) const
-            {
-                std::shared_ptr<ExprC> core { Desugar{}.desugar(root) };
-                vm::Prog prog { compile(core.get()) };
-                return prog;
-            }
-    };
+    visitor.visit(this);
 }
 
-#endif
+void plusC::accept(const Visitor& visitor) const
+{
+    visitor.visit(this);
+}
+
+void bminusC::accept(const Visitor& visitor) const
+{
+    visitor.visit(this);
+}
+
+void multC::accept(const Visitor& visitor) const
+{
+    visitor.visit(this);
+}
+
+void divC::accept(const Visitor& visitor) const
+{
+    visitor.visit(this);
+}
+
+void ifC::accept(const Visitor& visitor) const
+{
+    visitor.visit(this);
+}
+
+std::ostream& positron::operator<<(std::ostream& os, const ExprC& exprC)
+{
+    Syntax2Stdout printer {};
+    exprC.accept(printer);
+    return os;
+}
+
+std::ostream& positron::operator<<(std::ostream& os, const ExprC *exprC)
+{
+    Syntax2Stdout printer {};
+    exprC->accept(printer);
+    return os;
+}

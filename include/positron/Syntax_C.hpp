@@ -15,14 +15,14 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_PARSER_SYNTAX_C_DEFINED
-#define HPP_PARSER_SYNTAX_C_DEFINED
+#ifndef HPP_POSITRON_SYNTAX_C_DEFINED
+#define HPP_POSITRON_SYNTAX_C_DEFINED
 
 // Default libraries
 #include <vector>
 #include <iostream>
 
-namespace parser
+namespace positron
 {
     class ExprC
     {
