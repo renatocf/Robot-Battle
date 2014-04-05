@@ -8,7 +8,7 @@ ARLIB   :=
 SHRLIB  := 
 
 # Parser and Scanner
-CXXLEXER  := Scanner.l
+CXXLEXER  := Scanner.ll
 CXXPARSER := 
 
 # Package info
