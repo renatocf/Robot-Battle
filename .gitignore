@@ -10,6 +10,12 @@ doc/Doxyfile.mk
 src/parser/quark/
 include/parser/quark/
 
+# Flex & Bison auto generated
+*.yy.*
+*-yy/
+*.tab.*
+*-tab/
+
 # Compiled Object files
 *.slo
 *.lo

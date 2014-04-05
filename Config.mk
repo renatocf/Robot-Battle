@@ -3,9 +3,13 @@ PROJECT := Robot-Battle
 VERSION := 1.0
 
 # Program settings
-BIN     := Main Syntax
+BIN     := Main Syntax Scanner
 ARLIB   := 
 SHRLIB  := 
+
+# Parser and Scanner
+CXXLEXER  := Scanner.l
+CXXPARSER := 
 
 # Package info
 MAINTEINER_NAME := Renato Cordeiro Ferreira
