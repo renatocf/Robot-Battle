@@ -43,6 +43,7 @@
 
 [Main]
     [X] Integrate getopt.h lib/module to get options.
+    [ ] Add flexc++/bisonc++ as git submodules.
 
 [Makefile]
     [X] Test compilation with test with libs.
