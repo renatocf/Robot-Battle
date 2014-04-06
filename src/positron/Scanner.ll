@@ -1,3 +1,12 @@
 %namespace positron
+%interactive
+
 %%
-[_a-zA-Z][_a-zA-Z0-9]* return 1;
+
+[ \t]                       // ignored
+
+[0-9]+                      return Parser::NUM;
+
+[0-9]+("."[0-9]+)?          return Parser::NUM;
+
+.|\n                        return matched()[0];
