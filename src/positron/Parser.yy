@@ -33,9 +33,6 @@ input:
     // empty 
 | 
     input line
-    {
-        std::cerr << "In the beg..." << std::endl;
-    }
 ;
 
 line:   
@@ -44,7 +41,6 @@ line:
     exp '\n'
     {
         prog = std::shared_ptr<ExprS>{$1};
-        std::cerr << "In this line..." << std::endl;
         if(reading_stdin) ACCEPT();
     }
 ;
