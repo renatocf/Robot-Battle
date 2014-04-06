@@ -29,7 +29,9 @@
     [X] Remove Memory leak and solve memory management of trees.
     [X] Implement Positron lexer/parser with Flexc++/Bisonc++.
     [X] Generate Syntatic Tree from the parser.
-    [ ] Make parser non-interactive (to be run from files).
+    [X] Make parser be runnable on files.
+    [X] Separate compilation step from parsing.
+    [X] Include ';' as end-of-expression in the parser.
     [ ] Implement functions (as lambdas) in the Core.
     [ ] Implement name association (Environment) in the Core.
     [ ] Implement state mutation (Storage) in the Core.
