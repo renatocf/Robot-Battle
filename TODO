@@ -27,9 +27,13 @@
     [X] Create a tree for Syntatic Sugar.
     [X] Add pointers for construction in the Syntax trees.
     [X] Remove Memory leak and solve memory management of trees.
-    [ ] Implement Positron lexer/parser with Flex/Bison.
-    [ ] Generate Syntatic Tree from the parser.
-    [ ] Add Doxygen documentation in all Positron C++ code.
+    [X] Implement Positron lexer/parser with Flexc++/Bisonc++.
+    [X] Generate Syntatic Tree from the parser.
+    [ ] Make parser non-interactive (to be run from files).
+    [ ] Implement functions (as lambdas) in the Core.
+    [ ] Implement name association (Environment) in the Core.
+    [ ] Implement state mutation (Storage) in the Core.
+    [ ] Add Doxygen documentation in Positron Headers C++ code.
 
 [option]
     [X] Create an option for debugging.
@@ -74,6 +78,9 @@
     [X] Add variable FORTRAN_FILE to create a FORTRAN module with 'new'.
     [X] Make 'delete' work with files of any extension.
     [X] Add namespace when creating C++ in a subdirectory.
+    [X] Generate flexc++ and bisonc++ functions besides the file names.
+    [ ] Test if flex/bison still compile correctly.
+    [ ] Automatically deduce C/C++ scanner/parser from extensions.
     [ ] Support Java compilation and generation of .jar.
     [ ] Add option to automatically create a RPM package.
 
