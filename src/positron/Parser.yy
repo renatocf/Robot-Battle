@@ -33,6 +33,9 @@ input:
     // empty 
 | 
     input line
+    {
+        std::cerr << "In the beg..." << std::endl;
+    }
 ;
 
 line:   
@@ -41,13 +44,12 @@ line:
     exp '\n'
     {
         prog = std::shared_ptr<ExprS>{$1};
-        vm::Prog assembly { Compiler{}.compile(prog.get()) }; 
-        std::cout << assembly << std::endl;
-        vm::RVM{ assembly }.run();
+        std::cerr << "In this line..." << std::endl;
+        if(reading_stdin) ACCEPT();
     }
 ;
 
-exp:      
+exp:
     NUM { $$ = new numS{std::atoi(d_scanner.matched().c_str())}; }
 | 
     exp '+' exp 

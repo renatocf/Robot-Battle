@@ -40,11 +40,14 @@ namespace positron
         std::shared_ptr<ExprS> prog {};
         Compiler compiler           {};
         
+        bool reading_stdin = false;
+        
         public:
             explicit 
-            Parser(std::istream &in  = std::cin,
-                   std::ostream &out = std::cout)
-                : d_scanner(in, out) {}
+            Parser(std::istream& in  = std::cin,
+                   std::ostream& out = std::cout)
+                : d_scanner{in, out},
+                  reading_stdin{ (in == std::cin) ? true : false } {}
             
             int parse();
             const ExprS *get_tree() const;
