@@ -1,10 +1,11 @@
 #include <iostream>
-#include "Scanner.h"
+#include "Parser.h"
 using namespace std;
 
 int main()
 {
-    positron::Scanner scanner;
-    while (scanner.lex())
-        cout << "[Identifier: " << scanner.matched() << "]";
+    positron::Parser parser;
+    parser.parse();
+    
+    return 0;
 }
