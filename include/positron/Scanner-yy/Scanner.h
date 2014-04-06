@@ -27,8 +27,9 @@ namespace positron
     class Scanner: public ScannerBase
     {
         public:
-            explicit Scanner(std::istream &in  = std::cin,
-                             std::ostream &out = std::cout)
+            explicit 
+            Scanner(std::istream &in  = std::cin,
+                    std::ostream &out = std::cout)
                 : ScannerBase(in, out) {}
             
             int lex();
