@@ -28,8 +28,8 @@ namespace positron
     {
         public:
             explicit 
-            Scanner(std::istream &in  = std::cin,
-                    std::ostream &out = std::cout)
+            Scanner(std::istream& in  = std::cin,
+                    std::ostream& out = std::cout)
                 : ScannerBase(in, out) {}
             
             int lex();
