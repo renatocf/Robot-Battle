@@ -9,7 +9,7 @@ SHRLIB  :=
 
 # Parser and Scanner
 CXXLEXER  := Scanner.ll
-CXXPARSER := 
+CXXPARSER := Parser.yy
 
 # Package info
 MAINTEINER_NAME := Renato Cordeiro Ferreira
