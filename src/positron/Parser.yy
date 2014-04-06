@@ -37,44 +37,50 @@ input:
 
 line:   
     '\n'
-| 
+|
     exp '\n'
+;
+
+exp:
+    ';'
+|
+    arith ';'
     {
         prog = std::shared_ptr<ExprS>{$1};
         if(reading_stdin) ACCEPT();
     }
 ;
 
-exp:
+arith:
     NUM { $$ = new numS{std::atoi(d_scanner.matched().c_str())}; }
 | 
-    exp '+' exp 
+    arith '+' arith 
     { 
         $$ = new plusS{$1,$3};    
     }
 | 
-    exp '-' exp
+    arith '-' arith
     { 
         $$ = new bminusS{$1,$3};
     }
 | 
-    exp '*' exp
+    arith '*' arith
     { 
         $$ = new multS{$1,$3};    
     }
 | 
-    exp '/' exp
+    arith '/' arith
     { 
         $$ = new divS{$1,$3};    
     }
 |
     // Unary minus:
-    '-' exp %prec NEG
+    '-' arith %prec NEG
     {
         $$ = new uminusS{$2};
     }
 |
-    '(' exp ')'
+    '(' arith ')'
     { 
         $$ = $2;
     }
