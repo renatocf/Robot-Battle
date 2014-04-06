@@ -62,8 +62,10 @@ int main(int argc, char **argv)
             
             std::cout << "Processing file " << argv[i] << std::endl;
             std::cout << "================" << std::endl << std::endl;
+            
+            // Create a non-iteractive parser
             positron::Parser parser { file };
-            file.close();
+            parser.parse();
             
             compile_and_run(parser);
         }
