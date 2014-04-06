@@ -3,7 +3,7 @@ PROJECT := Robot-Battle
 VERSION := 1.0
 
 # Program settings
-BIN     := Main Syntax Scanner
+BIN     := Main rpc
 ARLIB   := 
 SHRLIB  := 
 

@@ -16,23 +16,24 @@
 /**********************************************************************/
 
 /** 
- * @file  Syntax.cpp
- * @brief Tester for the Syntax tree while it is not integrated
+ * @file  rpc.cpp
+ * @brief Robot Positronic Compiler (RPC) for development phase.
  */
 
 // Default libraries
+#include <fstream>
 #include <iostream>
 #include <stdexcept>
 using namespace std;
 
 // Libraries
 #include "RVM.hpp"
+#include "Parser.ih"
 #include "Options.hpp"
-
-#include "Desugar.hpp"
-#include "Syntax_C.hpp"
-#include "Syntax_S.hpp"
 #include "Compiler.hpp"
+
+// Prototypes
+void compile_and_run(const positron::Parser& parser);
 
 /**
  * @fn Main function.
@@ -45,45 +46,61 @@ int main(int argc, char **argv)
     // Process options
     Options::parse_args(argc, argv);
     
-    // Usage
-    if(optind <= argc && argc-optind != 0)
+    if(argc > 1)
     {
-        cout << "USAGE: Syntax" << endl;
-        return 0;
+        for(int i = optind; i < argc; i++)
+        {
+            // Open file
+            std::ifstream file      { argv[i] };
+            
+            if(!file) 
+            {
+                std::cerr << argv[i] << "not exists" << std::endl;
+                file.close();
+                continue;
+            }
+            
+            std::cout << "Processing file " << argv[i] << std::endl;
+            std::cout << "================" << std::endl << std::endl;
+            positron::Parser parser { file };
+            file.close();
+            
+            compile_and_run(parser);
+        }
+    }
+    else 
+    {
+        // Create an iteractive parser
+        while(1) 
+        {
+            std::cout << "> ";
+            
+            // Create new iteractive parser
+            positron::Parser parser{};
+            parser.parse();
+            
+            std::cout << std::endl;
+            
+            // If received <<EOF>>, stop
+            if(!parser.get_tree()) break;
+            else compile_and_run(parser);
+        }
     }
     
-    using namespace positron;
-    /* vm::RVM{ Compiler{}.compile(plusC { numC{2}, numC{2} }) }.run(); */
-    // cout << Compiler{}.compile(
-    //     ifC { numC{1},
-    //         plusC { numC{2}, numC{2} },
-    //         plusC { numC{3}, numC{3} },
-    //     }) 
-    // << endl;
-    
-    // cout << Desugar{}.desugar(ifS{numS{1},numS{2},numS{3}});
-    
-    ExprS *tree = new uminusS{ new numS{5} };
-    vm::Prog prog { Compiler{}.compile(tree) };
-    cout << prog << endl;
-    vm::RVM{ prog }.run();
-    delete tree;
-    
-    // vm::Prog minus { Compiler{}.compile(bminusC{numC{2},numC{1}}) };
-    // cout << minus << endl;
-    // vm::RVM{ minus }.run();
-    
-    // cout << ifC{numC{1},plusC{numC{2},numC{2}},numC{3}} << endl;
-    // cout << ifC{numC{1},ifC{numC{0},numC{1},numC{2}},numC{3}} << endl; 
-    // vm::Prog ifelse { Compiler{}.compile(
-        // ifC{numC{1},ifC{numC{0},numC{1},numC{2}},numC{3}}
-    // ) };
-    // cout << ifelse << endl;
-    // vm::RVM{ ifelse }.run();
-    
-    // vm::Prog test { Compiler{}.compile(plusC{numC{2},numC{2}}) };
-    // cout << test << endl;
-    // vm::RVM{ test }.run();
-    
     return 0;
+}
+
+void compile_and_run(const positron::Parser& parser)
+{
+    vm::Prog assembly {
+        positron::Compiler{}.compile(parser.get_tree()) 
+    };
+    
+    std::cout << "Compilation result: " << std::endl;
+    std::cout << assembly << std::endl << std::endl;
+    
+    std::cout << "Program output: " << std::endl;
+    vm::RVM{ assembly }.run();
+    
+    std::cout << std::endl;
 }
