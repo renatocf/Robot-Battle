@@ -24,7 +24,7 @@
 
 // Scanner/Parser libraries
 #include "Parserbase.h"
-#include "Scanner.h"
+#include "Scanner.ih"
 
 // Libraries
 #include "Syntax_S.hpp"
@@ -36,13 +36,18 @@ namespace positron
 {
     class Parser: public ParserBase
     {
-        Scanner d_scanner;
-        std::shared_ptr<ExprS> prog;
-        Compiler compiler {};
+        Scanner d_scanner           {};
+        std::shared_ptr<ExprS> prog {};
+        Compiler compiler           {};
         
         public:
+            explicit 
+            Parser(std::istream &in  = std::cin,
+                   std::ostream &out = std::cout)
+                : d_scanner(in, out) {}
+            
             int parse();
-            const ExprS *get_program();
+            const ExprS *get_tree() const;
 
         private:
             void error(char const *msg); // called on (syntax) errors

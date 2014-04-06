@@ -34,7 +34,7 @@ inline void positron::Parser::print()
     print__(); // Displays tokens if --print was specified
 }
 
-inline const positron::ExprS *positron::Parser::get_program()
+inline const positron::ExprS *positron::Parser::get_tree() const
 {
     return prog.get();
 }
