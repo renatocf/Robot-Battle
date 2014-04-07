@@ -20,8 +20,11 @@
 
 // Default libraries
 #include <memory>
+#include <string>
+#include <fstream>
 
 // Libraries
+#include "Parser.ih"
 #include "Command.hpp"
 #include "Desugar.hpp"
 #include "Syntax_C.hpp"
@@ -33,6 +36,32 @@ namespace positron
     class Compiler
     {
         public:
+            vm::Prog compile(std::string filename) const
+            {
+                std::ifstream file { filename };
+                
+                // TODO: Throw exception
+                if(!file) return vm::Prog{};
+                
+                // Scan and parse file
+                Parser parser { file };
+                parser.parse();
+                
+                return compile(parser.get_tree());
+            }
+            
+            vm::Prog compile(const ExprS *root) const
+            {
+                std::shared_ptr<ExprC> core { Desugar{}.desugar(root) };
+                vm::Prog prog { compile(core.get()) };
+                return prog;
+            }
+            
+            vm::Prog compile(const ExprS& root) const
+            {
+                return compile(&root);
+            }
+            
             vm::Prog compile(const ExprC *root) const
             {
                 Syntax2Asm visitor {};
@@ -46,18 +75,6 @@ namespace positron
             vm::Prog compile(const ExprC& root) const
             {
                 return compile(&root);
-            }
-            
-            vm::Prog compile(const ExprS& root) const
-            {
-                return compile(&root);
-            }
-            
-            vm::Prog compile(const ExprS *root) const
-            {
-                std::shared_ptr<ExprC> core { Desugar{}.desugar(root) };
-                vm::Prog prog { compile(core.get()) };
-                return prog;
             }
     };
 }
