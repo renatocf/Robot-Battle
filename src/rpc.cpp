@@ -33,7 +33,7 @@ using namespace std;
 #include "Compiler.hpp"
 
 // Prototypes
-void compile_and_run(const positron::Parser& parser);
+void run(const vm::Prog& assembly);
 
 /**
  * @fn Main function.
@@ -50,24 +50,11 @@ int main(int argc, char **argv)
     {
         for(int i = optind; i < argc; i++)
         {
-            // Open file
-            std::ifstream file      { argv[i] };
-            
-            if(!file) 
-            {
-                std::cerr << argv[i] << "not exists" << std::endl;
-                file.close();
-                continue;
-            }
-            
             std::cout << "Processing file " << argv[i] << std::endl;
             std::cout << "================" << std::endl << std::endl;
             
-            // Create a non-iteractive parser
-            positron::Parser parser { file };
-            parser.parse();
-            
-            compile_and_run(parser);
+            vm::Prog assembly { positron::Compiler{}.compile(argv[i]) };
+            run(assembly);
         }
     }
     else 
@@ -83,21 +70,21 @@ int main(int argc, char **argv)
             
             std::cout << std::endl;
             
+            vm::Prog assembly {
+                positron::Compiler{}.compile(parser.get_tree()) 
+            };
+            
             // If received <<EOF>>, stop
             if(!parser.get_tree()) break;
-            else compile_and_run(parser);
+            else run(assembly);
         }
     }
     
     return 0;
 }
 
-void compile_and_run(const positron::Parser& parser)
+void run(const vm::Prog& assembly)
 {
-    vm::Prog assembly {
-        positron::Compiler{}.compile(parser.get_tree()) 
-    };
-    
     std::cout << "Compilation result: " << std::endl;
     std::cout << assembly << std::endl << std::endl;
     
