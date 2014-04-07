@@ -32,6 +32,9 @@
     [X] Make parser be runnable on files.
     [X] Separate compilation step from parsing.
     [X] Include ';' as end-of-expression in the parser.
+    [X] Add a method to compile from a file just with its name.
+    [ ] Throw an exception when file does not exist.
+    [ ] Improce message errors in the parser.
     [ ] Implement functions (as lambdas) in the Core.
     [ ] Implement name association (Environment) in the Core.
     [ ] Implement state mutation (Storage) in the Core.
