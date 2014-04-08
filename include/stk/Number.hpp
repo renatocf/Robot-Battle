@@ -34,7 +34,7 @@ namespace stk
             
             Type type;
             const union {
-                long long l;
+                int l;
                 double d;
             };
         
@@ -42,14 +42,11 @@ namespace stk
             Number(int l = 0)
                 : Stackable(Stackable::Type::Number), 
                   type{Type::Integer}, l{l} {}
-            Number(long long l)
-                : Stackable(Stackable::Type::Number), 
-                  type{Type::Integer}, l{l} {}
             Number(double d)
                 : Stackable(Stackable::Type::Number), 
                   type{Type::Float}, d{d}   {}
             
-            long long get() const;
+            int get() const;
             
             std::string to_string() const
             {
