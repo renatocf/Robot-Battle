@@ -20,6 +20,7 @@
 
 // Default libraries
 #include <vector>
+#include <string>
 #include <iostream>
 
 namespace positron
@@ -27,7 +28,11 @@ namespace positron
     class ExprC
     {
         protected:
-            enum class Core { numC, plusC, bminusC, multC, divC, ifC };
+            enum class Core { 
+                numC, idC, 
+                plusC, bminusC, multC, divC, ifC, 
+                lamC, appC
+            };
             const ExprC *l; const ExprC *r; const ExprC *x;
             
         public:
@@ -69,6 +74,43 @@ namespace positron
     
     std::ostream& operator<<(std::ostream& os, const ExprC& exprC);
     std::ostream& operator<<(std::ostream& os, const ExprC *exprC);
+    
+    class numC : public ExprC
+    {
+        private:
+            int n; 
+            
+        public:
+            numC(int n)
+                : ExprC{ExprC::Core::numC}, n{n} {}
+            
+            int get() const { return this->n; }
+            
+            void accept (const Visitor& visitor) const;
+    };
+
+    class idC : public ExprC
+    {
+        private:
+            std::string name;
+            
+        public:
+            idC(std::string name)
+                : ExprC{ExprC::Core::numC}, name{name} {}
+            
+            std::string get() const { return this->name; }
+            
+            void accept (const Visitor& visitor) const;
+    };
+    
+    class lamC : public ExprC
+    {
+        public:
+            lamC(const idC *var, const ExprC *body)
+                : ExprC{ExprC::Core::lamC, var, body} {}
+            
+            void accept (const Visitor& visitor) const;
+    };
     
     class plusC : public ExprC
     {
@@ -117,19 +159,12 @@ namespace positron
             void accept (const Visitor& visitor) const;
     };
     
-    class numC : public ExprC
+    class appC : public ExprC
     {
-        private:
-            long long n; 
-
         public:
-            numC(int n)
-                : ExprC{ExprC::Core::numC}, n{n} {}
-            numC(long long n)
-                : ExprC{ExprC::Core::numC}, n{n} {}
-            
-            long long get() const { return this->n; }
-            
+            appC(const ExprC *lam, const ExprC *arg)
+                : ExprC{ExprC::Core::appC, lam, arg} {}
+
             void accept (const Visitor& visitor) const;
     };
     
@@ -137,11 +172,14 @@ namespace positron
     {
         public:
             virtual void visit(const numC    *exprC) const = 0;
+            virtual void visit(const idC     *exprC) const = 0;
             virtual void visit(const plusC   *exprC) const = 0;
             virtual void visit(const bminusC *exprC) const = 0;
             virtual void visit(const multC   *exprC) const = 0;
             virtual void visit(const divC    *exprC) const = 0;
             virtual void visit(const ifC     *exprC) const = 0;
+            virtual void visit(const lamC    *exprC) const = 0;
+            virtual void visit(const appC    *exprC) const = 0;
     };
 }
 

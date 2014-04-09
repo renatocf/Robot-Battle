@@ -37,10 +37,23 @@ namespace positron
             void visit(const numC *exprC) const 
             {
                 if(exprC == nullptr) return;
-                stk::Stackable_ptr num { new stk::Number {
-                    dynamic_cast<const numC *>(exprC)->get()
-                }};
-                std::cout << num << std::endl;
+                std::cout << dynamic_cast<const numC *>(exprC)->get();
+                std::cout << std::endl;
+            }
+            
+            void visit(const idC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                std::cout << dynamic_cast<const idC *>(exprC)->get();
+                std::cout << std::endl;
+            }
+            
+            void visit(const lamC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                std::cout << "lamC" << std::endl;
+                visit_l(exprC, "|- ", "|  "); 
+                visit_r(exprC, "'- ", "   ");
             }
             
             void visit(const plusC *exprC) const 
@@ -82,6 +95,14 @@ namespace positron
                 visit_l(exprC, "|- ", "|  "); 
                 visit_r(exprC, "|- ", "|  ");
                 visit_x(exprC, "'- ", "   ");
+            }
+            
+            void visit(const appC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                std::cout << "appC" << std::endl;
+                visit_l(exprC, "|- ", "|  "); 
+                visit_r(exprC, "'- ", "   ");
             }
 
         private:
