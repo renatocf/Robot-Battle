@@ -33,9 +33,10 @@
     [X] Separate compilation step from parsing.
     [X] Include ';' as end-of-expression in the parser.
     [X] Add a method to compile from a file just with its name.
+    [X] Implement functions (as lambdas) in the Core.
+    [ ] Add assembly generation for lambdas.
     [ ] Throw an exception when file does not exist.
-    [ ] Improce message errors in the parser.
-    [ ] Implement functions (as lambdas) in the Core.
+    [ ] Improve message errors in the parser.
     [ ] Implement name association (Environment) in the Core.
     [ ] Implement state mutation (Storage) in the Core.
     [ ] Add Doxygen documentation in Positron Headers C++ code.
@@ -46,7 +47,6 @@
 
 [Main]
     [X] Integrate getopt.h lib/module to get options.
-    [ ] Add flexc++/bisonc++ as git submodules.
 
 [Makefile]
     [X] Test compilation with test with libs.
