@@ -82,6 +82,8 @@
     [X] Make 'delete' work with files of any extension.
     [X] Add namespace when creating C++ in a subdirectory.
     [X] Generate flexc++ and bisonc++ functions besides the file names.
+    [X] Support subdirectories when installing files.
+    [ ] Correct uninstall to delete subdirs/files created on install.
     [ ] Test if flex/bison still compile correctly.
     [ ] Automatically deduce C/C++ scanner/parser from extensions.
     [ ] Support Java compilation and generation of .jar.
