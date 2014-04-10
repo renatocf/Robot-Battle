@@ -55,7 +55,7 @@ void Asm::operate(const RVM& rvm, Func func)
  */
 void Asm::ADD(const RVM& rvm)
 {
-    operate(rvm, [] (long long a, long long b) { return a + b; });
+    operate(rvm, [] (int a, int b) { return a + b; });
 }
 
 /**
@@ -65,7 +65,7 @@ void Asm::ADD(const RVM& rvm)
  */
 void Asm::SUB(const RVM& rvm)
 {
-    operate(rvm, [] (long long a, long long b) { return a - b; });
+    operate(rvm, [] (int a, int b) { return a - b; });
 }
 
 /**
@@ -75,7 +75,7 @@ void Asm::SUB(const RVM& rvm)
  */
 void Asm::MUL(const RVM& rvm)
 {
-    operate(rvm, [] (long long a, long long b) { return a * b; });
+    operate(rvm, [] (int a, int b) { return a * b; });
 }
 
 /**
@@ -86,7 +86,7 @@ void Asm::MUL(const RVM& rvm)
  */
 void Asm::DIV(const RVM& rvm)
 {
-    operate(rvm, [] (long long a, long long b) { return a / b; });
+    operate(rvm, [] (int a, int b) { return a / b; });
 }
 
 /**
@@ -97,5 +97,5 @@ void Asm::DIV(const RVM& rvm)
  */
 void Asm::MOD(const RVM& rvm)
 {
-    operate(rvm, [] (long long a, long long b) { return a % b; });
+    operate(rvm, [] (int a, int b) { return a % b; });
 }

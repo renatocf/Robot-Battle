@@ -51,6 +51,23 @@ namespace positron
                     { vm::Command::Opcode::PUSH, num });
             }
             
+            void visit(const idC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                stk::Text num {
+                    dynamic_cast<const idC *>(exprC)->get()
+                };
+                // TODO: Implement idC
+                // prog.push_back(vm::Command 
+                    // { vm::Command::Opcode::PUSH, num });
+            }
+            
+            void visit(const lamC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                // TODO: Implement lamC
+            }
+            
             void visit(const plusC *exprC) const 
             {
                 if(exprC == nullptr) return;
@@ -120,6 +137,12 @@ namespace positron
                 prog.push_back(vm::Command { s_else });
                 exprC->accept_x(*this);
                 prog.push_back(vm::Command { s_endif });
+            }
+            
+            void visit(const appC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                // TODO: Implement appC
             }
     };
 }

@@ -28,8 +28,6 @@
 
 // Libraries
 #include "Syntax_S.hpp"
-#include "Compiler.hpp"
-#include "RVM.hpp"
 
 #undef Parser
 namespace positron 
@@ -38,7 +36,6 @@ namespace positron
     {
         Scanner d_scanner           {};
         std::shared_ptr<ExprS> prog {};
-        Compiler compiler           {};
         
         bool reading_stdin = false;
         

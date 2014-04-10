@@ -28,14 +28,14 @@
  * Number getter. <br>
  * @return Number converted to C++ default type.
  */
-long long stk::Number::get() const
+int stk::Number::get() const
 {
     switch(this->type)
     {
         case Type::Integer:
             return l;
         case Type::Float:
-            return static_cast<long long>(d);
+            return static_cast<int>(d);
         default:
             return 0.0;
     }

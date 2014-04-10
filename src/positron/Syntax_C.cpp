@@ -25,6 +25,16 @@ void numC::accept(const Visitor& visitor) const
     visitor.visit(this);
 }
 
+void idC::accept(const Visitor& visitor) const
+{
+    visitor.visit(this);
+}
+
+void lamC::accept(const Visitor& visitor) const
+{
+    visitor.visit(this);
+}
+
 void plusC::accept(const Visitor& visitor) const
 {
     visitor.visit(this);
@@ -46,6 +56,11 @@ void divC::accept(const Visitor& visitor) const
 }
 
 void ifC::accept(const Visitor& visitor) const
+{
+    visitor.visit(this);
+}
+
+void appC::accept(const Visitor& visitor) const
 {
     visitor.visit(this);
 }

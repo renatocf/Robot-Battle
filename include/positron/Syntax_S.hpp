@@ -18,13 +18,17 @@
 #ifndef HPP_POSITRON_SYNTAX_S_DEFINED
 #define HPP_POSITRON_SYNTAX_S_DEFINED
 
+// Default libraries
+#include <string>
+
 namespace positron
 {
     struct ExprS
     {
         protected:
             enum class Sugar { 
-                numS, plusS, bminusS, multS, divS, ifS,
+                numS, idS,
+                plusS, bminusS, multS, divS, ifS, lamS, appS,
                 uminusS
             };
             const ExprS *l; const ExprS *r; const ExprS *x;
@@ -48,6 +52,36 @@ namespace positron
                 : l{l}, r{r}, x{x}, type{t} {}
         
         friend class Desugar;
+    };
+    
+    class numS : public ExprS
+    {
+        private:
+            int n {}; 
+
+        public:
+            numS(int n)
+                : ExprS{ExprS::Sugar::numS}, n{n} {}
+            
+            int get() const { return this->n; }
+    };
+    
+    class idS : public ExprS
+    {
+        private:
+            std::string name {};
+
+        public:
+            idS(const std::string& name)
+                : ExprS{ExprS::Sugar::idS}, name{name} {}
+            
+            std::string get() const { return name; }
+    };
+    
+    struct lamS : public ExprS
+    {
+        lamS(const idS *var, const ExprS *body)
+            : ExprS{ExprS::Sugar::lamS, var, body} {}
     };
     
     struct plusS : public ExprS
@@ -82,18 +116,10 @@ namespace positron
             : ExprS{ExprS::Sugar::ifS, cond, yes, no} {}
     };
     
-    class numS : public ExprS
+    struct appS : public ExprS
     {
-        private:
-            long long n; 
-
-        public:
-            numS(int n)
-                : ExprS{ExprS::Sugar::numS}, n{n} {}
-            numS(long long n)
-                : ExprS{ExprS::Sugar::numS}, n{n} {}
-            
-            long long get() const { return this->n; }
+        appS(const ExprS *cond, const ExprS *yes)
+            : ExprS{ExprS::Sugar::appS, cond, yes} {}
     };
     
     struct uminusS : public ExprS
