@@ -15,7 +15,7 @@
     [X] Remove Stackable_ptr from Command constructor.
     [ ] Finish implementing syscalls.
 
-[Positron]
+[positron]
     [X] Create scripts in Perl to parse Quark to C++.
     [X] Execute Quark programs on demand.
     [X] Make parser/quark automatically with Perl.
@@ -86,10 +86,9 @@
     [X] Add namespace when creating C++ in a subdirectory.
     [X] Generate flexc++ and bisonc++ functions besides the file names.
     [X] Support subdirectories when installing files.
-    [ ] Correct uninstall to delete subdirs/files created on install.
+    [X] Correct uninstall to delete subdirs/files created on install.
+    [X] Automatically deduce C/C++ scanner/parser from extensions.
     [ ] Test if flex/bison still compile correctly.
-    [ ] Automatically deduce C/C++ scanner/parser from extensions.
-    [ ] Support Java compilation and generation of .jar.
     [ ] Add option to automatically create a RPM package.
 
 [tests]
