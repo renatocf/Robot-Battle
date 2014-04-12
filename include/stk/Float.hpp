@@ -15,23 +15,46 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-/** 
- * @file   Int.cpp
- * @brief  Stackable for integers.
- * @author Renato Cordeiro Ferreira
- */
+#ifndef HPP_STK_FLOAT_DEFINED
+#define HPP_STK_FLOAT_DEFINED
 
-// Libraries
-#include "Int.hpp"
+// Default libraries
+#include <string>
+#include <iostream>
 
-/**
- * Overload the operator << to print integers. <br>
- * @param  os   Standard output streams to print
- * @param  addr Stackable integer to be printed
- * @return Standard output stream received as argument
- */
-std::ostream& stk::operator<<(std::ostream& os, const Int& n)
+// Floaternal libraries
+#include "Stackable.hpp"
+
+namespace stk
 {
-    os << n.i; 
-    return os;
+    class Float: public Stackable
+    {
+        private:
+            float f;
+        
+        public:
+            /** 
+             * <b>Default constructor.</b>
+             * 
+             * @param f Floating point to be stored in this object.
+             */
+            Float(float f = 0.0)
+                : Stackable(Stackable::Type::Float), f{f} {}
+            
+            /// @return Address defined in the construction
+            float get() const { return this->f; }
+            
+            std::string to_string() const
+            { return std::to_string(this->f); }
+            
+            Float *clone()  const { return new Float{*this}; }
+            Float *create() const { return new Float{};      }
+            
+            friend std::ostream&
+            operator<<(std::ostream& os, const Float& n);
+    };
+            
+    std::ostream& operator<<(std::ostream& os, const Float& n);
 }
+
+#endif

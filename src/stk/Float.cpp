@@ -16,13 +16,13 @@
 /**********************************************************************/
 
 /** 
- * @file   Int.cpp
+ * @file   Float.cpp
  * @brief  Stackable for integers.
  * @author Renato Cordeiro Ferreira
  */
 
 // Libraries
-#include "Int.hpp"
+#include "Float.hpp"
 
 /**
  * Overload the operator << to print integers. <br>
@@ -30,8 +30,8 @@
  * @param  addr Stackable integer to be printed
  * @return Standard output stream received as argument
  */
-std::ostream& stk::operator<<(std::ostream& os, const Int& n)
+std::ostream& stk::operator<<(std::ostream& os, const Float& n)
 {
-    os << n.i; 
+    os << n.f; 
     return os;
 }

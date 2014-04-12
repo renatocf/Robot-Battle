@@ -25,6 +25,7 @@
 #include "Asm.hpp"
 #include "Int.hpp"
 #include "Text.hpp"
+#include "Float.hpp"
 #include "Debug.hpp"
 #include "Address.hpp"
 #include "Stackable.hpp"
@@ -74,6 +75,9 @@ void Asm::select(const RVM& rvm, Func cmp)
         {
             case stk::Stackable::Type::Int:
                 Asm::compare<stk::Int>(rvm, arg1, arg2, cmp);
+                break;
+            case stk::Stackable::Type::Float:
+                Asm::compare<stk::Float>(rvm, arg1, arg2, cmp);
                 break;
             case stk::Stackable::Type::Text:    
                 Asm::compare<stk::Text>(rvm, arg1, arg2, cmp);
