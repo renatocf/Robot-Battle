@@ -23,7 +23,6 @@
 #include <iostream>
 
 // Libraries
-#include "Number.hpp"
 #include "Syntax_C.hpp"
 
 namespace positron

@@ -15,8 +15,8 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_STK_NUMBER_DEFINED
-#define HPP_STK_NUMBER_DEFINED
+#ifndef HPP_STK_INT_DEFINED
+#define HPP_STK_INT_DEFINED
 
 // Default libraries
 #include <string>
@@ -27,54 +27,34 @@
 
 namespace stk
 {
-    class Number: public Stackable
+    class Int: public Stackable
     {
         private:
-            enum class Type { Integer, Float };
-            
-            Type type;
-            const union {
-                int l;
-                double d;
-            };
+            int i;
         
         public:
-            Number(int l = 0)
-                : Stackable(Stackable::Type::Number), 
-                  type{Type::Integer}, l{l} {}
-            Number(double d)
-                : Stackable(Stackable::Type::Number), 
-                  type{Type::Float}, d{d}   {}
+            /** 
+             * <b>Default constructor.</b>
+             * 
+             * @param i Integer to be stored in this object.
+             */
+            Int(int i = 0)
+                : Stackable(Stackable::Type::Int), i{i} {}
             
-            int get() const;
+            /// @return Address defined in the construction
+            int get() const { return this->i; }
             
             std::string to_string() const
-            {
-                return this->type == Type::Integer
-                    ? std::to_string(this->l)
-                    : std::to_string(this->d);
-            }
+            { return std::to_string(this->i); }
             
-            Number *clone() const
-            {
-                return new Number{*this};
-            }
-            
-            Number *create() const
-            {
-                return new Number{};
-            }
-            
-            virtual const Number& typeref() const
-            {
-                return *this;
-            }
+            Int *clone()  const { return new Int{*this}; }
+            Int *create() const { return new Int{};      }
             
             friend std::ostream&
-            operator<<(std::ostream& os, const Number& n);
+            operator<<(std::ostream& os, const Int& n);
     };
             
-    std::ostream& operator<<(std::ostream& os, const Number& n);
+    std::ostream& operator<<(std::ostream& os, const Int& n);
 }
 
 #endif

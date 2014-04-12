@@ -43,7 +43,7 @@ namespace stk
              * @enum Type
              * Subtypes of the stackable.
              */
-            enum class Type { Number, Text, Address };
+            enum class Type { Int, Text, Address };
             
             /// Underlying type of the stackable.
             const Type type;
@@ -61,9 +61,6 @@ namespace stk
             /// @return New stackable subtype with default value,
             ///         built in the heap
             virtual Stackable        *create () const = 0;
-            
-            /// @return Constant reference to this object
-            virtual const Stackable& typeref () const = 0;     
         
         protected:
             /**

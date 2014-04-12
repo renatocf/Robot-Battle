@@ -33,33 +33,22 @@ namespace stk
             std::string text;
         
         public:
+            /** 
+             * <b>Default constructor.</b>
+             * 
+             * @param text Text to be stored in this object.
+             */
             Text(std::string text = "")
                 : Stackable{Type::Text}, text{text} {}
             
-            std::string get() const
-            {
-                return this->text;
-            }
+            /// @return Address defined in the construction
+            std::string get() const { return this->text; }
             
             std::string to_string() const
-            {
-                return this->text;
-            }
+            { return this->text; }
             
-            Text *clone() const
-            {
-                return new Text{*this};
-            }
-            
-            Text *create() const
-            {
-                return new Text{};
-            }
-            
-            const Text& typeref () const 
-            {
-                return *this;
-            }
+            Text *clone()  const { return new Text{*this}; }
+            Text *create() const { return new Text{};      }
             
             friend std::ostream&
             operator<<(std::ostream& os, const Text& n);

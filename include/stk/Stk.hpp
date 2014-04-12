@@ -2,8 +2,8 @@
 #define HPP_STK_DEFINED
 
 // Libraries
+#include "Int.hpp"
 #include "Text.hpp"
-#include "Number.hpp"
 #include "Stackable.hpp"
 
 #endif

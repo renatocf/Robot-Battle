@@ -59,30 +59,13 @@ namespace stk
                   address{a} {}
             
             /// @return Address defined in the construction
-            int get() const
-            {
-                return this->address;
-            }
+            int get() const { return this->address; }
             
             std::string to_string() const
-            {
-                return std::to_string(this->address);
-            }
+            { return std::to_string(this->address); }
             
-            Address *clone() const
-            {
-                return new Address{*this};
-            }
-            
-            Address *create() const
-            {
-                return new Address{};
-            }
-            
-            const Address& typeref() const
-            {
-                return *this;
-            }
+            Address *clone()  const { return new Address{*this}; }
+            Address *create() const { return new Address{};      }
             
             friend std::ostream&
             operator<<(std::ostream& os, const Address& n);

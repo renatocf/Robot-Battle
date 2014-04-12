@@ -23,9 +23,9 @@
 
 // Libraries
 #include "Asm.hpp"
+#include "Int.hpp"
 #include "Text.hpp"
 #include "Debug.hpp"
-#include "Number.hpp"
 #include "Address.hpp"
 #include "Stackable.hpp"
 using namespace vm;
@@ -50,7 +50,7 @@ void Asm::compare(
     T* arg2_ptr = dynamic_cast<T*>(arg2.get());
     
     Asm::push(rvm, stk::Stackable_ptr { 
-        new stk::Number { cmp(arg1_ptr->get(), arg2_ptr->get()) ? 1 : 0 }
+        new stk::Int { cmp(arg1_ptr->get(), arg2_ptr->get()) ? 1 : 0 }
     });
 }
 
@@ -72,8 +72,8 @@ void Asm::select(const RVM& rvm, Func cmp)
     {
         switch(arg1->type)
         {
-            case stk::Stackable::Type::Number:
-                Asm::compare<stk::Number>(rvm, arg1, arg2, cmp);
+            case stk::Stackable::Type::Int:
+                Asm::compare<stk::Int>(rvm, arg1, arg2, cmp);
                 break;
             case stk::Stackable::Type::Text:    
                 Asm::compare<stk::Text>(rvm, arg1, arg2, cmp);

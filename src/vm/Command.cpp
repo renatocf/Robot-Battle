@@ -22,7 +22,6 @@
 
 // Libraries
 #include "Colors.hpp"
-#include "Number.hpp"
 #include "Command.hpp"
 
 /*
@@ -143,7 +142,8 @@ std::ostream& vm::operator<<(std::ostream& os, const Prog& prog)
             : os << RESTORE << std::setw(max_lab) << "";
         
         // Command
-        os << YELLOW << std::left << std::setw(max_cmd) << cmd.cmd << RESTORE;
+        os << YELLOW << std::left << std::setw(max_cmd) 
+           << cmd.cmd << RESTORE;
         
         // Argument
         os << "  ";

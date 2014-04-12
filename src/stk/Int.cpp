@@ -16,47 +16,22 @@
 /**********************************************************************/
 
 /** 
- * @file   Number.cpp
- * @brief  Stackable for numbers.
+ * @file   Int.pp
+ * @brief  Stackable for integers.
  * @author Renato Cordeiro Ferreira
  */
 
 // Libraries
-#include "Number.hpp"
+#include "Int.hpp"
 
 /**
- * Number getter. <br>
- * @return Number converted to C++ default type.
- */
-int stk::Number::get() const
-{
-    switch(this->type)
-    {
-        case Type::Integer:
-            return l;
-        case Type::Float:
-            return static_cast<int>(d);
-        default:
-            return 0.0;
-    }
-}
-
-/**
- * Overload the operator << to print numbers. <br>
+ * Overload the operator << to print integers. <br>
  * @param  os   Standard output streams to print
- * @param  addr Stackable number to be printed
+ * @param  addr Stackable integer to be printed
  * @return Standard output stream received as argument
  */
-std::ostream& stk::operator<<(std::ostream& os, const Number& n)
+std::ostream& stk::operator<<(std::ostream& os, const Int& n)
 {
-    switch(n.type)
-    {
-        case Number::Type::Integer:
-            os << n.l; 
-            break;
-        case Number::Type::Float:
-            os << n.d;
-            break;
-    }
+    os << n.i; 
     return os;
 }

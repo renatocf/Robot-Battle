@@ -22,8 +22,8 @@
 #include <string>
 
 // Libraries
+#include "Int.hpp"
 #include "Text.hpp"
-#include "Number.hpp"
 #include "Command.hpp"
 #include "Syntax_C.hpp"
 
@@ -44,7 +44,7 @@ namespace positron
             void visit(const numC *exprC) const 
             {
                 if(exprC == nullptr) return;
-                stk::Number num {
+                stk::Int num {
                     dynamic_cast<const numC *>(exprC)->get()
                 };
                 prog.push_back(vm::Command 
@@ -119,7 +119,7 @@ namespace positron
                 
                 // Test condition
                 prog.push_back(vm::Command {
-                    vm::Command::Opcode::PUSH, stk::Number{1} });
+                    vm::Command::Opcode::PUSH, stk::Int{1} });
                 prog.push_back(vm::Command {
                     vm::Command::Opcode::EQ });
                 prog.push_back(vm::Command {

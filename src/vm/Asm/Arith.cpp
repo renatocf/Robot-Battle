@@ -24,7 +24,7 @@
 // Libraries
 #include "Asm.hpp"
 #include "Debug.hpp"
-#include "Number.hpp"
+#include "Int.hpp"
 using namespace vm;
 
 /**
@@ -41,9 +41,9 @@ void Asm::operate(const RVM& rvm, Func func)
     stk::Stackable_ptr second { Asm::pop(rvm) };
     stk::Stackable_ptr first  { Asm::pop(rvm) };
     
-    stk::Stackable_ptr nouveau { new stk::Number { 
-        func(dynamic_cast<stk::Number*>(first.get())->get(), 
-             dynamic_cast<stk::Number*>(second.get())->get()) 
+    stk::Stackable_ptr nouveau { new stk::Int { 
+        func(dynamic_cast<stk::Int*>(first.get())->get(), 
+             dynamic_cast<stk::Int*>(second.get())->get()) 
     }};
     Asm::push(rvm, std::move(nouveau));
 }

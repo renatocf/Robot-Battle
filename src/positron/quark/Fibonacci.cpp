@@ -21,8 +21,8 @@
 
 // Libraries
 //#include "Stk.hpp"
+#include "Int.hpp"
 #include "Text.hpp"
-#include "Number.hpp"
 #include "Address.hpp"
 #include "Stackable.hpp"
 #include "Fibonacci.hpp"
@@ -45,9 +45,9 @@ vm::Prog parser::quark::upload_Fibonacci()
     Address adr3 { 2 };
 
     // Numerical variables
-    Number num1 { 1 };
-    Number num2 { 10 };
-    Number num3 { 0 };
+    Int num1 { 1 };
+    Int num2 { 10 };
+    Int num3 { 0 };
 
     // Textual variables
     stk::Text msg1 { "LOOP" };

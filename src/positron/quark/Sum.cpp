@@ -21,8 +21,8 @@
 
 // Libraries
 //#include "Stk.hpp"
+#include "Int.hpp"
 #include "Text.hpp"
-#include "Number.hpp"
 #include "Address.hpp"
 #include "Stackable.hpp"
 #include "Sum.hpp"
@@ -40,7 +40,7 @@ vm::Prog parser::quark::upload_Sum()
     vm::Prog PROG;
 
     // Numerical variables
-    Number num1 { 2 };
+    Int num1 { 2 };
 
     PROG.push_back( vm::Command { Command::Opcode::PUSH, num1 });
     PROG.push_back( vm::Command { Command::Opcode::PUSH, num1 });

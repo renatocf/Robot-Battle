@@ -75,8 +75,8 @@ $COPYRIGHT
 
 // Libraries
 //#include "Stk.hpp"
+#include "Int.hpp"
 #include "Text.hpp"
-#include "Number.hpp"
 #include "Address.hpp"
 #include "Stackable.hpp"
 #include "#BASENAME#.hpp"
@@ -344,7 +344,7 @@ sub preproc
                 {
                     $n++; $line->[1] = "num$n";
                     $obj->{NUMERIC}{$arg} = 
-                        [ $n, "Number num$n { $arg };" ];
+                        [ $n, "Int num$n { $arg };" ];
                 }
                 else { $line->[1] = "num$obj->{NUMERIC}{$arg}[0]"; }
             }

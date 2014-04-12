@@ -22,9 +22,9 @@
  */
 
 // Libraries
+#include "Int.hpp"
 #include "Asm.hpp"
 #include "Text.hpp"
-#include "Number.hpp"
 #include "Address.hpp"
 #include "Stackable.hpp"
 using namespace vm;
@@ -49,9 +49,9 @@ void Asm::JCMP(
     {
         stk::Stackable_ptr b { Asm::pop(rvm) };
         
-        if(b->type == stk::Stackable::Type::Number)
+        if(b->type == stk::Stackable::Type::Int)
         {
-            auto num = dynamic_cast<stk::Number*>(b.get())->get();
+            auto num = dynamic_cast<stk::Int*>(b.get())->get();
             result = (num != 0) ? true : false;
         }
         else { result = false; /* TODO: put error */ }
@@ -86,7 +86,7 @@ void Asm::JMP(const vm::RVM& rvm, const stk::Stackable_ptr& stk)
 /**
  * Assembly function JIT. <br>
  * If the top most stackable of a RVM is either a true boolean or a 
- * non-zero number, jump the PC to the position specified by a 
+ * non-zero Int, jump the PC to the position specified by a 
  * stackable given as argument.
  * @param rvm Robot Virtual Machine
  * @param stk Reference to pointer to stackable
