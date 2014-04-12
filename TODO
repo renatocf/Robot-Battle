@@ -1,7 +1,7 @@
 [stk]
     [X] Implement basic stackables (Address, Number, Text).
     [X] Remove boolean type (unnecessary).
-    [ ] Rename Number to Int and create type Float.
+    [X] Rename Number to Int and create type Float.
     [ ] Create game types (Direction).
 
 [vm]
