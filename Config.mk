@@ -7,10 +7,6 @@ BIN     := Main rpc
 ARLIB   := 
 SHRLIB  := 
 
-# Parser and Scanner
-CXXLEXER  := Scanner.ll
-CXXPARSER := Parser.yy
-
 # Package info
 MAINTEINER_NAME := Renato Cordeiro Ferreira
 MAINTEINER_MAIL := renato.cferreira@hotmail.com
