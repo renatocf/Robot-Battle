@@ -41,6 +41,7 @@
     [X] Add sequencing in the Core.
     [X] Read a multilined file and a multilined prompt.
     [X] Create a "print" function as syscall in the Parser.
+    [X] Add comparison operations in the parser and Core/Sugared Syntax.
     [ ] Add assembly generation for lambdas.
     [ ] Throw an exception when file does not exist.
     [ ] Improve error messages in the parser.
