@@ -52,6 +52,7 @@ namespace positron
             
             vm::Prog compile(const ExprS *root) const
             {
+                if(root == nullptr) return vm::Prog{};
                 std::shared_ptr<ExprC> core { Desugar{}.desugar(root) };
                 vm::Prog prog { compile(core.get()) };
                 return prog;
@@ -64,10 +65,10 @@ namespace positron
             
             vm::Prog compile(const ExprC *root) const
             {
+                if(root == nullptr) return vm::Prog{};
                 Syntax2Asm visitor {};
                 root->accept(visitor);
                 vm::Prog prog { std::move(visitor.get()) };
-                prog.push_back(vm::Command { vm::Command::Opcode::PRN });
                 prog.push_back(vm::Command { vm::Command::Opcode::END });
                 return prog;
             }

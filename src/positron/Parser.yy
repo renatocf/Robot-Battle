@@ -35,20 +35,30 @@ input:
 | 
     input line
 ;
-
-line:   
+   
+line:
     '\n'
 |
-    exp '\n'
-;
-
-exp:
-    ';'
-|
-    arith ';'
+    exprseq '\n'
     {
         prog = std::shared_ptr<ExprS>{$1};
         if(reading_stdin) ACCEPT();
+    }
+;
+
+exprseq:
+    expr ';' exprseq
+    {
+        $$ = new seqS{ $1, $3 };
+    }
+|
+    expr ';'
+;
+
+expr:
+    arith
+    {
+        $$ = new printS{$1};
     }
 ;
 

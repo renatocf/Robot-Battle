@@ -15,15 +15,15 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_VM_Command_DEFINED
-#define HPP_VM_Command_DEFINED
+#ifndef HPP_VM_COMMAND_DEFINED
+#define HPP_VM_COMMAND_DEFINED
 
 // Default libraries
 #include <string>
 #include <vector>
 #include <memory>
 
-// Internal libraries
+// Libraries
 #include "Stackable.hpp"
 
 namespace vm 
@@ -55,13 +55,6 @@ namespace vm
             const stk::Stackable_ptr arg {}; // argument
             const std::string        lab {}; // label
             
-            // Command(
-            //     vm::Command::Opcode cmd = {}, 
-            //     stk::Stackable_ptr  arg = {}, 
-            //     std::string         lab = {}
-            // )
-            //     : cmd{cmd}, arg{std::move(arg)}, lab{lab} {}
-            
             Command(const vm::Command::Opcode& cmd)
                 : cmd{cmd} {}
             
@@ -80,14 +73,6 @@ namespace vm
             )
                 : cmd{cmd}, arg{arg.clone()}, lab{lab} {}
             
-            // Command(const Command& cmd)
-                // : cmd{cmd.cmd}, 
-                  // arg{cmd.arg ? cmd.arg->clone() : nullptr},
-                  // lab{cmd.lab} {}
-            
-            // Command(const Command&& cmd)
-                // : cmd{cmd.cmd}, arg{cmd.arg->clone()}, lab{cmd.lab} {}
-            
             friend std::ostream& 
             operator<<(std::ostream& os, const Command& cmd);
     };
@@ -95,14 +80,14 @@ namespace vm
     std::ostream& operator<<(std::ostream& os, const Command& cmd);
     
     // Opcode
-    std::string   to_string(const vm::Command::Opcode& op);
-    std::ostream& operator<<(std::ostream& os, const vm::Command::Opcode& op);
+    std::string   to_string(const Command::Opcode& op);
+    std::ostream& operator<<(std::ostream& os, const Command::Opcode& op);
 }
 
 namespace vm
 {
     using Prog = std::vector<Command>;
-    std::ostream &operator<<(std::ostream &os, const Prog& prog);
+    std::ostream& operator<<(std::ostream& os, const Prog& prog);
 }
 
 #endif

@@ -67,7 +67,7 @@ namespace positron
                 if(exprC == nullptr) return;
                 std::cout << "plusC" << std::endl;
                 visit_l(exprC, "|- ", "|  "); 
-                visit_r(exprC, "'- ", "|  ");
+                visit_r(exprC, "'- ", "   ");
             }
             
             void visit(const bminusC *exprC) const 
@@ -75,7 +75,7 @@ namespace positron
                 if(exprC == nullptr) return;
                 std::cout << "bminusC" << std::endl;
                 visit_l(exprC, "|- ", "|  "); 
-                visit_r(exprC, "'- ", "|  ");
+                visit_r(exprC, "'- ", "   ");
             }
             
             void visit(const multC *exprC) const 
@@ -83,7 +83,7 @@ namespace positron
                 if(exprC == nullptr) return;
                 std::cout << "multC" << std::endl;
                 visit_l(exprC, "|- ", "|  "); 
-                visit_r(exprC, "'- ", "|  ");
+                visit_r(exprC, "'- ", "   ");
             }
             
             void visit(const divC *exprC) const 
@@ -91,7 +91,7 @@ namespace positron
                 if(exprC == nullptr) return;
                 std::cout << "divC" << std::endl;
                 visit_l(exprC, "|- ", "|  "); 
-                visit_r(exprC, "'- ", "|  ");
+                visit_r(exprC, "'- ", "   ");
             }
             
             void visit(const modC *exprC) const 
@@ -99,7 +99,7 @@ namespace positron
                 if(exprC == nullptr) return;
                 std::cout << "modC" << std::endl;
                 visit_l(exprC, "|- ", "|  "); 
-                visit_r(exprC, "'- ", "|  ");
+                visit_r(exprC, "'- ", "   ");
             }
             
             void visit(const ifC *exprC) const 
@@ -109,6 +109,21 @@ namespace positron
                 visit_l(exprC, "|- ", "|  "); 
                 visit_r(exprC, "|- ", "|  ");
                 visit_x(exprC, "'- ", "   ");
+            }
+            
+            void visit(const seqC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                std::cout << "seqC" << std::endl;
+                visit_l(exprC, "|- ", "|  "); 
+                visit_r(exprC, "'- ", "   ");
+            }
+            
+            void visit(const printC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                std::cout << "printC" << std::endl;
+                visit_l(exprC, "'- ", "   ");
             }
             
             void visit(const appC *exprC) const 

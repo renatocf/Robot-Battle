@@ -159,6 +159,21 @@ namespace positron
                 prog.push_back(vm::Command { s_endif });
             }
             
+            void visit(const printC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                exprC->accept_l(*this); 
+                prog.push_back(vm::Command {
+                    vm::Command::Opcode::PRN });
+            }
+            
+            void visit(const seqC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                exprC->accept_l(*this); 
+                exprC->accept_r(*this);
+            }
+            
             void visit(const appC *exprC) const 
             {
                 if(exprC == nullptr) return;

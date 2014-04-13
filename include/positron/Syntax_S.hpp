@@ -29,7 +29,7 @@ namespace positron
             enum class Sugar { 
                 intS, floatS, idS,
                 plusS, bminusS, multS, divS, modS,
-                ifS, lamS, appS,
+                ifS, seqS, printS, lamS, appS,
                 uminusS
             };
             const ExprS *l; const ExprS *r; const ExprS *x;
@@ -133,6 +133,18 @@ namespace positron
             : ExprS{ExprS::Sugar::ifS, cond, yes} {}
         ifS(const ExprS *cond, const ExprS *yes, const ExprS *no)
             : ExprS{ExprS::Sugar::ifS, cond, yes, no} {}
+    };
+    
+    struct seqS : public ExprS
+    {
+        seqS(const ExprS *first, const ExprS *second)
+            : ExprS{ExprS::Sugar::seqS, first, second} {}
+    };
+    
+    struct printS : public ExprS
+    {
+        printS(const ExprS *string)
+            : ExprS{ExprS::Sugar::printS, string} {}
     };
     
     struct appS : public ExprS

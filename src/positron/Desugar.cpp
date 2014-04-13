@@ -67,6 +67,13 @@ ExprC *Desugar::desugar(const ExprS *node) const
             return new ifC{ desugar(node->l), 
                 desugar(node->r), desugar(node->x)};
         
+        case ExprS::Sugar::seqS:
+            return new seqC{ 
+                desugar(node->l), desugar(node->r) };
+        
+        case ExprS::Sugar::printS:
+            return new printC{ desugar(node->l) };
+        
         case ExprS::Sugar::appS:
             return new appC{ 
                 desugar(node->l), desugar(node->r)};
@@ -75,5 +82,6 @@ ExprC *Desugar::desugar(const ExprS *node) const
             return new multC{
                 new intC{-1}, desugar(node->l)};
     }
-    return new intC{1};
+    
+    return nullptr;
 }
