@@ -59,6 +59,10 @@ ExprC *Desugar::desugar(const ExprS *node) const
             return new divC{ 
                 desugar(node->l), desugar(node->r)};
         
+        case ExprS::Sugar::modS:
+            return new modC{ 
+                desugar(node->l), desugar(node->r)};
+        
         case ExprS::Sugar::ifS:
             return new ifC{ desugar(node->l), 
                 desugar(node->r), desugar(node->x)};
@@ -70,10 +74,6 @@ ExprC *Desugar::desugar(const ExprS *node) const
         case ExprS::Sugar::uminusS:
             return new multC{
                 new intC{-1}, desugar(node->l)};
-            
-        default:
-            std::cerr << "Should not happen" << std::endl;
-            return new intC{1};
     }
     return new intC{1};
 }

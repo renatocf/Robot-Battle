@@ -94,6 +94,14 @@ namespace positron
                 visit_r(exprC, "'- ", "|  ");
             }
             
+            void visit(const modC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                std::cout << "modC" << std::endl;
+                visit_l(exprC, "|- ", "|  "); 
+                visit_r(exprC, "'- ", "|  ");
+            }
+            
             void visit(const ifC *exprC) const 
             {
                 if(exprC == nullptr) return;

@@ -115,6 +115,15 @@ namespace positron
                     vm::Command::Opcode::DIV });
             }
             
+            void visit(const modC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                exprC->accept_l(*this); 
+                exprC->accept_r(*this);
+                prog.push_back(vm::Command {
+                    vm::Command::Opcode::MOD });
+            }
+            
             void visit(const ifC *exprC) const 
             {
                 if(exprC == nullptr) return;

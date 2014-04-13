@@ -30,7 +30,8 @@ namespace positron
         protected:
             enum class Core { 
                 intC, floatC, idC, 
-                plusC, bminusC, multC, divC, ifC, 
+                plusC, bminusC, multC, divC, modC,
+                ifC, 
                 lamC, appC
             };
             const ExprC *l; const ExprC *r; const ExprC *x;
@@ -162,6 +163,15 @@ namespace positron
             void accept (const Visitor& visitor) const;
     };
     
+    class modC : public ExprC
+    {
+        public:
+            modC(const ExprC *l, const ExprC *r)
+                : ExprC{ExprC::Core::modC, l, r} {}
+            
+            void accept (const Visitor& visitor) const;
+    };
+    
     class ifC : public ExprC
     {
         public:
@@ -192,6 +202,7 @@ namespace positron
             virtual void visit(const bminusC *exprC) const = 0;
             virtual void visit(const multC   *exprC) const = 0;
             virtual void visit(const divC    *exprC) const = 0;
+            virtual void visit(const modC    *exprC) const = 0;
             virtual void visit(const ifC     *exprC) const = 0;
             virtual void visit(const lamC    *exprC) const = 0;
             virtual void visit(const appC    *exprC) const = 0;

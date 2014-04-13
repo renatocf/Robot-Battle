@@ -60,6 +60,11 @@ void divC::accept(const Visitor& visitor) const
     visitor.visit(this);
 }
 
+void modC::accept(const Visitor& visitor) const
+{
+    visitor.visit(this);
+}
+
 void ifC::accept(const Visitor& visitor) const
 {
     visitor.visit(this);

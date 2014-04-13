@@ -28,7 +28,8 @@ namespace positron
         protected:
             enum class Sugar { 
                 intS, floatS, idS,
-                plusS, bminusS, multS, divS, ifS, lamS, appS,
+                plusS, bminusS, multS, divS, modS,
+                ifS, lamS, appS,
                 uminusS
             };
             const ExprS *l; const ExprS *r; const ExprS *x;
@@ -118,6 +119,12 @@ namespace positron
     {
         divS(const ExprS *l, const ExprS *r)
             : ExprS{ExprS::Sugar::divS, l, r} {}
+    };
+    
+    struct modS : public ExprS
+    {
+        modS(const ExprS *l, const ExprS *r)
+            : ExprS{ExprS::Sugar::modS, l, r} {}
     };
     
     struct ifS : public ExprS

@@ -26,7 +26,7 @@
 
 // ↓ Precedence increases
 %left  '+' '-'
-%left  '*' '/'
+%left  '*' '/' '%'
 %left  NEG     // Unary minus
 
 %%
@@ -57,7 +57,6 @@ arith:
 |
     FLOAT 
     { 
-        std::cout << static_cast<float>(std::atof(d_scanner.matched().c_str())) << std::endl;
         $$ = new floatS{
              static_cast<float>(std::atof(d_scanner.matched().c_str()))}; 
     }
@@ -80,6 +79,11 @@ arith:
     arith '/' arith
     { 
         $$ = new divS{$1,$3};    
+    }
+| 
+    arith '%' arith
+    { 
+        $$ = new modS{$1,$3};    
     }
 |
     // Unary minus:
