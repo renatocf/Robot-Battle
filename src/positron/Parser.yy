@@ -24,7 +24,6 @@
 %token ELSE
 %token INT
 %token FLOAT
-%token EOL
 %stype positron::ExprS*
 
 // ↓ Precedence increases
@@ -60,8 +59,14 @@ command:
 
 block:
     '{' comseq '}'
+    {
+        $$ = $2;
+    }
 |
     command
+    {
+        $$ = $1;
+    }
 ;
 
 conditional:
