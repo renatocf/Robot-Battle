@@ -63,6 +63,30 @@ ExprC *Desugar::desugar(const ExprS *node) const
             return new modC{ 
                 desugar(node->l), desugar(node->r)};
         
+        case ExprS::Sugar::eqS:
+            return new eqC{ 
+                desugar(node->l), desugar(node->r)};
+        
+        case ExprS::Sugar::neS:
+            return new neC{ 
+                desugar(node->l), desugar(node->r)};
+        
+        case ExprS::Sugar::ltS:
+            return new ltC{ 
+                desugar(node->l), desugar(node->r)};
+        
+        case ExprS::Sugar::leS:
+            return new leC{ 
+                desugar(node->l), desugar(node->r)};
+        
+        case ExprS::Sugar::gtS:
+            return new gtC{ 
+                desugar(node->l), desugar(node->r)};
+        
+        case ExprS::Sugar::geS:
+            return new geC{ 
+                desugar(node->l), desugar(node->r)};
+        
         case ExprS::Sugar::ifS:
             return new ifC{ desugar(node->l), 
                 desugar(node->r), desugar(node->x)};

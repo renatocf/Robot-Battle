@@ -84,7 +84,7 @@ namespace positron
                 if(exprC == nullptr) return;
                 exprC->accept_l(*this); 
                 exprC->accept_r(*this);
-                prog.push_back(vm::Command 
+                prog.push_back(vm::Command
                     { vm::Command::Opcode::ADD });
             }
             
@@ -93,7 +93,7 @@ namespace positron
                 if(exprC == nullptr) return;
                 exprC->accept_l(*this); 
                 exprC->accept_r(*this);
-                prog.push_back(vm::Command 
+                prog.push_back(vm::Command
                     { vm::Command::Opcode::SUB });
             }
             
@@ -102,8 +102,8 @@ namespace positron
                 if(exprC == nullptr) return;
                 exprC->accept_l(*this); 
                 exprC->accept_r(*this);
-                prog.push_back(vm::Command {
-                    vm::Command::Opcode::MUL });
+                prog.push_back(vm::Command
+                    { vm::Command::Opcode::MUL });
             }
             
             void visit(const divC *exprC) const 
@@ -111,8 +111,8 @@ namespace positron
                 if(exprC == nullptr) return;
                 exprC->accept_l(*this); 
                 exprC->accept_r(*this);
-                prog.push_back(vm::Command {
-                    vm::Command::Opcode::DIV });
+                prog.push_back(vm::Command
+                    { vm::Command::Opcode::DIV });
             }
             
             void visit(const modC *exprC) const 
@@ -120,8 +120,62 @@ namespace positron
                 if(exprC == nullptr) return;
                 exprC->accept_l(*this); 
                 exprC->accept_r(*this);
-                prog.push_back(vm::Command {
-                    vm::Command::Opcode::MOD });
+                prog.push_back(vm::Command
+                    { vm::Command::Opcode::MOD });
+            }
+            
+            void visit(const eqC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                exprC->accept_l(*this); 
+                exprC->accept_r(*this);
+                prog.push_back(vm::Command
+                    { vm::Command::Opcode::EQ });
+            }
+            
+            void visit(const neC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                exprC->accept_l(*this); 
+                exprC->accept_r(*this);
+                prog.push_back(vm::Command
+                    { vm::Command::Opcode::NE });
+            }
+            
+            void visit(const ltC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                exprC->accept_l(*this); 
+                exprC->accept_r(*this);
+                prog.push_back(vm::Command
+                    { vm::Command::Opcode::LT });
+            }
+            
+            void visit(const leC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                exprC->accept_l(*this); 
+                exprC->accept_r(*this);
+                prog.push_back(vm::Command
+                    { vm::Command::Opcode::LE });
+            }
+            
+            void visit(const gtC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                exprC->accept_l(*this); 
+                exprC->accept_r(*this);
+                prog.push_back(vm::Command
+                    { vm::Command::Opcode::GT });
+            }
+            
+            void visit(const geC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                exprC->accept_l(*this); 
+                exprC->accept_r(*this);
+                prog.push_back(vm::Command
+                    { vm::Command::Opcode::GE });
             }
             
             void visit(const ifC *exprC) const 

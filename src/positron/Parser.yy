@@ -25,10 +25,12 @@
 %token INT
 %token FLOAT
 %token PRINT
+%token EQ NE LT LE GT GE
 
 %stype positron::ExprS*
 
 // ↓ Precedence increases
+%nonassoc CMP
 %left  '+' '-'
 %left  '*' '/' '%'
 %right NEG     // Unary minus
@@ -86,11 +88,6 @@ conditional:
 ;
 
 syscall:
-    PRINT '(' expr ')'
-    {
-        $$ = new printS{$3};
-    }
-|
     PRINT expr
     {
         $$ = new printS{$2};
@@ -99,9 +96,18 @@ syscall:
 
 expr:
     arith
-    {
-        $$ = $1;
-    }
+|
+    arith EQ arith %prec CMP    { $$ = new eqS{$1,$3};      }
+|
+    arith NE arith %prec CMP    { $$ = new neS{$1,$3};      }
+|
+    arith LT arith %prec CMP    { $$ = new ltS{$1,$3};      }
+|
+    arith LE arith %prec CMP    { $$ = new leS{$1,$3};      }
+|
+    arith GT arith %prec CMP    { $$ = new gtS{$1,$3};      }
+|
+    arith GE arith %prec CMP    { $$ = new geS{$1,$3};      }
 ;
 
 arith:
@@ -112,40 +118,18 @@ arith:
         $$ = new floatS{
              static_cast<float>(std::atof(d_scanner.matched().c_str()))}; 
     }
-| 
-    arith '+' arith 
-    { 
-        $$ = new plusS{$1,$3};    
-    }
-| 
-    arith '-' arith
-    { 
-        $$ = new bminusS{$1,$3};
-    }
-| 
-    arith '*' arith
-    { 
-        $$ = new multS{$1,$3};    
-    }
-| 
-    arith '/' arith
-    { 
-        $$ = new divS{$1,$3};    
-    }
-| 
-    arith '%' arith
-    { 
-        $$ = new modS{$1,$3};    
-    }
 |
-    // Unary minus:
-    '-' arith %prec NEG
-    {
-        $$ = new uminusS{$2};
-    }
+    arith '+' arith             { $$ = new plusS{$1,$3};    }
 |
-    '(' arith ')'
-    { 
-        $$ = $2;
-    }
+    arith '-' arith             { $$ = new bminusS{$1,$3};  }
+|
+    arith '*' arith             { $$ = new multS{$1,$3};    }
+|
+    arith '/' arith             { $$ = new divS{$1,$3};     }
+|
+    arith '%' arith             { $$ = new modS{$1,$3};     }
+|
+    '-' arith %prec NEG         { $$ = new uminusS{$2};     }
+|
+    '(' expr ')'                { $$ = $2;                  }
 ;

@@ -30,6 +30,13 @@ else                        return Parser::ELSE;
 
 [0-9]+"."[0-9]+             return Parser::FLOAT;
 
+"=="|"eq"                   return Parser::EQ;
+"!="|"ne"                   return Parser::NE;
+"<"|"lt"                    return Parser::LT;
+">"|"gt"                    return Parser::LE;
+"<="|"le"                   return Parser::GT;
+">="|"ge"                   return Parser::GE;
+
 print                       return Parser::PRINT;
 
 "\\\n"                      { 

@@ -29,6 +29,7 @@ namespace positron
             enum class Sugar { 
                 intS, floatS, idS,
                 plusS, bminusS, multS, divS, modS,
+                eqS, neS, ltS, leS, gtS, geS,
                 ifS, seqS, printS, lamS, appS,
                 uminusS
             };
@@ -125,6 +126,42 @@ namespace positron
     {
         modS(const ExprS *l, const ExprS *r)
             : ExprS{ExprS::Sugar::modS, l, r} {}
+    };
+    
+    struct eqS : public ExprS
+    {
+        eqS(const ExprS *l, const ExprS *r)
+            : ExprS{ExprS::Sugar::eqS, l, r} {}
+    };
+    
+    struct neS : public ExprS
+    {
+        neS(const ExprS *l, const ExprS *r)
+            : ExprS{ExprS::Sugar::neS, l, r} {}
+    };
+    
+    struct ltS : public ExprS
+    {
+        ltS(const ExprS *l, const ExprS *r)
+            : ExprS{ExprS::Sugar::ltS, l, r} {}
+    };
+    
+    struct leS : public ExprS
+    {
+        leS(const ExprS *l, const ExprS *r)
+            : ExprS{ExprS::Sugar::leS, l, r} {}
+    };
+    
+    struct gtS : public ExprS
+    {
+        gtS(const ExprS *l, const ExprS *r)
+            : ExprS{ExprS::Sugar::gtS, l, r} {}
+    };
+    
+    struct geS : public ExprS
+    {
+        geS(const ExprS *l, const ExprS *r)
+            : ExprS{ExprS::Sugar::geS, l, r} {}
     };
     
     struct ifS : public ExprS

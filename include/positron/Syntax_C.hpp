@@ -31,6 +31,7 @@ namespace positron
             enum class Core { 
                 intC, floatC, idC, 
                 plusC, bminusC, multC, divC, modC,
+                eqC, neC, gtC, geC, ltC, leC,
                 ifC, seqC,
                 printC, 
                 lamC, appC
@@ -177,6 +178,60 @@ namespace positron
             void accept (const Visitor& visitor) const;
     };
     
+    class eqC : public ExprC
+    {
+        public:
+            eqC(const ExprC *l, const ExprC *r)
+                : ExprC{ExprC::Core::eqC, l, r} {}
+            
+            void accept (const Visitor& visitor) const;
+    };
+    
+    class neC : public ExprC
+    {
+        public:
+            neC(const ExprC *l, const ExprC *r)
+                : ExprC{ExprC::Core::neC, l, r} {}
+            
+            void accept (const Visitor& visitor) const;
+    };
+    
+    class ltC : public ExprC
+    {
+        public:
+            ltC(const ExprC *l, const ExprC *r)
+                : ExprC{ExprC::Core::ltC, l, r} {}
+            
+            void accept (const Visitor& visitor) const;
+    };
+    
+    class leC : public ExprC
+    {
+        public:
+            leC(const ExprC *l, const ExprC *r)
+                : ExprC{ExprC::Core::leC, l, r} {}
+            
+            void accept (const Visitor& visitor) const;
+    };
+    
+    class gtC : public ExprC
+    {
+        public:
+            gtC(const ExprC *l, const ExprC *r)
+                : ExprC{ExprC::Core::gtC, l, r} {}
+            
+            void accept (const Visitor& visitor) const;
+    };
+    
+    class geC : public ExprC
+    {
+        public:
+            geC(const ExprC *l, const ExprC *r)
+                : ExprC{ExprC::Core::geC, l, r} {}
+            
+            void accept (const Visitor& visitor) const;
+    };
+    
     class ifC : public ExprC
     {
         public:
@@ -225,6 +280,12 @@ namespace positron
             virtual void visit(const multC   *exprC) const = 0;
             virtual void visit(const divC    *exprC) const = 0;
             virtual void visit(const modC    *exprC) const = 0;
+            virtual void visit(const eqC     *exprC) const = 0;
+            virtual void visit(const neC     *exprC) const = 0;
+            virtual void visit(const ltC     *exprC) const = 0;
+            virtual void visit(const leC     *exprC) const = 0;
+            virtual void visit(const gtC     *exprC) const = 0;
+            virtual void visit(const geC     *exprC) const = 0;
             virtual void visit(const ifC     *exprC) const = 0;
             virtual void visit(const seqC    *exprC) const = 0;
             virtual void visit(const printC  *exprC) const = 0;

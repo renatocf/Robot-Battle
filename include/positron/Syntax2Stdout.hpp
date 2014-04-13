@@ -102,6 +102,54 @@ namespace positron
                 visit_r(exprC, "'- ", "   ");
             }
             
+            void visit(const eqC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                std::cout << "eqC" << std::endl;
+                visit_l(exprC, "|- ", "|  "); 
+                visit_r(exprC, "'- ", "   ");
+            }
+            
+            void visit(const neC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                std::cout << "neC" << std::endl;
+                visit_l(exprC, "|- ", "|  "); 
+                visit_r(exprC, "'- ", "   ");
+            }
+            
+            void visit(const ltC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                std::cout << "ltC" << std::endl;
+                visit_l(exprC, "|- ", "|  "); 
+                visit_r(exprC, "'- ", "   ");
+            }
+            
+            void visit(const leC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                std::cout << "leC" << std::endl;
+                visit_l(exprC, "|- ", "|  "); 
+                visit_r(exprC, "'- ", "   ");
+            }
+            
+            void visit(const gtC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                std::cout << "gtC" << std::endl;
+                visit_l(exprC, "|- ", "|  "); 
+                visit_r(exprC, "'- ", "   ");
+            }
+            
+            void visit(const geC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                std::cout << "geC" << std::endl;
+                visit_l(exprC, "|- ", "|  "); 
+                visit_r(exprC, "'- ", "   ");
+            }
+            
             void visit(const ifC *exprC) const 
             {
                 if(exprC == nullptr) return;

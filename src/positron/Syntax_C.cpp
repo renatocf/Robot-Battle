@@ -66,6 +66,36 @@ void modC::accept(const Visitor& visitor) const
     visitor.visit(this);
 }
 
+void eqC::accept(const Visitor& visitor) const
+{
+    visitor.visit(this);
+}
+
+void neC::accept(const Visitor& visitor) const
+{
+    visitor.visit(this);
+}
+
+void ltC::accept(const Visitor& visitor) const
+{
+    visitor.visit(this);
+}
+
+void leC::accept(const Visitor& visitor) const
+{
+    visitor.visit(this);
+}
+
+void gtC::accept(const Visitor& visitor) const
+{
+    visitor.visit(this);
+}
+
+void geC::accept(const Visitor& visitor) const
+{
+    visitor.visit(this);
+}
+
 void ifC::accept(const Visitor& visitor) const
 {
     visitor.visit(this);
