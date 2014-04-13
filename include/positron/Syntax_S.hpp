@@ -27,10 +27,10 @@ namespace positron
     {
         protected:
             enum class Sugar { 
-                intS, floatS, idS,
+                intS, floatS, idS, stringS, lamS,
                 plusS, bminusS, multS, divS, modS,
                 eqS, neS, ltS, leS, gtS, geS,
-                ifS, seqS, printS, lamS, appS,
+                ifS, seqS, printS, appS,
                 uminusS
             };
             const ExprS *l; const ExprS *r; const ExprS *x;
@@ -90,6 +90,18 @@ namespace positron
                 : ExprS{ExprS::Sugar::idS}, name{name} {}
             
             std::string get() const { return name; }
+    };
+    
+    class stringS : public ExprS
+    {
+        private:
+            std::string str {};
+
+        public:
+            stringS(const std::string& str)
+                : ExprS{ExprS::Sugar::stringS}, str{str} {}
+            
+            std::string get() const { return str; }
     };
     
     struct lamS : public ExprS

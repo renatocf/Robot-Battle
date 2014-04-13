@@ -20,12 +20,20 @@
 
 %baseclass-preinclude Syntax_S.hpp 
 
-%token IF
-%token ELSE
+/* Primitives */
 %token INT
 %token FLOAT
-%token PRINT
+%token STRING
+
+/* Operators */
 %token EQ NE LT LE GT GE
+
+/* Flux control */
+%token IF
+%token ELSE
+
+/* Syscall */
+%token PRINT
 
 %stype positron::ExprS*
 
@@ -92,6 +100,17 @@ syscall:
     {
         $$ = new printS{$2};
     }
+|   
+    PRINT string
+    {
+        $$ = new printS{$2};
+    }
+;
+
+string:
+    STRING 
+    { $$ = new stringS{d_scanner.matched().substr
+                       (1,d_scanner.matched().length()-2)}; }
 ;
 
 expr:

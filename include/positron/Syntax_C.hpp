@@ -29,12 +29,11 @@ namespace positron
     {
         protected:
             enum class Core { 
-                intC, floatC, idC, 
+                intC, floatC, idC, stringC, lamC,
                 plusC, bminusC, multC, divC, modC,
                 eqC, neC, gtC, geC, ltC, leC,
-                ifC, seqC,
-                printC, 
-                lamC, appC
+                ifC, seqC, appC,
+                printC
             };
             const ExprC *l; const ExprC *r; const ExprC *x;
             
@@ -120,6 +119,20 @@ namespace positron
                 : ExprC{ExprC::Core::idC}, name{name} {}
             
             std::string get() const { return this->name; }
+            
+            void accept (const Visitor& visitor) const;
+    };
+    
+    class stringC : public ExprC
+    {
+        private:
+            std::string str;
+            
+        public:
+            stringC(std::string str)
+                : ExprC{ExprC::Core::stringC}, str{str} {}
+            
+            std::string get() const { return this->str; }
             
             void accept (const Visitor& visitor) const;
     };
@@ -275,6 +288,8 @@ namespace positron
             virtual void visit(const intC    *exprC) const = 0;
             virtual void visit(const floatC  *exprC) const = 0;
             virtual void visit(const idC     *exprC) const = 0;
+            virtual void visit(const stringC *exprC) const = 0;
+            virtual void visit(const lamC    *exprC) const = 0;
             virtual void visit(const plusC   *exprC) const = 0;
             virtual void visit(const bminusC *exprC) const = 0;
             virtual void visit(const multC   *exprC) const = 0;
@@ -289,7 +304,6 @@ namespace positron
             virtual void visit(const ifC     *exprC) const = 0;
             virtual void visit(const seqC    *exprC) const = 0;
             virtual void visit(const printC  *exprC) const = 0;
-            virtual void visit(const lamC    *exprC) const = 0;
             virtual void visit(const appC    *exprC) const = 0;
     };
 }

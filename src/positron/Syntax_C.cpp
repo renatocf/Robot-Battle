@@ -36,6 +36,11 @@ void idC::accept(const Visitor& visitor) const
     visitor.visit(this);
 }
 
+void stringC::accept(const Visitor& visitor) const
+{
+    visitor.visit(this);
+}
+
 void lamC::accept(const Visitor& visitor) const
 {
     visitor.visit(this);

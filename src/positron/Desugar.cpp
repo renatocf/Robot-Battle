@@ -38,6 +38,10 @@ ExprC *Desugar::desugar(const ExprS *node) const
             return new idC{
                 dynamic_cast<const idS *>(node)->get()};
         
+        case ExprS::Sugar::stringS: 
+            return new stringC{
+                dynamic_cast<const stringS *>(node)->get()};
+        
         case ExprS::Sugar::lamS:
             return new lamC{ 
                 static_cast<const idC *>(desugar(node->l)), 

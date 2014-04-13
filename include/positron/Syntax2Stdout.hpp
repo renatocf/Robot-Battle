@@ -54,6 +54,13 @@ namespace positron
                 std::cout << std::endl;
             }
             
+            void visit(const stringC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                std::cout << dynamic_cast<const stringC *>(exprC)->get();
+                std::cout << std::endl;
+            }
+            
             void visit(const lamC *exprC) const 
             {
                 if(exprC == nullptr) return;

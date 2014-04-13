@@ -65,12 +65,22 @@ namespace positron
             void visit(const idC *exprC) const 
             {
                 if(exprC == nullptr) return;
-                stk::Text num {
+                stk::Text id {
                     dynamic_cast<const idC *>(exprC)->get()
                 };
                 // TODO: Implement idC
                 // prog.push_back(vm::Command 
                     // { vm::Command::Opcode::PUSH, num });
+            }
+            
+            void visit(const stringC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                stk::Text str {
+                    dynamic_cast<const stringC *>(exprC)->get()
+                };
+                prog.push_back(vm::Command 
+                    { vm::Command::Opcode::PUSH, str });
             }
             
             void visit(const lamC *exprC) const 

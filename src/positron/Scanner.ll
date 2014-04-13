@@ -22,13 +22,9 @@
 
 [ \t]                       // ignored
 
-if                          return Parser::IF;
-
-else                        return Parser::ELSE;
-
 [0-9]+                      return Parser::INT;
-
 [0-9]+"."[0-9]+             return Parser::FLOAT;
+"\""[^"]*"\""               return Parser::STRING;
 
 "=="|"eq"                   return Parser::EQ;
 "!="|"ne"                   return Parser::NE;
@@ -36,6 +32,9 @@ else                        return Parser::ELSE;
 ">"|"gt"                    return Parser::LE;
 "<="|"le"                   return Parser::GT;
 ">="|"ge"                   return Parser::GE;
+
+if                          return Parser::IF;
+else                        return Parser::ELSE;
 
 print                       return Parser::PRINT;
 
