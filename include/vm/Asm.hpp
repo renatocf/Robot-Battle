@@ -36,6 +36,9 @@ namespace vm
             using Stk_ptr = stk::Stackable_ptr;
             
         public:
+            // Exceptions
+            struct invalid_type {};
+             
             // Stack functions
             static void PUSH (const vm::RVM& rvm, const Stk_ptr& stk);
             static void POP  (const vm::RVM& rvm);
@@ -96,10 +99,6 @@ namespace vm
             
             template<typename Func> 
             static void select(const RVM& rvm, Func cmp);
-            
-            struct eq; struct ne;
-            struct gt; struct ge;
-            struct lt; struct le;
             
             // Jump auxiliar
             template<typename Func>

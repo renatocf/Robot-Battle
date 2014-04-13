@@ -26,9 +26,13 @@ ExprC *Desugar::desugar(const ExprS *node) const
 {
     if(node) switch(node->type)
     {
-        case ExprS::Sugar::numS: 
-            return new numC{
-                dynamic_cast<const numS *>(node)->get()};
+        case ExprS::Sugar::intS: 
+            return new intC{
+                dynamic_cast<const intS *>(node)->get()};
+        
+        case ExprS::Sugar::floatS: 
+            return new floatC{
+                dynamic_cast<const floatS *>(node)->get()};
         
         case ExprS::Sugar::idS: 
             return new idC{
@@ -65,11 +69,11 @@ ExprC *Desugar::desugar(const ExprS *node) const
         
         case ExprS::Sugar::uminusS:
             return new multC{
-                new numC{-1}, desugar(node->l)};
+                new intC{-1}, desugar(node->l)};
             
         default:
             std::cerr << "Should not happen" << std::endl;
-            return new numC{1};
+            return new intC{1};
     }
-    return new numC{1};
+    return new intC{1};
 }

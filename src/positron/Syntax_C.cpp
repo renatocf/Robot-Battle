@@ -20,7 +20,12 @@
 #include "Syntax2Stdout.hpp"
 using namespace positron;
 
-void numC::accept(const Visitor& visitor) const
+void intC::accept(const Visitor& visitor) const
+{
+    visitor.visit(this);
+}
+
+void floatC::accept(const Visitor& visitor) const
 {
     visitor.visit(this);
 }

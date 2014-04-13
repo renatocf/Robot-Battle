@@ -23,8 +23,9 @@
 
 // Libraries
 #include "Asm.hpp"
-#include "Debug.hpp"
 #include "Int.hpp"
+#include "Debug.hpp"
+#include "Float.hpp"
 using namespace vm;
 
 /**
@@ -35,18 +36,57 @@ using namespace vm;
  * @param rvm  Robot Virtual Machine
  * @param func Lambda function with a binary arithmetic operation
  */
-template<typename Func>
+template<class Func>
 void Asm::operate(const RVM& rvm, Func func)
 {
-    stk::Stackable_ptr second { Asm::pop(rvm) };
-    stk::Stackable_ptr first  { Asm::pop(rvm) };
+    using namespace stk;
+    Stackable_ptr second { Asm::pop(rvm) };
+    Stackable_ptr first  { Asm::pop(rvm) };
     
-    stk::Stackable_ptr nouveau { new stk::Int { 
-        func(dynamic_cast<stk::Int*>(first.get())->get(), 
-             dynamic_cast<stk::Int*>(second.get())->get()) 
-    }};
-    Asm::push(rvm, std::move(nouveau));
+    if(first->type == Stackable::Type::Int 
+    && second->type == Stackable::Type::Int)
+    {
+        Asm::push(rvm, Stackable_ptr { new Int { 
+            func(dynamic_cast<Int*>(first.get())->get(), 
+                 dynamic_cast<Int*>(second.get())->get()) 
+        }});
+    }
+    else if(first->type == Stackable::Type::Float
+         && second->type == Stackable::Type::Int)
+    {
+        Asm::push(rvm, Stackable_ptr { new Float { 
+            func(dynamic_cast<Float*>(first.get())->get(), 
+                 dynamic_cast<Int*>(second.get())->get())
+        }});
+    }
+    else if(first->type == Stackable::Type::Int
+         && second->type == Stackable::Type::Float)
+    {
+        Asm::push(rvm, Stackable_ptr { new Float { 
+            func(dynamic_cast<Int*>(first.get())->get(),
+                 dynamic_cast<Float*>(second.get())->get())
+        }});
+    }
+    else
+    {
+        Asm::push(rvm, Stackable_ptr { new Float { 
+            func(dynamic_cast<Float*>(first.get())->get(), 
+                 dynamic_cast<Float*>(second.get())->get()) 
+        }});
+    }
 }
+
+/**
+ * Auxiliar functor for the + operation. <br>
+ * Provides a template of the operation above for Int and Float types
+ */
+struct p_add
+{
+    /// Overload the operator () to provide a functor.
+    template<typename X, typename Y>
+    float operator() (X   x, Y   y) const { return x + y; }
+    int   operator() (int x, int y) const { return x + y; }
+};
 
 /**
  * Assembly function ADD. <br>
@@ -55,8 +95,20 @@ void Asm::operate(const RVM& rvm, Func func)
  */
 void Asm::ADD(const RVM& rvm)
 {
-    operate(rvm, [] (int a, int b) { return a + b; });
+    operate(rvm, p_add{});
 }
+
+/**
+ * Auxiliar functor for the - operation. <br>
+ * Provides a template of the operation above for Int and Float types
+ */
+struct p_sub
+{
+    /// Overload the operator () to provide a functor.
+    template<typename X, typename Y>
+    float operator() (X   x, Y   y) const { return x - y; }
+    int   operator() (int x, int y) const { return x - y; }
+};
 
 /**
  * Assembly function SUB. <br>
@@ -65,8 +117,20 @@ void Asm::ADD(const RVM& rvm)
  */
 void Asm::SUB(const RVM& rvm)
 {
-    operate(rvm, [] (int a, int b) { return a - b; });
+    operate(rvm, p_sub{});
 }
+
+/**
+ * Auxiliar functor for the * operation. <br>
+ * Provides a template of the operation above for Int and Float types
+ */
+struct p_mul
+{
+    /// Overload the operator () to provide a functor.
+    template<typename X, typename Y>
+    float operator() (X   x, Y   y) const { return x * y; }
+    int   operator() (int x, int y) const { return x * y; }
+};
 
 /**
  * Assembly function MUL. <br>
@@ -75,8 +139,20 @@ void Asm::SUB(const RVM& rvm)
  */
 void Asm::MUL(const RVM& rvm)
 {
-    operate(rvm, [] (int a, int b) { return a * b; });
+    operate(rvm, p_mul{});
 }
+
+/**
+ * Auxiliar functor for the / operation. <br>
+ * Provides a template of the operation above for Int and Float types
+ */
+struct p_div
+{
+    /// Overload the operator () to provide a functor.
+    template<typename X, typename Y>
+    float operator() (X   x, Y   y) const { return x / y; }
+    int   operator() (int x, int y) const { return x / y; }
+};
 
 /**
  * Assembly function DIV. <br>
@@ -86,8 +162,21 @@ void Asm::MUL(const RVM& rvm)
  */
 void Asm::DIV(const RVM& rvm)
 {
-    operate(rvm, [] (int a, int b) { return a / b; });
+    operate(rvm, p_div{});
 }
+
+/**
+ * Auxiliar functor for the % operation. <br>
+ * Provides a template to the operation above for Int.
+ * Throws an 'invalid_type' exception otherwise.
+ */
+struct p_mod
+{
+    /// Overload the operator () to provide a functor.
+    template<typename X, typename Y>
+    float operator() (X   x, Y   y) const { throw Asm::invalid_type{}; }
+    int   operator() (int x, int y) const { return x % y; }
+};
 
 /**
  * Assembly function MOD. <br>
@@ -97,5 +186,5 @@ void Asm::DIV(const RVM& rvm)
  */
 void Asm::MOD(const RVM& rvm)
 {
-    operate(rvm, [] (int a, int b) { return a % b; });
+    operate(rvm, p_mod{});
 }

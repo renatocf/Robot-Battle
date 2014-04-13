@@ -20,7 +20,8 @@
 
 %baseclass-preinclude Syntax_S.hpp 
 
-%token NUM
+%token INT
+%token FLOAT
 %stype positron::ExprS*
 
 // ↓ Precedence increases
@@ -52,7 +53,14 @@ exp:
 ;
 
 arith:
-    NUM { $$ = new numS{std::atoi(d_scanner.matched().c_str())}; }
+    INT   { $$ = new intS{std::atoi(d_scanner.matched().c_str())}; }
+|
+    FLOAT 
+    { 
+        std::cout << static_cast<float>(std::atof(d_scanner.matched().c_str())) << std::endl;
+        $$ = new floatS{
+             static_cast<float>(std::atof(d_scanner.matched().c_str()))}; 
+    }
 | 
     arith '+' arith 
     { 

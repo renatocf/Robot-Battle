@@ -22,8 +22,8 @@
 
 [ \t]                       // ignored
 
-[0-9]+                      return Parser::NUM;
+[0-9]+                      return Parser::INT;
 
-[0-9]+("."[0-9]+)?          return Parser::NUM;
+[0-9]+"."[0-9]+             return Parser::FLOAT;
 
 .|\n                        return matched()[0];

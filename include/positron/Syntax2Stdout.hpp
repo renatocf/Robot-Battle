@@ -33,10 +33,17 @@ namespace positron
             mutable std::vector<std::string> separator {};
             
         public:
-            void visit(const numC *exprC) const 
+            void visit(const intC *exprC) const 
             {
                 if(exprC == nullptr) return;
-                std::cout << dynamic_cast<const numC *>(exprC)->get();
+                std::cout << dynamic_cast<const intC *>(exprC)->get();
+                std::cout << std::endl;
+            }
+            
+            void visit(const floatC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                std::cout << dynamic_cast<const floatC *>(exprC)->get();
                 std::cout << std::endl;
             }
             

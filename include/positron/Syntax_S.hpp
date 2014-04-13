@@ -27,7 +27,7 @@ namespace positron
     {
         protected:
             enum class Sugar { 
-                numS, idS,
+                intS, floatS, idS,
                 plusS, bminusS, multS, divS, ifS, lamS, appS,
                 uminusS
             };
@@ -54,16 +54,28 @@ namespace positron
         friend class Desugar;
     };
     
-    class numS : public ExprS
+    class intS : public ExprS
     {
         private:
             int n {}; 
 
         public:
-            numS(int n)
-                : ExprS{ExprS::Sugar::numS}, n{n} {}
+            intS(int n)
+                : ExprS{ExprS::Sugar::intS}, n{n} {}
             
             int get() const { return this->n; }
+    };
+    
+    class floatS : public ExprS
+    {
+        private:
+            float n {}; 
+
+        public:
+            floatS(float n)
+                : ExprS{ExprS::Sugar::floatS}, n{n} {}
+            
+            float get() const { return this->n; }
     };
     
     class idS : public ExprS

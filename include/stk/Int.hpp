@@ -53,7 +53,7 @@ namespace stk
             friend std::ostream&
             operator<<(std::ostream& os, const Int& n);
     };
-            
+    
     std::ostream& operator<<(std::ostream& os, const Int& n);
 }
 

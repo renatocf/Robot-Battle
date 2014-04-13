@@ -94,7 +94,7 @@ void Asm::select(const RVM& rvm, Func cmp)
  * Auxiliar functor for the 'equal' operation. <br>
  * Provides a template for the operation above in any type.
  */
-struct Asm::eq
+struct eq
 {
     /// Overload the operator () to provide a functor.
     template<typename T>
@@ -116,7 +116,7 @@ void Asm::EQ(const vm::RVM& rvm)
  * Auxiliar functor for the 'not equal' operation. <br>
  * Provides a template for the operation above in any type.
  */
-struct Asm::ne
+struct ne
 {
     /// Overload the operator () to provide a functor.
     template<typename T>
@@ -138,7 +138,7 @@ void Asm::NE(const vm::RVM& rvm)
  * Auxiliar functor for the 'greater than' operation. <br>
  * Provides a template for the operation above in any type.
  */
-struct Asm::gt
+struct gt
 {
     /// Overload the operator () to provide a functor.
     template<typename T>
@@ -160,7 +160,7 @@ void Asm::GT(const vm::RVM& rvm)
  * Auxiliar functor for the 'greater or equal' operation. <br>
  * Provides a template for the operation above in any type.
  */
-struct Asm::ge
+struct ge
 {
     /// Overload the operator () to provide a functor.
     template<typename T>
@@ -182,7 +182,7 @@ void Asm::GE(const vm::RVM& rvm)
  * Auxiliar functor for the 'less than' operation. <br>
  * Provides a template for the operation above in any type.
  */
-struct Asm::lt
+struct lt
 {
     /// Overload the operator () to provide a functor.
     template<typename T>
@@ -204,7 +204,7 @@ void Asm::LT(const vm::RVM& rvm)
  * Auxiliar functor for the 'less or equal' operation. <br>
  * Provides a template for the operation above in any type.
  */
-struct Asm::le
+struct le
 {
     /// Overload the operator () to provide a functor.
     template<typename T>

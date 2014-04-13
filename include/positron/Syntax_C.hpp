@@ -29,7 +29,7 @@ namespace positron
     {
         protected:
             enum class Core { 
-                numC, idC, 
+                intC, floatC, idC, 
                 plusC, bminusC, multC, divC, ifC, 
                 lamC, appC
             };
@@ -75,20 +75,34 @@ namespace positron
     std::ostream& operator<<(std::ostream& os, const ExprC& exprC);
     std::ostream& operator<<(std::ostream& os, const ExprC *exprC);
     
-    class numC : public ExprC
+    class intC : public ExprC
     {
         private:
             int n; 
             
         public:
-            numC(int n)
-                : ExprC{ExprC::Core::numC}, n{n} {}
+            intC(int n)
+                : ExprC{ExprC::Core::intC}, n{n} {}
             
             int get() const { return this->n; }
             
             void accept (const Visitor& visitor) const;
     };
-
+    
+    class floatC : public ExprC
+    {
+        private:
+            float n; 
+            
+        public:
+            floatC(float n)
+                : ExprC{ExprC::Core::floatC}, n{n} {}
+            
+            float get() const { return this->n; }
+            
+            void accept (const Visitor& visitor) const;
+    };
+    
     class idC : public ExprC
     {
         private:
@@ -96,7 +110,7 @@ namespace positron
             
         public:
             idC(std::string name)
-                : ExprC{ExprC::Core::numC}, name{name} {}
+                : ExprC{ExprC::Core::idC}, name{name} {}
             
             std::string get() const { return this->name; }
             
@@ -171,7 +185,8 @@ namespace positron
     class Visitor
     {
         public:
-            virtual void visit(const numC    *exprC) const = 0;
+            virtual void visit(const intC    *exprC) const = 0;
+            virtual void visit(const floatC  *exprC) const = 0;
             virtual void visit(const idC     *exprC) const = 0;
             virtual void visit(const plusC   *exprC) const = 0;
             virtual void visit(const bminusC *exprC) const = 0;

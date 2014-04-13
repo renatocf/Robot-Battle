@@ -24,6 +24,7 @@
 // Libraries
 #include "Int.hpp"
 #include "Text.hpp"
+#include "Float.hpp"
 #include "Command.hpp"
 #include "Syntax_C.hpp"
 
@@ -41,11 +42,21 @@ namespace positron
                 return prog;
             }
             
-            void visit(const numC *exprC) const 
+            void visit(const intC *exprC) const 
             {
                 if(exprC == nullptr) return;
                 stk::Int num {
-                    dynamic_cast<const numC *>(exprC)->get()
+                    dynamic_cast<const intC *>(exprC)->get()
+                };
+                prog.push_back(vm::Command 
+                    { vm::Command::Opcode::PUSH, num });
+            }
+            
+            void visit(const floatC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                stk::Float num {
+                    dynamic_cast<const floatC *>(exprC)->get()
                 };
                 prog.push_back(vm::Command 
                     { vm::Command::Opcode::PUSH, num });
