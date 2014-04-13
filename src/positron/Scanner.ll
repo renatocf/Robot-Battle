@@ -30,6 +30,8 @@ else                        return Parser::ELSE;
 
 [0-9]+"."[0-9]+             return Parser::FLOAT;
 
+print                       return Parser::PRINT;
+
 "\\\n"                      { 
                                 if(reading_stdin) std::cout << "- ";
                                 else return matched()[0];

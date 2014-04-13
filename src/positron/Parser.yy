@@ -24,6 +24,8 @@
 %token ELSE
 %token INT
 %token FLOAT
+%token PRINT
+
 %stype positron::ExprS*
 
 // ↓ Precedence increases
@@ -54,6 +56,8 @@ comseq:
 command:
     conditional
 |
+    syscall ';'
+|
     expr ';'
 ;
 
@@ -81,10 +85,22 @@ conditional:
     }
 ;
 
+syscall:
+    PRINT '(' expr ')'
+    {
+        $$ = new printS{$3};
+    }
+|
+    PRINT expr
+    {
+        $$ = new printS{$2};
+    }
+;
+
 expr:
     arith
     {
-        $$ = new printS{$1};
+        $$ = $1;
     }
 ;
 
