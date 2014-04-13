@@ -31,6 +31,7 @@ using namespace std;
 #include "Parser.ih"
 #include "Options.hpp"
 #include "Compiler.hpp"
+#include "Syntax_C.hpp"
 
 // Prototypes
 void run(const vm::Prog& assembly);
@@ -46,7 +47,7 @@ int main(int argc, char **argv)
     // Process options
     Options::parse_args(argc, argv);
     
-    if(argc > 1)
+    if(argc-optind > 1)
     {
         for(int i = optind; i < argc; i++)
         {
