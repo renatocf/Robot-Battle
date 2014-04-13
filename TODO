@@ -14,6 +14,9 @@
     [X] Correct memory modules and print them in the debug.
     [X] Implement control syscalls (NOP, END).
     [X] Remove Stackable_ptr from Command constructor.
+    [X] Deal with Float and Integer arithmetic.
+    [ ] Finish implementing exception throwings for runtime errors.
+    [ ] Catch runtime errors and exhibit them to the user.
     [ ] Finish implementing syscalls.
 
 [positron]
@@ -35,9 +38,11 @@
     [X] Include ';' as end-of-expression in the parser.
     [X] Add a method to compile from a file just with its name.
     [X] Implement functions (as lambdas) in the Core.
+    [X] Add sequencing in the Core.
+    [ ] Create a "print" function as syscall in the Parser.
     [ ] Add assembly generation for lambdas.
     [ ] Throw an exception when file does not exist.
-    [ ] Improve message errors in the parser.
+    [ ] Improve error messages in the parser.
     [ ] Implement name association (Environment) in the Core.
     [ ] Implement state mutation (Storage) in the Core.
     [ ] Add Doxygen documentation in Positron Headers C++ code.
