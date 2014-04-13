@@ -43,6 +43,10 @@ namespace positron
             virtual void 
             accept(const class Visitor& visitor) const = 0;
             
+            bool has_l() const { return l; }
+            bool has_r() const { return r; }
+            bool has_x() const { return x; }
+            
             void accept_l(const Visitor& visitor) const
             { if(l) l->accept(visitor); }
             
@@ -176,10 +180,9 @@ namespace positron
     class ifC : public ExprC
     {
         public:
-            ifC(const ExprC *cond, const ExprC *yes)
-                : ExprC{ExprC::Core::ifC, cond, yes} {}
-            ifC(const ExprC *cond, const ExprC *yes, const ExprC *no)
-                : ExprC{ExprC::Core::ifC, cond, yes, no} {}
+            ifC(const ExprC *cond, 
+                const ExprC *y, const ExprC *n = nullptr)
+                : ExprC{ExprC::Core::ifC, cond, y, n} {}
 
             void accept (const Visitor& visitor) const;
     };

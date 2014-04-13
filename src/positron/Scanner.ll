@@ -22,8 +22,20 @@
 
 [ \t]                       // ignored
 
+if                          return Parser::IF;
+
+else                        return Parser::ELSE;
+
 [0-9]+                      return Parser::INT;
 
 [0-9]+"."[0-9]+             return Parser::FLOAT;
 
-.|\n                        return matched()[0];
+"\\\n"                      { 
+                                if(reading_stdin) std::cout << "- ";
+                                else return matched()[0];
+                            }
+
+\n                          if(reading_stdin) return EOF;
+
+.                           return matched()[0];
+

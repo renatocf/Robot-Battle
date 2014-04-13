@@ -106,9 +106,16 @@ namespace positron
             {
                 if(exprC == nullptr) return;
                 std::cout << "ifC" << std::endl;
-                visit_l(exprC, "|- ", "|  "); 
-                visit_r(exprC, "|- ", "|  ");
-                visit_x(exprC, "'- ", "   ");
+                if(exprC->has_r())
+                {
+                    visit_l(exprC, "|- ", "|  "); 
+                    if(exprC->has_x())
+                    {
+                        visit_r(exprC, "|- ", "|  ");
+                        visit_x(exprC, "'- ", "   ");
+                    }
+                    else visit_r(exprC, "'- ", "   ");
+                }
             }
             
             void visit(const seqC *exprC) const 

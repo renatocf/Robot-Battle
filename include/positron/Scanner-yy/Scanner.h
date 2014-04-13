@@ -26,11 +26,15 @@ namespace positron
 {
     class Scanner: public ScannerBase
     {
+        private:
+            bool reading_stdin = false;
+            
         public:
             explicit 
             Scanner(std::istream& in  = std::cin,
                     std::ostream& out = std::cout)
-                : ScannerBase(in, out) {}
+                : ScannerBase(in, out), 
+                  reading_stdin{in == std::cin} {}
             
             int lex();
 

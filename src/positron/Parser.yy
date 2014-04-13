@@ -20,39 +20,60 @@
 
 %baseclass-preinclude Syntax_S.hpp 
 
+%token IF
+%token ELSE
 %token INT
 %token FLOAT
+%token EOL
 %stype positron::ExprS*
 
 // ↓ Precedence increases
 %left  '+' '-'
 %left  '*' '/' '%'
-%left  NEG     // Unary minus
+%right NEG     // Unary minus
 
 %%
-input:    
-    // empty 
-| 
-    input line
-;
-   
-line:
-    '\n'
+input:
+    EOF
 |
-    exprseq '\n'
+    comseq EOF
     {
         prog = std::shared_ptr<ExprS>{$1};
         if(reading_stdin) ACCEPT();
     }
 ;
 
-exprseq:
-    expr ';' exprseq
+comseq:
+    command comseq
     {
-        $$ = new seqS{ $1, $3 };
+        $$ = new seqS{ $1, $2 };
     }
 |
+    command
+;
+
+command:
+    conditional
+|
     expr ';'
+;
+
+block:
+    '{' comseq '}'
+|
+    command
+;
+
+conditional:
+    IF '(' arith ')' block ELSE block
+    {
+        $$ = new ifS{ $3, $5, $7 };
+    }
+|
+    IF '(' arith ')' block
+    {
+        $$ = new ifS{ $3, $5 };
+    }
 ;
 
 expr:

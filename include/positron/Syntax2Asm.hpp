@@ -139,13 +139,11 @@ namespace positron
                 
                 // Test condition
                 prog.push_back(vm::Command {
-                    vm::Command::Opcode::PUSH, stk::Int{1} });
+                    vm::Command::Opcode::PUSH, stk::Int{0} });
                 prog.push_back(vm::Command {
                     vm::Command::Opcode::EQ });
                 prog.push_back(vm::Command {
-                    vm::Command::Opcode::JIT, stk::Text{s_if} });
-                prog.push_back(vm::Command {
-                    vm::Command::Opcode::JMP, stk::Text{s_else} });
+                    vm::Command::Opcode::JIT, stk::Text{s_else} });
                 
                 // Condition if true
                 prog.push_back(vm::Command { s_if });

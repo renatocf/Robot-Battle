@@ -68,10 +68,10 @@ int main(int argc, char **argv)
             positron::Parser parser{};
             parser.parse();
             
+            std::cout << std::endl;
+            
             // If received <<EOF>>, stop
             if(!parser.get_tree()) break;
-            
-            std::cout << std::endl;
             
             std::cout << "Syntax Tree: " << std::endl;
             std::cout << positron::Desugar{}.desugar(parser.get_tree());
