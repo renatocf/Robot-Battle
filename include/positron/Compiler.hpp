@@ -42,205 +42,31 @@ namespace positron
                 return prog;
             }
             
-            void visit(const intC *exprC) const 
-            {
-                if(exprC == nullptr) return;
-                stk::Int num {
-                    dynamic_cast<const intC *>(exprC)->get()
-                };
-                prog.push_back(vm::Command 
-                    { vm::Command::Opcode::PUSH, num });
-            }
+            void visit(const intC    *exprC) const;
+            void visit(const floatC  *exprC) const;
+            void visit(const idC     *exprC) const;
+            void visit(const stringC *exprC) const;
+            void visit(const lamC    *exprC) const;
             
-            void visit(const floatC *exprC) const 
-            {
-                if(exprC == nullptr) return;
-                stk::Float num {
-                    dynamic_cast<const floatC *>(exprC)->get()
-                };
-                prog.push_back(vm::Command 
-                    { vm::Command::Opcode::PUSH, num });
-            }
+            void visit(const plusC   *exprC) const;
+            void visit(const bminusC *exprC) const;            
+            void visit(const multC   *exprC) const;
+            void visit(const divC    *exprC) const;
+            void visit(const modC    *exprC) const;
             
-            void visit(const idC *exprC) const 
-            {
-                if(exprC == nullptr) return;
-                stk::Text id {
-                    dynamic_cast<const idC *>(exprC)->get()
-                };
-                // TODO: Implement idC
-                // prog.push_back(vm::Command 
-                    // { vm::Command::Opcode::PUSH, num });
-            }
+            void visit(const eqC     *exprC) const;
+            void visit(const neC     *exprC) const;
+            void visit(const ltC     *exprC) const;
+            void visit(const leC     *exprC) const;
+            void visit(const gtC     *exprC) const;
+            void visit(const geC     *exprC) const;
             
-            void visit(const stringC *exprC) const 
-            {
-                if(exprC == nullptr) return;
-                stk::Text str {
-                    dynamic_cast<const stringC *>(exprC)->get()
-                };
-                prog.push_back(vm::Command 
-                    { vm::Command::Opcode::PUSH, str });
-            }
+            void visit(const ifC     *exprC) const;
+            void visit(const seqC    *exprC) const;
+            void visit(const appC    *exprC) const;
             
-            void visit(const lamC *exprC) const 
-            {
-                if(exprC == nullptr) return;
-                // TODO: Implement lamC
-            }
+            void visit(const printC  *exprC) const;
             
-            void visit(const plusC *exprC) const 
-            {
-                if(exprC == nullptr) return;
-                exprC->accept_l(*this); 
-                exprC->accept_r(*this);
-                prog.push_back(vm::Command
-                    { vm::Command::Opcode::ADD });
-            }
-            
-            void visit(const bminusC *exprC) const 
-            {
-                if(exprC == nullptr) return;
-                exprC->accept_l(*this); 
-                exprC->accept_r(*this);
-                prog.push_back(vm::Command
-                    { vm::Command::Opcode::SUB });
-            }
-            
-            void visit(const multC *exprC) const 
-            {
-                if(exprC == nullptr) return;
-                exprC->accept_l(*this); 
-                exprC->accept_r(*this);
-                prog.push_back(vm::Command
-                    { vm::Command::Opcode::MUL });
-            }
-            
-            void visit(const divC *exprC) const 
-            {
-                if(exprC == nullptr) return;
-                exprC->accept_l(*this); 
-                exprC->accept_r(*this);
-                prog.push_back(vm::Command
-                    { vm::Command::Opcode::DIV });
-            }
-            
-            void visit(const modC *exprC) const 
-            {
-                if(exprC == nullptr) return;
-                exprC->accept_l(*this); 
-                exprC->accept_r(*this);
-                prog.push_back(vm::Command
-                    { vm::Command::Opcode::MOD });
-            }
-            
-            void visit(const eqC *exprC) const 
-            {
-                if(exprC == nullptr) return;
-                exprC->accept_l(*this); 
-                exprC->accept_r(*this);
-                prog.push_back(vm::Command
-                    { vm::Command::Opcode::EQ });
-            }
-            
-            void visit(const neC *exprC) const 
-            {
-                if(exprC == nullptr) return;
-                exprC->accept_l(*this); 
-                exprC->accept_r(*this);
-                prog.push_back(vm::Command
-                    { vm::Command::Opcode::NE });
-            }
-            
-            void visit(const ltC *exprC) const 
-            {
-                if(exprC == nullptr) return;
-                exprC->accept_l(*this); 
-                exprC->accept_r(*this);
-                prog.push_back(vm::Command
-                    { vm::Command::Opcode::LT });
-            }
-            
-            void visit(const leC *exprC) const 
-            {
-                if(exprC == nullptr) return;
-                exprC->accept_l(*this); 
-                exprC->accept_r(*this);
-                prog.push_back(vm::Command
-                    { vm::Command::Opcode::LE });
-            }
-            
-            void visit(const gtC *exprC) const 
-            {
-                if(exprC == nullptr) return;
-                exprC->accept_l(*this); 
-                exprC->accept_r(*this);
-                prog.push_back(vm::Command
-                    { vm::Command::Opcode::GT });
-            }
-            
-            void visit(const geC *exprC) const 
-            {
-                if(exprC == nullptr) return;
-                exprC->accept_l(*this); 
-                exprC->accept_r(*this);
-                prog.push_back(vm::Command
-                    { vm::Command::Opcode::GE });
-            }
-            
-            void visit(const ifC *exprC) const 
-            {
-                if(exprC == nullptr) return;
-                
-                // Create tags for jumps
-                int lvl = c_if; c_if++;
-                std::string s_if    { "IF"    + std::to_string(lvl) };
-                std::string s_else  { "ELSE"  + std::to_string(lvl) };
-                std::string s_endif { "ENDIF" + std::to_string(lvl) };
-                
-                // Calculate condition
-                exprC->accept_l(*this); 
-                
-                // Test condition
-                prog.push_back(vm::Command {
-                    vm::Command::Opcode::PUSH, stk::Int{0} });
-                prog.push_back(vm::Command {
-                    vm::Command::Opcode::EQ });
-                prog.push_back(vm::Command {
-                    vm::Command::Opcode::JIT, stk::Text{s_else} });
-                
-                // Condition if true
-                prog.push_back(vm::Command { s_if });
-                exprC->accept_r(*this);
-                prog.push_back(vm::Command {
-                    vm::Command::Opcode::JMP, stk::Text{s_endif} });
-                
-                // Condition if false
-                prog.push_back(vm::Command { s_else });
-                exprC->accept_x(*this);
-                prog.push_back(vm::Command { s_endif });
-            }
-            
-            void visit(const printC *exprC) const 
-            {
-                if(exprC == nullptr) return;
-                exprC->accept_l(*this); 
-                prog.push_back(vm::Command {
-                    vm::Command::Opcode::PRN });
-            }
-            
-            void visit(const seqC *exprC) const 
-            {
-                if(exprC == nullptr) return;
-                exprC->accept_l(*this); 
-                exprC->accept_r(*this);
-            }
-            
-            void visit(const appC *exprC) const 
-            {
-                if(exprC == nullptr) return;
-                // TODO: Implement appC
-            }
     };
 }
 

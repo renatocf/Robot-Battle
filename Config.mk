@@ -5,7 +5,7 @@ VERSION := 1.0
 # Program settings
 BIN     := Main rpc
 ARLIB   := 
-SHRLIB  := 
+SHRLIB  := positron
 
 # Package info
 MAINTEINER_NAME := Renato Cordeiro Ferreira
