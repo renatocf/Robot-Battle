@@ -15,8 +15,8 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_POSITRON_COMPILER_DEFINED
-#define HPP_POSITRON_COMPILER_DEFINED
+#ifndef HPP_POSITRON_RPC_DEFINED
+#define HPP_POSITRON_RPC_DEFINED
 
 // Default libraries
 #include <memory>
@@ -33,7 +33,7 @@
 
 namespace positron
 {
-    class Compiler
+    class RPC
     {
         public:
             vm::Prog compile(std::string filename) const

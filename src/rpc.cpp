@@ -27,10 +27,10 @@
 using namespace std;
 
 // Libraries
+#include "RPC.hpp"
 #include "RVM.hpp"
 #include "Parser.ih"
 #include "Options.hpp"
-#include "Compiler.hpp"
 #include "Syntax_C.hpp"
 
 // Prototypes
@@ -54,7 +54,7 @@ int main(int argc, char **argv)
             std::cout << "Processing file " << argv[i] << std::endl;
             std::cout << "================" << std::endl << std::endl;
             
-            vm::Prog assembly { positron::Compiler{}.compile(argv[i]) };
+            vm::Prog assembly { positron::RPC{}.compile(argv[i]) };
             run(assembly);
         }
     }
@@ -79,7 +79,7 @@ int main(int argc, char **argv)
             std::cout << std::endl;
             
             vm::Prog assembly {
-                positron::Compiler{}.compile(parser.get_tree()) 
+                positron::RPC{}.compile(parser.get_tree()) 
             };
             
             run(assembly);
