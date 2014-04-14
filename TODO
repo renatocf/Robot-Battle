@@ -45,6 +45,7 @@
     [ ] Add assembly generation for lambdas.
     [ ] Throw an exception when file does not exist.
     [ ] Improve error messages in the parser.
+    [ ] Try to allow multiple strings one after another.
     [ ] Implement name association (Environment) in the Core.
     [ ] Implement state mutation (Storage) in the Core.
     [ ] Add Doxygen documentation in Positron Headers C++ code.
