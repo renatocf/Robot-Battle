@@ -55,8 +55,8 @@ GetOptions(
     "h|header-path=s" => \$inc,
 );
 
-my $srcdir  = "$base/$src/positron/quark";
-my $incdir  = "$base/$inc/positron/quark";
+my $srcdir  = "$base/$src/quark";
+my $incdir  = "$base/$inc/quark";
 
 sub make_subdir
 {
