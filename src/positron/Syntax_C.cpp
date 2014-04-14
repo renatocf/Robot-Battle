@@ -18,7 +18,7 @@
 // Default libraries
 #include <vector>
 #include "Syntax_C.hpp"
-#include "Syntax2Stdout.hpp"
+#include "Printer.hpp"
 using namespace positron;
 
 void intC::accept(const Visitor& visitor) const
@@ -123,14 +123,14 @@ void appC::accept(const Visitor& visitor) const
 
 std::ostream& positron::operator<<(std::ostream& os, const ExprC& exprC)
 {
-    Syntax2Stdout printer {};
+    Printer printer {};
     exprC.accept(printer);
     return os;
 }
 
 std::ostream& positron::operator<<(std::ostream& os, const ExprC *exprC)
 {
-    Syntax2Stdout printer {};
+    Printer printer {};
     if(exprC) exprC->accept(printer);
     return os;
 }

@@ -16,6 +16,6 @@
 /**********************************************************************/
 
 // Libraries
-#include "Syntax2Stdout.hpp"
+#include "Printer.hpp"
 using namespace positron;
 

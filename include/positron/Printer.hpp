@@ -15,8 +15,8 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_POSITRON_SYNTAX2STDOUT_DEFINED
-#define HPP_POSITRON_SYNTAX2STDOUT_DEFINED
+#ifndef HPP_POSITRON_PRINTER_DEFINED
+#define HPP_POSITRON_PRINTER_DEFINED
 
 // Default libraries
 #include <string>
@@ -27,7 +27,7 @@
 
 namespace positron
 {
-    class Syntax2Stdout : public Visitor
+    class Printer : public Visitor
     {
         private:
             mutable std::vector<std::string> separator {};
