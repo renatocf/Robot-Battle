@@ -25,11 +25,11 @@
 
 // Libraries
 #include "Parser.ih"
-#include "Command.hpp"
+#include "Syntax_S.hpp"
 #include "Desugar.hpp"
 #include "Syntax_C.hpp"
-#include "Syntax_S.hpp"
-#include "Syntax2Asm.hpp"
+#include "Compiler.hpp"
+#include "Command.hpp"
 
 namespace positron
 {
@@ -66,7 +66,7 @@ namespace positron
             vm::Prog compile(const ExprC *root) const
             {
                 if(root == nullptr) return vm::Prog{};
-                Syntax2Asm visitor {};
+                Compiler visitor {};
                 root->accept(visitor);
                 vm::Prog prog { std::move(visitor.get()) };
                 prog.push_back(vm::Command { vm::Command::Opcode::END });

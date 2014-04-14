@@ -16,6 +16,6 @@
 /**********************************************************************/
                                                       
 // Libraries                                          
-#include "Syntax2Asm.hpp"                         
+#include "Compiler.hpp"                         
 using namespace positron;
 

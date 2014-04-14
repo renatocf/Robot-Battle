@@ -15,8 +15,8 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
                                                       
-#ifndef HPP_POSITRON_SYNTAX2ASM_DEFINED
-#define HPP_POSITRON_SYNTAX2ASM_DEFINED
+#ifndef HPP_POSITRON_COMPILER_DEFINED
+#define HPP_POSITRON_COMPILER_DEFINED
 
 // Default libraries
 #include <string>
@@ -30,7 +30,7 @@
 
 namespace positron
 {
-    class Syntax2Asm : public Visitor
+    class Compiler : public Visitor
     {
         private:
             mutable vm::Prog prog {};
