@@ -17,6 +17,7 @@
 
 %namespace positron
 %interactive
+%x string
 
 %%
 
@@ -24,7 +25,20 @@
 
 [0-9]+                      return Parser::INT;
 [0-9]+"."[0-9]+             return Parser::FLOAT;
+
 "\""[^"]*"\""               return Parser::STRING;
+
+\"                          { 
+                                more();
+                                begin(StartCondition__::string); 
+                            }
+
+<string>\"                  {
+                                begin(StartCondition__::INITIAL);
+                                return Parser::STRING;
+                            }
+
+<string>\\.|.               more();
 
 "=="|"eq"                   return Parser::EQ;
 "!="|"ne"                   return Parser::NE;
