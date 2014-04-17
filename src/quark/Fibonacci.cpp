@@ -20,11 +20,7 @@
 #include <iostream>
 
 // Libraries
-//#include "Stk.hpp"
-#include "Int.hpp"
-#include "Text.hpp"
-#include "Address.hpp"
-#include "Stackable.hpp"
+#include "stk.hpp"
 #include "Fibonacci.hpp"
 using namespace stk;
 

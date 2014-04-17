@@ -23,12 +23,7 @@
 
 // Libraries
 #include "Asm.hpp"
-#include "Int.hpp"
-#include "Text.hpp"
-#include "Float.hpp"
 #include "Debug.hpp"
-#include "Address.hpp"
-#include "Stackable.hpp"
 using namespace vm;
 
 /**
@@ -84,6 +79,9 @@ void Asm::select(const RVM& rvm, Func cmp)
                 break;
             case stk::Stackable::Type::Address: 
                 Asm::compare<stk::Address>(rvm, arg1, arg2, cmp);
+                break;
+            case stk::Stackable::Type::Vision: 
+                Asm::compare<stk::Vision>(rvm, arg1, arg2, cmp);
                 break;
         }
     }

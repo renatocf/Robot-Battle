@@ -26,11 +26,11 @@
 using namespace std;
 
 // Libraries
+#include "stk.hpp"
 #include "RVM.hpp"
 #include "Quark.hpp"
 #include "Command.hpp"
 #include "Options.hpp"
-#include "Stackable.hpp"
 
 /**
  * @fn Main function.

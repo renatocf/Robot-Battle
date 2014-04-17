@@ -74,11 +74,7 @@ $COPYRIGHT
 #include <iostream>
 
 // Libraries
-//#include "Stk.hpp"
-#include "Int.hpp"
-#include "Text.hpp"
-#include "Address.hpp"
-#include "Stackable.hpp"
+#include "stk.hpp"
 #include "#BASENAME#.hpp"
 using namespace stk;
 

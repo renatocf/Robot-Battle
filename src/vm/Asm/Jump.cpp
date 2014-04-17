@@ -22,11 +22,7 @@
  */
 
 // Libraries
-#include "Int.hpp"
 #include "Asm.hpp"
-#include "Text.hpp"
-#include "Address.hpp"
-#include "Stackable.hpp"
 using namespace vm;
 
 /**

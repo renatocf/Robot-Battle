@@ -15,45 +15,15 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_STK_TEXT_DEFINED
-#define HPP_STK_TEXT_DEFINED
+#ifndef HPP_STK_DEFINED
+#define HPP_STK_DEFINED
 
-// Default libraries
-#include <string>
-
-// Internal libraries
+// Libraries
+#include "Int.hpp"
+#include "Text.hpp"
+#include "Float.hpp"
+#include "Vision.hpp"
+#include "Address.hpp"
 #include "Stackable.hpp"
-
-namespace stk
-{
-    class Text : public Stackable
-    {
-        private:
-            std::string text;
-        
-        public:
-            /** 
-             * <b>Default constructor.</b>
-             * 
-             * @param text Text to be stored in this object.
-             */
-            Text(std::string text = "")
-                : Stackable{Type::Text}, text{text} {}
-            
-            /// @return Address defined in the construction
-            std::string get() const { return this->text; }
-            
-            std::string to_string() const
-            { return this->text; }
-            
-            Text *clone()  const { return new Text{*this}; }
-            Text *create() const { return new Text{};      }
-            
-            friend std::ostream&
-            operator<<(std::ostream& os, const Text& n);
-    };
-            
-    std::ostream& operator<<(std::ostream& os, const Text& n);
-}
 
 #endif

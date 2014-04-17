@@ -25,10 +25,10 @@
 #include <iostream>
 #include <unordered_map>
 
-// Internal libraries
+// Libraries
+#include "stk.hpp"
 #include "State.hpp"
 #include "Command.hpp"
-#include "Stackable.hpp"
 
 namespace vm
 {

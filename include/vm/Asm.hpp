@@ -25,8 +25,8 @@
 #define HPP_VM_ASM_DEFINED
 
 // Libraries
+#include "stk.hpp"
 #include "RVM.hpp"
-#include "Stackable.hpp"
 
 namespace vm
 {
