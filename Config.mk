@@ -3,7 +3,7 @@ PROJECT := Robot-Battle
 VERSION := 1.0
 
 # Program settings
-BIN     := Main rpc
+BIN     := qpu rpc
 ARLIB   := 
 SHRLIB  := positron
 

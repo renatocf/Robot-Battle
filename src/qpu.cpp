@@ -16,8 +16,8 @@
 /**********************************************************************/
 
 /** 
- * @file  Main.cpp
- * @brief Main function, which start the program
+ * @file  qpu.cpp
+ * @brief Quark Processor Unit for running preprocessed quark assembly
  */
 
 // Default libraries
@@ -46,16 +46,18 @@ int main(int argc, char **argv)
     // Usage
     if(optind <= argc && argc-optind != 1)
     {
-        cout << "USAGE: Main Program_name" << endl;
+        cout << "USAGE: qpu Program_name" << endl;
         return 0;
     }
 
     try {
         parser::quark::Func_ptr upload 
             = parser::quark::functions.at(argv[optind]);
+        
+        cout << upload() << endl;
 
-        vm::RVM Bender { upload() };
-        Bender.run();
+        vm::RVM QPU { upload() };
+        QPU.run();
 
     } catch (const std::out_of_range& exc) {
         cerr << "ERROR: Program \"" << argv[1] << "\" unknown." << endl;
