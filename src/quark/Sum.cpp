@@ -41,6 +41,8 @@ vm::Prog parser::quark::upload_Sum()
     PROG.push_back( vm::Command { Command::Opcode::PUSH, num1 });
     PROG.push_back( vm::Command { Command::Opcode::PUSH, num1 });
     PROG.push_back( vm::Command { Command::Opcode::ADD        });
+    PROG.push_back( vm::Command { Command::Opcode::PRN        });
+    PROG.push_back( vm::Command { Command::Opcode::END        });
 
     return PROG;
 }
