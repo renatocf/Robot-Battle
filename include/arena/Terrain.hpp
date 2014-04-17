@@ -47,7 +47,7 @@ namespace arena
             mutable std::vector<bool> fog        {};
             mutable std::vector<bool> visibility {};
             
-            Type app2type(Appearence app);
+            Type app2type(Appearence app) const;
             
         public:
             Terrain(int nPlayers, Appearence app)
@@ -56,9 +56,14 @@ namespace arena
                   fog(nPlayers,false), visibility(nPlayers,false) {}
             
             // Getters
-            Type       get_type()       { return this->type; }
-            Appearence get_appearence() { return this->app;  }
+            Type       get_type()       const { return this->type; }
+            Appearence get_appearence() const { return this->app;  }
+        
+            friend std::ostream& 
+            operator<<(std::ostream& os, const Terrain& t);
     };
+    
+    std::ostream& operator<<(std::ostream& os, const Terrain& t);
 }
 
 #endif

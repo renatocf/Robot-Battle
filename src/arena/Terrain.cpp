@@ -19,7 +19,7 @@
 #include "Terrain.hpp"
 using namespace arena;
 
-Terrain::Type Terrain::app2type(Appearence app)
+Terrain::Type Terrain::app2type(Appearence app) const
 {
     switch (app)
     {
@@ -39,4 +39,11 @@ Terrain::Type Terrain::app2type(Appearence app)
             // TODO: Throw exception
             return Type::NORMAL;
     }
+}
+
+std::ostream& operator<<(std::ostream& os, const Terrain& t)
+{
+    os << static_cast<int>(t.get_type()) << " ";
+    os << static_cast<int>(t.get_appearence());
+    return os;
 }
