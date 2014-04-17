@@ -1,7 +1,13 @@
+[option]
+    [X] Create an option for debugging.
+    [X] Integrate getopt.h lib/module to get options.
+    [ ] Create a unique file for all game options.
+
 [stk]
     [X] Implement basic stackables (Address, Number, Text).
     [X] Remove boolean type (unnecessary).
     [X] Rename Number to Int and create type Float.
+    [X] Create new type Vision for dealing with elements of the arena.
     [ ] Create game types (Direction).
 
 [vm]
@@ -50,12 +56,14 @@
     [ ] Implement state mutation (Storage) in the Core.
     [ ] Add Doxygen documentation in Positron Headers C++ code.
 
-[option]
-    [X] Create an option for debugging.
-    [ ] Create a unique file for all game options.
+[arena]
+    [X] Create Terrain to be the unit of area in the arena.
+    [ ] Create Map to be a hexagonal matrix of terrains.
+    [ ] Support integration with randomically generated maps.
+    [ ] Create World to be the place where all scenario will be.
 
-[Main]
-    [X] Integrate getopt.h lib/module to get options.
+[tests]
+    [ ] Finish implementing unit tests for all files.
 
 [Makefile]
     [X] Test compilation with test with libs.
@@ -99,7 +107,4 @@
     [X] Automatically deduce C/C++ scanner/parser from extensions.
     [ ] Test if flex/bison still compile correctly.
     [ ] Add option to automatically create a RPM package.
-
-[tests]
-    [ ] Finish implementing unit tests for all files.
 
