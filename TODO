@@ -21,6 +21,7 @@
     [X] Implement control syscalls (NOP, END).
     [X] Remove Stackable_ptr from Command constructor.
     [X] Deal with Float and Integer arithmetic.
+    [ ] Implement function call (CALL, RET).
     [ ] Finish implementing exception throwings for runtime errors.
     [ ] Catch runtime errors and exhibit them to the user.
     [ ] Finish implementing syscalls.
@@ -58,7 +59,7 @@
 
 [arena]
     [X] Create Terrain to be the unit of area in the arena.
-    [ ] Create Map to be a hexagonal matrix of terrains.
+    [X] Create Map to be a hexagonal matrix of terrains.
     [ ] Support integration with randomically generated maps.
     [ ] Create World to be the place where all scenario will be.
 
