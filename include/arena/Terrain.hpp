@@ -50,7 +50,7 @@ namespace arena
             Type app2type(Appearence app) const;
             
         public:
-            Terrain(int nPlayers, Appearence app)
+            Terrain(int nPlayers, Appearence app = Appearence::GRASS)
                 : stk::Vision{"Terrain"}, 
                   app{app}, type{app2type(app)}, 
                   fog(nPlayers,false), visibility(nPlayers,false) {}
@@ -63,7 +63,17 @@ namespace arena
             operator<<(std::ostream& os, const Terrain& t);
     };
     
-    std::ostream& operator<<(std::ostream& os, const Terrain& t);
+    std::string to_string(const Terrain::Type type);
+    std::string to_string(const Terrain::Appearence app);
+    
+    std::ostream& 
+    operator<<(std::ostream& os, const Terrain::Type& t);
+    
+    std::ostream& 
+    operator<<(std::ostream& os, const Terrain::Appearence& a);
+    
+    std::ostream& 
+    operator<<(std::ostream& os, const Terrain& t);
 }
 
 #endif

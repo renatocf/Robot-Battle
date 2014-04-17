@@ -41,9 +41,52 @@ Terrain::Type Terrain::app2type(Appearence app) const
     }
 }
 
-std::ostream& operator<<(std::ostream& os, const Terrain& t)
+std::string arena::to_string(const Terrain::Type type)
 {
-    os << static_cast<int>(t.get_type()) << " ";
-    os << static_cast<int>(t.get_appearence());
+    switch(type)
+    {
+        case Terrain::Type::NORMAL:  return "NORMAL";
+        case Terrain::Type::ROUGH:   return "ROUGH";
+        case Terrain::Type::BLOCKED: return "BLOCKED";
+    }
+    return "Terrain2string: Should not happen";
+}
+
+std::string arena::to_string(const Terrain::Appearence app)
+{
+    switch(app)
+    {
+        case Terrain::Appearence::DEEP:   return "DEEP"; 
+        case Terrain::Appearence::DIRT:   return "DIRT"; 
+        case Terrain::Appearence::GRASS:  return "GRASS"; 
+        case Terrain::Appearence::ROCKY:  return "ROCKY"; 
+        case Terrain::Appearence::ICE:    return "ICE"; 
+        case Terrain::Appearence::WATER:  return "WATER"; 
+        case Terrain::Appearence::SAND:   return "SAND"; 
+        case Terrain::Appearence::JUNGLE: return "JUNGLE"; 
+        case Terrain::Appearence::TUNDRA: return "TUNDRA";
+    }
+    return "Appearence2string: Should not happen";
+}
+
+std::ostream& 
+arena::operator<<(std::ostream& os, const Terrain::Type& t)
+{
+    os << to_string(t);
+    return os;
+}
+
+std::ostream& 
+arena::operator<<(std::ostream& os, const Terrain::Appearence& a)
+{
+    os << to_string(a);
+    return os;
+}
+
+std::ostream& 
+arena::operator<<(std::ostream& os, const Terrain& t)
+{
+    os << "[ " << t.get_appearence() << ":";
+    os << to_string(t.get_type())[0] << " ]";
     return os;
 }
