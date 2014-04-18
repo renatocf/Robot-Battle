@@ -47,7 +47,7 @@ namespace positron
             bool has_r() const { return r; }
             bool has_x() const { return x; }
             
-            void accept_l(const Visitor& visitor) const
+                void accept_l(const Visitor& visitor) const
             { if(l) l->accept(visitor); }
             
             void accept_r(const Visitor& visitor) const
@@ -71,6 +71,8 @@ namespace positron
             ) 
                 : l{l}, r{r}, x{x}, type{t} {}
             
+            friend class Symbol_table;
+            
             friend std::ostream& 
             operator<<(std::ostream& os, const ExprC& exprC);
             
@@ -78,36 +80,10 @@ namespace positron
             operator<<(std::ostream& os, const ExprC *exprC);
     };
     
+    class BDataC {};
+    
     std::ostream& operator<<(std::ostream& os, const ExprC& exprC);
     std::ostream& operator<<(std::ostream& os, const ExprC *exprC);
-    
-    class intC : public ExprC
-    {
-        private:
-            int n; 
-            
-        public:
-            intC(int n)
-                : ExprC{ExprC::Core::intC}, n{n} {}
-            
-            int get() const { return this->n; }
-            
-            void accept (const Visitor& visitor) const;
-    };
-    
-    class floatC : public ExprC
-    {
-        private:
-            float n; 
-            
-        public:
-            floatC(float n)
-                : ExprC{ExprC::Core::floatC}, n{n} {}
-            
-            float get() const { return this->n; }
-            
-            void accept (const Visitor& visitor) const;
-    };
     
     class idC : public ExprC
     {
@@ -123,7 +99,35 @@ namespace positron
             void accept (const Visitor& visitor) const;
     };
     
-    class stringC : public ExprC
+    class intC : public ExprC, public BDataC
+    {
+        private:
+            int n; 
+            
+        public:
+            intC(int n)
+                : ExprC{ExprC::Core::intC}, n{n} {}
+            
+            int get() const { return this->n; }
+            
+            void accept (const Visitor& visitor) const;
+    };
+    
+    class floatC : public ExprC, public BDataC
+    {
+        private:
+            float n; 
+            
+        public:
+            floatC(float n)
+                : ExprC{ExprC::Core::floatC}, n{n} {}
+            
+            float get() const { return this->n; }
+            
+            void accept (const Visitor& visitor) const;
+    };
+    
+    class stringC : public ExprC, public BDataC
     {
         private:
             std::string str;
@@ -137,7 +141,7 @@ namespace positron
             void accept (const Visitor& visitor) const;
     };
     
-    class lamC : public ExprC
+    class lamC : public ExprC, public BDataC
     {
         public:
             lamC(const idC *var, const ExprC *body)

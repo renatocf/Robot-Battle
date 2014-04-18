@@ -28,6 +28,7 @@
 #include "Syntax_S.hpp"
 #include "Desugar.hpp"
 #include "Syntax_C.hpp"
+#include "Symbol_table.hpp"
 #include "Compiler.hpp"
 #include "Command.hpp"
 
@@ -66,9 +67,10 @@ namespace positron
             vm::Prog compile(const ExprC *root) const
             {
                 if(root == nullptr) return vm::Prog{};
-                Compiler visitor {};
-                root->accept(visitor);
-                vm::Prog prog { std::move(visitor.get()) };
+                root->accept(Symbol_table{});
+                Compiler compiler {};
+                root->accept(compiler);
+                vm::Prog prog { std::move(compiler.get()) };
                 prog.push_back(vm::Command { vm::Command::Opcode::END });
                 return prog;
             }
