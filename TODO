@@ -21,7 +21,7 @@
     [X] Implement control syscalls (NOP, END).
     [X] Remove Stackable_ptr from Command constructor.
     [X] Deal with Float and Integer arithmetic.
-    [ ] Implement function call (CALL, RET).
+    [X] Implement function calls (CALL, RET).
     [ ] Finish implementing exception throwings for runtime errors.
     [ ] Catch runtime errors and exhibit them to the user.
     [ ] Finish implementing syscalls.
