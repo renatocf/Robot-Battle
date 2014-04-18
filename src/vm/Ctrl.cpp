@@ -57,11 +57,15 @@ void vm::ctrl(const RVM& rvm, const Command& cmd)
         case Command::Opcode::JIT:  vm::Asm::JIT  (rvm, cmd.arg); break; 
         case Command::Opcode::JIF:  vm::Asm::JIF  (rvm, cmd.arg); break; 
         
+        // Function functions
+        case Command::Opcode::CALL: vm::Asm::CALL (rvm, cmd.arg); break; 
+        case Command::Opcode::RET:  vm::Asm::RET  (rvm);          break; 
+        
         // Halt functions
         case Command::Opcode::NOP:  vm::Asm::NOP  (rvm);          break;
         case Command::Opcode::END:  vm::Asm::END  (rvm);          break;
         
-        default: 
+        default:
             break;
     }
 }

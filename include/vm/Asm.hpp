@@ -72,6 +72,10 @@ namespace vm
             static void JIT  (const vm::RVM& rvm, const Stk_ptr& stk);
             static void JIF  (const vm::RVM& rvm, const Stk_ptr& stk);
             
+            // Function functions
+            static void CALL (const vm::RVM& rvm, const Stk_ptr& stk);
+            static void RET  (const vm::RVM& rvm);
+            
             // Syscall functions
             static void NOP  (const vm::RVM& rvm);
             static void END  (const vm::RVM& rvm);
