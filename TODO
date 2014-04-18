@@ -49,6 +49,9 @@
     [X] Read a multilined file and a multilined prompt.
     [X] Create a "print" function as syscall in the Parser.
     [X] Add comparison operations in the parser and Core/Sugared Syntax.
+    [ ] Generate a new tree from the Symbol Table Visitor.
+    [ ] Substitute idC outside appC for its bound value.
+    [ ] Create a new step of abstraction in the compiler.
     [ ] Add assembly generation for lambdas.
     [ ] Throw an exception when file does not exist.
     [ ] Improve error messages in the parser.
