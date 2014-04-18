@@ -21,11 +21,9 @@
 // Libraries
 #include "Command.hpp"
 
-namespace parser {
-namespace quark {
-    
+namespace quark 
+{    
     vm::Prog upload_Sum();
-    
-}}
+}
 
 #endif

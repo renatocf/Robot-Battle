@@ -68,13 +68,11 @@ QUARK_HPP_INIT
 my $quark_hpp_end = << "QUARK_HPP_END";
 
 // Mapping strings in functions
-namespace parser {
-namespace quark {
-
+namespace quark 
+{
     typedef vm::Prog (*Func_ptr)();
     extern std::unordered_map<std::string,Func_ptr> functions;
-
-}}
+}
 
 #endif
 QUARK_HPP_END
@@ -84,9 +82,9 @@ my $quark_cpp_init = << "QUARK_CPP_INIT";
 $COPYRIGHT
 // Libraries
 #include "Quark.hpp"
-using namespace parser::quark;
+using namespace quark;
 
-std::unordered_map<std::string,Func_ptr> parser::quark::functions
+std::unordered_map<std::string,Func_ptr> quark::functions
 {
 QUARK_CPP_INIT
 

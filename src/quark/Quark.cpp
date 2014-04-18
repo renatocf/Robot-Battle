@@ -17,10 +17,11 @@
 
 // Libraries
 #include "Quark.hpp"
-using namespace parser::quark;
+using namespace quark;
 
-std::unordered_map<std::string,Func_ptr> parser::quark::functions
+std::unordered_map<std::string,Func_ptr> quark::functions
 {
     { "Sum"      , &upload_Sum       },
+    { "Functions", &upload_Functions },
     { "Fibonacci", &upload_Fibonacci },
 };

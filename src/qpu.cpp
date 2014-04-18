@@ -51,8 +51,8 @@ int main(int argc, char **argv)
     }
 
     try {
-        parser::quark::Func_ptr upload 
-            = parser::quark::functions.at(argv[optind]);
+        quark::Func_ptr upload 
+            = quark::functions.at(argv[optind]);
         
         cout << upload() << endl;
 

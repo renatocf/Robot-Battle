@@ -15,17 +15,15 @@
 /* and limitations under the License.                                 */
 /**********************************************************************/
 
-#ifndef HPP_Sum_DEFINED
-#define HPP_Sum_DEFINED
+#ifndef HPP_Functions_DEFINED
+#define HPP_Functions_DEFINED
 
 // Libraries
 #include "Command.hpp"
 
-namespace parser {
-namespace quark {
-    
-    vm::Prog upload_Sum();
-    
-}}
+namespace quark 
+{    
+    vm::Prog upload_Functions();
+}
 
 #endif

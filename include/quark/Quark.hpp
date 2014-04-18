@@ -27,15 +27,14 @@
 
 // Auto-Generated Libraries
 #include "Sum.hpp"
+#include "Functions.hpp"
 #include "Fibonacci.hpp"
 
 // Mapping strings in functions
-namespace parser {
-namespace quark {
-
+namespace quark 
+{
     typedef vm::Prog (*Func_ptr)();
     extern std::unordered_map<std::string,Func_ptr> functions;
-
-}}
+}
 
 #endif
