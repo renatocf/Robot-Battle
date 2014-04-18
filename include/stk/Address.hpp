@@ -46,7 +46,7 @@ namespace stk
     class Address: public Stackable
     {
         private:
-            int address;
+            unsigned int address;
         
         public:
             /** 
@@ -54,12 +54,12 @@ namespace stk
              * 
              * @param a Address to be stored in this object.
              */
-            Address(int a = 0)
+            Address(unsigned int a = 0)
                 : Stackable(Stackable::Type::Address), 
                   address{a} {}
             
             /// @return Address defined in the construction
-            int get() const { return this->address; }
+            unsigned int get() const { return this->address; }
             
             std::string to_string() const
             { return std::to_string(this->address); }
