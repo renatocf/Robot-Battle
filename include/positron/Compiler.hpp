@@ -44,7 +44,7 @@ namespace positron
             
             void visit(const intC    *exprC) const;
             void visit(const floatC  *exprC) const;
-            void visit(const idC     *exprC) const;
+            void visit(const varC    *exprC) const;
             void visit(const stringC *exprC) const;
             void visit(const lamC    *exprC) const;
             
@@ -65,8 +65,10 @@ namespace positron
             void visit(const seqC    *exprC) const;
             void visit(const appC    *exprC) const;
             
+            void visit(const setC    *exprC) const;
+            void visit(const storeC  *exprC) const;
+            void visit(const fetchC  *exprC) const;
             void visit(const printC  *exprC) const;
-            
     };
 }
 

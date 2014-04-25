@@ -34,9 +34,9 @@ ExprC *Desugar::desugar(const ExprS *node) const
             return new floatC{
                 dynamic_cast<const floatS *>(node)->get()};
         
-        case ExprS::Sugar::idS: 
-            return new idC{
-                dynamic_cast<const idS *>(node)->get()};
+        case ExprS::Sugar::varS: 
+            return new varC{
+                dynamic_cast<const varS *>(node)->get()};
         
         case ExprS::Sugar::stringS: 
             return new stringC{
@@ -44,7 +44,7 @@ ExprC *Desugar::desugar(const ExprS *node) const
         
         case ExprS::Sugar::lamS:
             return new lamC{ 
-                static_cast<const idC *>(desugar(node->l)), 
+                static_cast<const varC *>(desugar(node->l)), 
                 desugar(node->r)};
         
         case ExprS::Sugar::plusS:
@@ -98,6 +98,12 @@ ExprC *Desugar::desugar(const ExprS *node) const
         case ExprS::Sugar::seqS:
             return new seqC{ 
                 desugar(node->l), desugar(node->r) };
+        
+        case ExprS::Sugar::setS:
+            return new setC{
+                static_cast<const varC *>(desugar(node->l)), 
+                desugar(node->r) 
+            };
         
         case ExprS::Sugar::printS:
             return new printC{ desugar(node->l) };

@@ -67,7 +67,11 @@ namespace positron
             vm::Prog compile(const ExprC *root) const
             {
                 if(root == nullptr) return vm::Prog{};
-                root->accept(Symbol_table{});
+                std::cout << root << std::endl;
+                Symbol_table st {};
+                root->accept(st);
+                const ExprC *app = st.get();
+                std::cout << app << std::endl;
                 Compiler compiler {};
                 root->accept(compiler);
                 vm::Prog prog { std::move(compiler.get()) };

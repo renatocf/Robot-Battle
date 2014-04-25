@@ -47,6 +47,28 @@ int main(int argc, char **argv)
     // Process options
     Options::parse_args(argc, argv);
     
+    using namespace positron;
+    // std::cout << positron::RPC{}.compile(
+        // appC{ new lamC{
+                // new varC{"a"},
+                // new plusC{new varC{"a"},
+                    // new appC { 
+                        // new lamC{new varC{"b"}, new varC{"b"}},
+                        // new intC{42}
+                    // }
+                // }},
+              // new plusC{ new intC{5}, new intC{5} }
+        // }
+    // );
+    // std::cout << std::endl;
+    
+    std::cout << positron::RPC{}.compile(
+        appC { 
+            new lamC{ new varC{"f"}, new appC{new varC{"f"}, new intC{2}}}, 
+            new lamC{ new varC{"g"}, new plusC{new varC{"g"},new varC{"g"}}}
+        }
+    );
+    
     if(argc-optind > 1)
     {
         for(int i = optind; i < argc; i++)

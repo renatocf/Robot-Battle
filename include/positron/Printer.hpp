@@ -47,10 +47,10 @@ namespace positron
                 std::cout << std::endl;
             }
             
-            void visit(const idC *exprC) const 
+            void visit(const varC *exprC) const 
             {
                 if(exprC == nullptr) return;
-                std::cout << dynamic_cast<const idC *>(exprC)->get();
+                std::cout << dynamic_cast<const varC *>(exprC)->get();
                 std::cout << std::endl;
             }
             
@@ -179,6 +179,28 @@ namespace positron
                 std::cout << "seqC" << std::endl;
                 visit_l(exprC, "|- ", "|  "); 
                 visit_r(exprC, "'- ", "   ");
+            }
+            
+            void visit(const setC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                std::cout << "setC" << std::endl;
+                visit_l(exprC, "|- ", "|  "); 
+                visit_r(exprC, "'- ", "   ");
+            }
+            
+            void visit(const storeC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                std::cout << "storeC" << std::endl;
+                visit_l(exprC, "'- ", "   ");
+            }
+            
+            void visit(const fetchC *exprC) const 
+            {
+                if(exprC == nullptr) return;
+                std::cout << "fetchC" << std::endl;
+                visit_l(exprC, "'- ", "   ");
             }
             
             void visit(const printC *exprC) const 

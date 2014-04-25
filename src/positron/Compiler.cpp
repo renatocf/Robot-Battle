@@ -39,13 +39,13 @@ void Compiler::visit(const floatC *exprC) const
         { vm::Command::Opcode::PUSH, num });
 }
 
-void Compiler::visit(const idC *exprC) const
+void Compiler::visit(const varC *exprC) const
 {
     if(exprC == nullptr) return;
     stk::Text id {
-        dynamic_cast<const idC *>(exprC)->get()
+        dynamic_cast<const varC *>(exprC)->get()
     };
-    // TODO: Implement idC
+    // TODO: Implement varC
     // prog.push_back(vm::Command 
         // { vm::Command::Opcode::PUSH, num });
 }
@@ -63,6 +63,11 @@ void Compiler::visit(const stringC *exprC) const
 void Compiler::visit(const lamC *exprC) const
 {
     if(exprC == nullptr) return;
+    exprC->accept_l(*this);
+    prog.push_back(vm::Command
+        { vm::Command::Opcode::STO, stk::Int{10} });
+    exprC->accept_r(*this);
+    
     // TODO: Implement lamC
 }
             
@@ -208,9 +213,26 @@ void Compiler::visit(const seqC *exprC) const
 void Compiler::visit(const appC *exprC) const 
 {
     if(exprC == nullptr) return;
+    exprC->accept_r(*this); // Argument
+    exprC->accept_l(*this); // Body
     // TODO: Implement appC
 }
             
+void Compiler::visit(const setC *exprC) const 
+{
+    if(exprC == nullptr) return;
+}
+
+void Compiler::visit(const storeC *exprC) const 
+{
+    if(exprC == nullptr) return;
+}
+
+void Compiler::visit(const fetchC *exprC) const 
+{
+    if(exprC == nullptr) return;
+}
+
 void Compiler::visit(const printC *exprC) const 
 {
     if(exprC == nullptr) return;

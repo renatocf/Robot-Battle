@@ -27,10 +27,10 @@ namespace positron
     {
         protected:
             enum class Sugar { 
-                intS, floatS, idS, stringS, lamS,
+                intS, floatS, varS, stringS, lamS,
                 plusS, bminusS, multS, divS, modS,
                 eqS, neS, ltS, leS, gtS, geS,
-                ifS, seqS, printS, appS,
+                ifS, seqS, setS, printS, appS,
                 uminusS
             };
             const ExprS *l; const ExprS *r; const ExprS *x;
@@ -80,14 +80,14 @@ namespace positron
             float get() const { return this->n; }
     };
     
-    class idS : public ExprS
+    class varS : public ExprS
     {
         private:
             std::string name {};
 
         public:
-            idS(const std::string& name)
-                : ExprS{ExprS::Sugar::idS}, name{name} {}
+            varS(const std::string& name)
+                : ExprS{ExprS::Sugar::varS}, name{name} {}
             
             std::string get() const { return name; }
     };
@@ -106,7 +106,7 @@ namespace positron
     
     struct lamS : public ExprS
     {
-        lamS(const idS *var, const ExprS *body)
+        lamS(const varS *var, const ExprS *body)
             : ExprS{ExprS::Sugar::lamS, var, body} {}
     };
     
@@ -188,6 +188,12 @@ namespace positron
     {
         seqS(const ExprS *first, const ExprS *second)
             : ExprS{ExprS::Sugar::seqS, first, second} {}
+    };
+    
+    struct setS : public ExprS
+    {
+        setS(const varS *lvalue, const ExprS *rvalue)
+            : ExprS{ExprS::Sugar::setS, lvalue, rvalue} {}
     };
     
     struct printS : public ExprS

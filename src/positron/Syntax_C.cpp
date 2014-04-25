@@ -31,7 +31,7 @@ void floatC::accept(const Visitor& visitor) const
     visitor.visit(this);
 }
 
-void idC::accept(const Visitor& visitor) const
+void varC::accept(const Visitor& visitor) const
 {
     visitor.visit(this);
 }
@@ -107,6 +107,21 @@ void ifC::accept(const Visitor& visitor) const
 }
 
 void seqC::accept(const Visitor& visitor) const
+{
+    visitor.visit(this);
+}
+
+void setC::accept(const Visitor& visitor) const
+{
+    visitor.visit(this);
+}
+
+void storeC::accept(const Visitor& visitor) const
+{
+    visitor.visit(this);
+}
+
+void fetchC::accept(const Visitor& visitor) const
 {
     visitor.visit(this);
 }

@@ -29,11 +29,11 @@ namespace positron
     {
         protected:
             enum class Core { 
-                intC, floatC, idC, stringC, lamC,
+                varC, intC, floatC, stringC, lamC,
                 plusC, bminusC, multC, divC, modC,
                 eqC, neC, gtC, geC, ltC, leC,
                 ifC, seqC, appC,
-                printC
+                storeC, fetchC, setC, printC
             };
             const ExprC *l; const ExprC *r; const ExprC *x;
             
@@ -47,7 +47,7 @@ namespace positron
             bool has_r() const { return r; }
             bool has_x() const { return x; }
             
-                void accept_l(const Visitor& visitor) const
+            void accept_l(const Visitor& visitor) const
             { if(l) l->accept(visitor); }
             
             void accept_r(const Visitor& visitor) const
@@ -85,14 +85,14 @@ namespace positron
     std::ostream& operator<<(std::ostream& os, const ExprC& exprC);
     std::ostream& operator<<(std::ostream& os, const ExprC *exprC);
     
-    class idC : public ExprC
+    class varC : public ExprC
     {
         private:
             std::string name;
             
         public:
-            idC(std::string name)
-                : ExprC{ExprC::Core::idC}, name{name} {}
+            varC(std::string name)
+                : ExprC{ExprC::Core::varC}, name{name} {}
             
             std::string get() const { return this->name; }
             
@@ -144,7 +144,7 @@ namespace positron
     class lamC : public ExprC, public BDataC
     {
         public:
-            lamC(const idC *var, const ExprC *body)
+            lamC(const ExprC *var, const ExprC *body)
                 : ExprC{ExprC::Core::lamC, var, body} {}
             
             void accept (const Visitor& visitor) const;
@@ -268,6 +268,33 @@ namespace positron
             void accept (const Visitor& visitor) const;
     };
     
+    class setC : public ExprC
+    {
+        public:
+            setC(const varC *var, const ExprC *attr)
+                : ExprC{ExprC::Core::setC, var, attr} {}
+            
+            void accept (const Visitor& visitor) const;
+    };
+    
+    class storeC : public ExprC
+    {
+        public:
+            storeC(const intC *location)
+                : ExprC{ExprC::Core::storeC, location} {}
+            
+            void accept (const Visitor& visitor) const;
+    };
+    
+    class fetchC : public ExprC
+    {
+        public:
+            fetchC(const intC *location)
+                : ExprC{ExprC::Core::fetchC, location} {}
+            
+            void accept (const Visitor& visitor) const;
+    };
+    
     class printC : public ExprC
     {
         public:
@@ -289,9 +316,9 @@ namespace positron
     class Visitor
     {
         public:
+            virtual void visit(const varC    *exprC) const = 0;
             virtual void visit(const intC    *exprC) const = 0;
             virtual void visit(const floatC  *exprC) const = 0;
-            virtual void visit(const idC     *exprC) const = 0;
             virtual void visit(const stringC *exprC) const = 0;
             virtual void visit(const lamC    *exprC) const = 0;
             virtual void visit(const plusC   *exprC) const = 0;
@@ -307,6 +334,9 @@ namespace positron
             virtual void visit(const geC     *exprC) const = 0;
             virtual void visit(const ifC     *exprC) const = 0;
             virtual void visit(const seqC    *exprC) const = 0;
+            virtual void visit(const setC    *exprC) const = 0;
+            virtual void visit(const storeC  *exprC) const = 0;
+            virtual void visit(const fetchC  *exprC) const = 0;
             virtual void visit(const printC  *exprC) const = 0;
             virtual void visit(const appC    *exprC) const = 0;
     };
