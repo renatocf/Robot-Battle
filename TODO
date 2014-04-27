@@ -109,6 +109,7 @@
     [X] Support subdirectories when installing files.
     [X] Correct uninstall to delete subdirs/files created on install.
     [X] Automatically deduce C/C++ scanner/parser from extensions.
+    [X] Create a variable IGNORED to ignore specific files and bins.
     [ ] Test if flex/bison still compile correctly.
     [ ] Add option to automatically create a RPM package.
 
