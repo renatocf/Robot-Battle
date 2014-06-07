@@ -110,6 +110,12 @@
     [X] Correct uninstall to delete subdirs/files created on install.
     [X] Automatically deduce C/C++ scanner/parser from extensions.
     [X] Create a variable IGNORED to ignore specific files and bins.
+    [X] Create artifacts C_MAIN and CXX_MAIN in the file manager.
+    [X] Throw errors for non-existing namespaces when creating artifact.
+    [X] Support C++ namespace-style (::) with flag IN for 'new/delete'.
+    [X] Put last curly-brace of namespace declarations in the next line.
+    [X] Add target TAGS to create Vi/Emacs tag files.
+    [X] Warn user before deleting in 'realclean/mainteiner-clean'.
     [ ] Test if flex/bison still compile correctly.
     [ ] Add option to automatically create a RPM package.
 
