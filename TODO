@@ -116,6 +116,7 @@
     [X] Put last curly-brace of namespace declarations in the next line.
     [X] Add target TAGS to create Vi/Emacs tag files.
     [X] Warn user before deleting in 'realclean/mainteiner-clean'.
+    [X] Automatically create/update global header for a namespace.
     [ ] Test if flex/bison still compile correctly.
     [ ] Add option to automatically create a RPM package.
 
