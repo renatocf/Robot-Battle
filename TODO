@@ -118,6 +118,7 @@
     [X] Warn user before deleting in 'realclean/mainteiner-clean'.
     [X] Automatically create/update global header for a namespace.
     [X] Generate libraries with no binary file defined.
+    [X] Add automatic git/hg dependency download with Config.mk.
     [ ] Test if flex/bison still compile correctly.
     [ ] Add option to automatically create a RPM package.
     [ ] Add compatibility with MACOSX shell (echo and sed).
