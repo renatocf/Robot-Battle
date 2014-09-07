@@ -4,6 +4,7 @@ VERSION := 1.0
 
 # Program settings
 BIN     := qpu rpc simulator
+TESTBIN := Int_tests Text_tests Command_tests
 ARLIB   := 
 SHRLIB  := positron
 IGNORED := 
